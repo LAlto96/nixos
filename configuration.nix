@@ -114,6 +114,13 @@
     wl-clipboard
     ranger
     btop
+
+    #vscode extensions
+    # pkgs.vscode-extension-github-copilot
+    # pkgs.vscode-extension-MS-python-vscode-pylance
+    # pkgs.vscode-extension-catppuccin-catppuccin-vsc
+    # pkgs.vscode-extension-grapecity-gc-excelviewer
+
   ];
 
   # Neovim

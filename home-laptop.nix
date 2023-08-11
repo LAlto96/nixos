@@ -7,7 +7,7 @@
   home.homeDirectory = "/home/laptop";
 
   # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [                               
+  home.packages = with pkgs; [        
     neofetch
     mesa
   ];
@@ -24,7 +24,7 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
+  imports = [./vscode/vscode.nix];
   #ZSH
   programs.zsh = {
     enable = true;
