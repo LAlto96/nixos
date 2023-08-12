@@ -23,6 +23,10 @@
   :interval "0.05s"
   "pamixer --get-volume")
 
+(defpoll cputemp
+  :interval "1s"
+  "sensors | grep Tctl | rev | cut -c -9 | rev | cut -c -6")
+
 (defpoll ssid
   :interval "10s"
   "iwgetid -r")
@@ -52,8 +56,7 @@
 (defwidget tempwidget []
     (label
      :class "temp shown"
-     ;; :text "   ${round(EWW_NET.wlp2s0.up, 1)}%  "))
-     :text "  ${EWW_TEMPS['ASUS_WMI_SENSORS_CHIPSET_TEMPERATURE']}°"))
+     :text " ${cputemp}"))
 
 (defwidget netwidget []
     (hoverwidget
@@ -197,8 +200,8 @@
    (netwidget)
    ;; (systray :pack-direction "rtl")
    (statswidget)
-   (volumewidget)
    (batterywidget)
+   (volumewidget)
    ))
 
 

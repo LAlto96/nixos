@@ -112,9 +112,12 @@
     git
     wirelesstools
     lm_sensors
+    ffmpeg_6
+    ffmpegthumbnailer
     
     # Le sang de la veine
     ranger
+    poppler_utils # pdf image preview for ranger
     btop
     neofetch
     kitty

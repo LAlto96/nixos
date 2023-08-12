@@ -13,3 +13,6 @@ rm /etc/nixos/update.sh
 echo "Copied content from ~/Documents/nix-configuration to /etc/nixos"
 
 rm /home/laptop/Documents/nix-configuration/flake.lock
+
+# Update NixOS
+cd /etc/nixos && nixos-rebuild switch --flake .#laptop

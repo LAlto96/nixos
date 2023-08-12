@@ -27,7 +27,7 @@ def main():
 
     if (option == '-c'):
         icon = battery_icons[4] if capacity == 100 else battery_icons[capacity // 20]
-        print(f"{icon}    {capacity}%")
+        print(f"{icon} {capacity}%")
         exit(0)
     elif (option == '-s'):
         result = subprocess.run(["cat", "/sys/class/power_supply/BAT0/status"], capture_output=True)
