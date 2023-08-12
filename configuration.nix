@@ -124,6 +124,12 @@
 
     #Wallpaper
     swaybg
+
+    #media
+    youtube-music
+    mpv
+    yt-dlp
+
   ];
 
 
