@@ -122,8 +122,8 @@
     # Vivaldi
     vivaldi
 
-    # Python
-    #(pkgs.python312.withPackages my-python-packages)
+    #Wallpaper
+    swaybg
   ];
 
 

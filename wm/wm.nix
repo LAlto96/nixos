@@ -15,7 +15,7 @@
     
     # See https://wiki.hyprland.org/Configuring/Monitors/
     monitor=eDP-1,1920x1080@60,auto,auto
-    #exec-once = swaybg -i ~/Pictures/mocha.png -m center &
+    exec-once = swaybg -i ~/Pictures/wall1.png -m fill &
     #exec-once = ~/Documents/.git/eww/target/release/eww daemon
     exec-once = eww open bar
     #exec-once = ~/Documents/.git/eww/target/release/eww open bar2
@@ -225,7 +225,7 @@
     font ={
      package = pkgs.meslo-lgs-nf;
      name = "MesloLGS NF";
-     size = 11;
+     size = 10;
     };
     extraConfig = "
     # font_family MesloLGS NF
