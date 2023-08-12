@@ -194,7 +194,7 @@
   
     # toolkit-specific scale
     # env = GDK_SCALE,1.95
-    env = XCURSOR_SIZE,16
+    # env = XCURSOR_SIZE,16
     '';
 
   # Rofi Config
