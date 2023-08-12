@@ -9,26 +9,26 @@
   :initial-value ""
   "date '+%A %B %d'")
 
-;; (defpoll batterystr
-;;   :interval "1m"
-;;   :initial-value ""
-;;   "scripts/battery.py -c")
+(defpoll batterystr
+   :interval "1m"
+   :initial-value ""
+   "scripts/battery.py -c")
 
-;; (defpoll batterystatus
-;;   :interval "5s"
-;;   :initial-value ""
-;;   "scripts/battery.py -s")
+ (defpoll batterystatus
+   :interval "5s"
+   :initial-value ""
+   "scripts/battery.py -s")
 
 (defpoll volume
   :interval "0.05s"
-  "pactl get-sink-volume @DEFAULT_SINK@ | grep '%' | cut -d '/' -f 2 | cut -d '%' -f 1 | tr -d ' '")
+  "pamixer --get-volume")
 
 (defpoll ssid
   :interval "10s"
   "iwgetid -r")
 
 (defvar timewidget-hover false)
-;; (defvar batterywidget-hover false)
+(defvar batterywidget-hover false)
 (defvar volumewidget-hover false)
 (defvar statswidget-hover false)
 (defvar netwidget-hover false)
@@ -68,7 +68,7 @@
             :class "net hidden"
             ;; :text "   ${round(EWW_NET.wlp2s0.up, 1)}%  "))
             ;; :style "padding-left: 5px; padding-right: 5px;"
-            :text "${EWW_NET['wlp6s0']['NET_UP']} B  ${EWW_NET['wlp6s0']['NET_DOWN']} B ")))
+            :text "${EWW_NET['wl01']['NET_UP']} B  ${EWW_NET['wlo1']['NET_DOWN']} B ")))
 
 (defwidget statswidget []
     (hoverwidget
@@ -96,20 +96,20 @@
             :class "hidden"
             :label ""
             :value "${volume}"
-            :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")))
+            :onchange "pamixer --set-volume {}")))
 
-;; (defwidget batterywidget []
-;;     (hoverwidget
-;;         :class "battery"
-;;         :hover-var "batterywidget-hover"
-;;         :hover-cond batterywidget-hover
-;;         (label
-;;          :class "shown"
-;;          :text "${batterystr}")
-;;         (label
-;;          :class "hidden"
-;;          :style "padding-left: 5px; padding-right: 5px;"
-;;          :text "${batterystatus}")))
+(defwidget batterywidget []
+    (hoverwidget
+        :class "battery"
+        :hover-var "batterywidget-hover"
+        :hover-cond batterywidget-hover
+        (label
+         :class "shown"
+         :text "${batterystr}")
+        (label
+         :class "hidden"
+         :style "padding-left: 5px; padding-right: 5px;"
+         :text "${batterystatus}")))
 
 (defwidget timewidget []
     (hoverwidget
@@ -198,7 +198,7 @@
    ;; (systray :pack-direction "rtl")
    (statswidget)
    (volumewidget)
-   ;; (batterywidget)
+   (batterywidget)
    ))
 
 

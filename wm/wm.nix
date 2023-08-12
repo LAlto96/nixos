@@ -134,8 +134,11 @@
     bind = $mainMod, S, togglesplit, # dwindle
     bind = $mainMod SHIFT, F,fullscreen
     bind = ,print, exec, grimblast --freeze save area - | swappy -f - 
-    bind=, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-    bindl=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+    bind=, XF86AudioRaiseVolume, exec, pamixer -i 5 
+    bind=, XF86AudioLowerVolume, exec, pamixer -d 5
+    bind =, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    bind=,XF86MonBrightnessDown,exec,brightnessctl -q s +5%
+    bind=,XF86MonBrightnessUp,exec,brightnessctl -q s +5%
     
     # Move focus with mainMod + arrow keys
     bind = $mainMod, H, movefocus, l

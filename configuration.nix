@@ -92,8 +92,7 @@
   users.users.laptop = {
     isNormalUser = true;
     description = "laptop";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [ "networkmanager" "wheel" "video"];
   };
 
   # Allow unfree packages
@@ -111,6 +110,8 @@
   #  wget
     wget
     git
+    wirelesstools
+    lm_sensors
     
     # Le sang de la veine
     ranger
@@ -129,11 +130,15 @@
     youtube-music
     mpv
     yt-dlp
+    pamixer # PulseAudio Mixer
 
     # Screenshot
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     swappy
     
+    # Brightness Control
+    wluma
+    brightnessctl
   ];
 
   # Environment variables
