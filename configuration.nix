@@ -130,8 +130,16 @@
     mpv
     yt-dlp
 
+    # Screenshot
+    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+    swappy
+    
   ];
 
+  # Environment variables
+  environment.variables = {
+    QT_QPA_PLATFORM="wayland;xcb";
+};
 
   # Neovim
   programs.neovim = {

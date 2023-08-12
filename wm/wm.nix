@@ -133,7 +133,7 @@
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, S, togglesplit, # dwindle
     bind = $mainMod SHIFT, F,fullscreen
-    bind = ,print, exec, grim -g "$(slurp)" - | swappy -f - 
+    bind = ,print, exec, grimblast --freeze save area - | swappy -f - 
     bind=, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
     bindl=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
     
@@ -195,6 +195,7 @@
     # toolkit-specific scale
     # env = GDK_SCALE,1.95
     # env = XCURSOR_SIZE,16
+
     '';
 
   # Rofi Config

@@ -5,8 +5,14 @@
       hyprland.url = "github:hyprwm/Hyprland/v0.28.0";
       home-manager = {
         url = "github:nix-community/home-manager";
-	inputs.nixpkgs.follows = "nixpkgs";
+	      inputs.nixpkgs.follows = "nixpkgs";
       };
+      hyprland-contrib = {
+        url = "github:hyprwm/contrib";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
+  # ...
   };
 
   outputs = {self, nixpkgs, home-manager,hyprland, ... }@inputs: {
