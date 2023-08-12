@@ -17,7 +17,7 @@
     monitor=eDP-1,1920x1080@60,auto,auto
     #exec-once = swaybg -i ~/Pictures/mocha.png -m center &
     #exec-once = ~/Documents/.git/eww/target/release/eww daemon
-    #exec-once = ~/Documents/.git/eww/target/release/eww open bar
+    exec-once = eww open bar
     #exec-once = ~/Documents/.git/eww/target/release/eww open bar2
     
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -313,5 +313,12 @@
     
     background_opacity 0.95
     ";
+  };
+
+  #eww config
+  programs.eww = {
+    enable = true;
+    package = pkgs.eww-wayland;
+    configDir = ./eww;
   };
 }
