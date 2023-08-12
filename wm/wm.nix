@@ -191,9 +191,10 @@
     xwayland {
       force_zero_scaling = true
     }
+  
     # toolkit-specific scale
-    env = GDK_SCALE,1.2
-    env = XCURSOR_SIZE,32
+    # env = GDK_SCALE,1.95
+    env = XCURSOR_SIZE,16
     '';
 
   # Rofi Config
