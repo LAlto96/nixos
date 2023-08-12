@@ -11,6 +11,7 @@
       catppuccin.catppuccin-vsc
       grapecity.gc-excelviewer
       jnoortheen.nix-ide
+      vscodevim.vim
     ];
   };
 }

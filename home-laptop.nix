@@ -29,6 +29,13 @@
     ./wm/wm.nix
   ];
 
+  # home. file {
+  #   ".config/inkscape" = {
+  #     source = ./inkscape;
+  #     recursive = true;
+  #   };
+  # };
+
 
   #ZSH
   programs.zsh = {
