@@ -4,4 +4,6 @@ echo "Removed content in /etc/nixos"
 
 # Copy content from ~/Documents/nix-configuration to /etc/nixos
 cp -r /home/laptop/Documents/nix-configuration/* /etc/nixos/
+# Remove update.sh from /etc/nixos
+rm /etc/nixos/update.sh
 echo "Copied content from ~/Documents/nix-configuration to /etc/nixos"
