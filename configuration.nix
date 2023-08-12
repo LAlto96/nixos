@@ -64,7 +64,7 @@
   };
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-emoji
       meslo-lgs-nf
