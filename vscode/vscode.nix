@@ -10,6 +10,7 @@
       ms-python.vscode-pylance
       catppuccin.catppuccin-vsc
       grapecity.gc-excelviewer
+      jnoortheen.nix-ide
     ];
   };
 }
