@@ -29,7 +29,6 @@
             home-manager.useUserPackages = true;
             home-manager.users.laptop = import ./home-laptop.nix;
           }
-          ./python.nix
         ];
       };
     };

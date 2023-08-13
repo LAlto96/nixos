@@ -26,17 +26,11 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ./vscode/vscode.nix
-    ./wm/wm.nix
+    ./hm/vscode.nix
+    ./wm-laptop/wm.nix
+    ./python.nix
     # lib.attrValues nur-no-pkgs.repos.rycee.firefox-addons
   ];
-
-  # home. file {
-  #   ".config/inkscape" = {
-  #     source = ./inkscape;
-  #     recursive = true;
-  #   };
-  # };
 
   #ZSH
   programs.zsh = {
