@@ -123,8 +123,7 @@
     neofetch
     kitty
     wl-clipboard
-    librewolf
-
+    firefox
     # Vivaldi
     vivaldi
 
