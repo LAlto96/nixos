@@ -8,7 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./packges.nix
+      ./packages.nix
+      ./python.nix
     ];
 
   # Bootloader.
@@ -101,7 +102,6 @@
     description = "desktop";
     extraGroups = [ "networkmanager" "wheel" "video"];
   };
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -120,10 +120,9 @@
 };
 
   # Neovim
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
+  # programs.neovim = { enable = true;
+  #   defaultEditor = true;
+  # };
   # Cachix for Hypland
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];

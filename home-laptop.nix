@@ -27,27 +27,11 @@
 
   imports = [
     ./hm/vscode.nix
+    ./hm/zsh.nix
+    ./hm/neovim.nix
     ./wm-laptop/wm.nix
-    ./python.nix
     # lib.attrValues nur-no-pkgs.repos.rycee.firefox-addons
   ];
 
-  #ZSH
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    antidote = {
-      enable = true;
-      useFriendlyNames = true;
-      plugins = [
-        "romkatv/powerlevel10k"
-      ];
-    };
-    initExtra = "[[ ! -f ~/.p10k.zsh ]] || source /etc/nixos/p10k.zsh";
-    # oh-my-zsh = {
-    #   enable = true;
-    # };
-  };
 }
 
