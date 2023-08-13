@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib,  ... }:
 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "laptop";
   home.homeDirectory = "/home/laptop";
+
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [        
@@ -27,6 +28,7 @@
   imports = [
     ./vscode/vscode.nix
     ./wm/wm.nix
+    # lib.attrValues nur-no-pkgs.repos.rycee.firefox-addons
   ];
 
   # home. file {
@@ -35,7 +37,6 @@
   #     recursive = true;
   #   };
   # };
-
 
   #ZSH
   programs.zsh = {
@@ -54,8 +55,5 @@
     #   enable = true;
     # };
   };
-  
-  
-
 }
 

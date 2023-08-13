@@ -104,7 +104,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
-
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
@@ -114,6 +113,8 @@
     lm_sensors
     ffmpeg_6
     ffmpegthumbnailer
+    # nur.repos.rycee.firefox-addons
+
     
     # Le sang de la veine
     ranger
@@ -122,6 +123,7 @@
     neofetch
     kitty
     wl-clipboard
+    librewolf
 
     # Vivaldi
     vivaldi

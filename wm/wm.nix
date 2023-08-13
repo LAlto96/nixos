@@ -137,7 +137,7 @@
     bind=, XF86AudioRaiseVolume, exec, pamixer -i 5 
     bind=, XF86AudioLowerVolume, exec, pamixer -d 5
     bind =, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-    bind=,XF86MonBrightnessDown,exec,brightnessctl -q s +5%
+    bind=,XF86MonBrightnessDown,exec,brightnessctl -q s 5%-
     bind=,XF86MonBrightnessUp,exec,brightnessctl -q s +5%
     
     # Move focus with mainMod + arrow keys
