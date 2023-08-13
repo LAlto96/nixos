@@ -13,6 +13,7 @@
       jnoortheen.nix-ide
       vscodevim.vim
     ];
+    mutableExtensionsDir = false;
   };
 }
 
