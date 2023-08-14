@@ -15,4 +15,4 @@ echo "Copied content from ~/Documents/nix-configuration to /etc/nixos"
 rm /home/laptop/Documents/nix-configuration/flake.lock
 
 # Update NixOS
-cd /etc/nixos && nix flake update && nixos-rebuild switch --flake .#laptop
+cd /etc/nixos && nix flake update && nixos-rebuild switch --flake .#laptop --show-trace

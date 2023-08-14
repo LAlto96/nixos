@@ -20,9 +20,7 @@
       kitty
       wl-clipboard
       firefox
-      # Vivaldi
-      vivaldi
-
+      
       #Wallpaper
       swaybg
 

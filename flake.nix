@@ -17,13 +17,13 @@
 
   outputs = {self, nixpkgs, home-manager, hyprland, ... }@inputs: {
     nixosConfigurations = {
-      "laptop" = nixpkgs.lib.nixosSystem {
+      laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-	      specialArgs = { inherit inputs; };
-	      modules = [
-	        ./configuration.nix
-	        ./amdgpu.nix
-	        home-manager.nixosModules.home-manager
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./configuration.nix
+          ./amdgpu.nix
+          home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
