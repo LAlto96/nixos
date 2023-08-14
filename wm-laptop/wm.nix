@@ -15,7 +15,7 @@
     
     # See https://wiki.hyprland.org/Configuring/Monitors/
     monitor=eDP-1,1920x1080@60,auto,auto
-    exec-once = swaybg -i ~/Pictures/wall1.png -m fill &
+    exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
     #exec-once = ~/Documents/.git/eww/target/release/eww daemon
     exec-once = eww open bar
     #exec-once = ~/Documents/.git/eww/target/release/eww open bar2
