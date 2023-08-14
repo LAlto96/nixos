@@ -25,6 +25,12 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.git = {
+    enable = true;
+    userName = "Alto";
+    userEmail = "lafon.ludovic.ll@proton.me";
+  };
+
   imports = [
     ./hm/vscode.nix
     ./hm/zsh.nix
