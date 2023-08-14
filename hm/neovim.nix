@@ -10,8 +10,9 @@
       vim-nerdtree-syntax-highlight
       nvim-web-devicons
       vimtex
+      coq-thirdparty
       coc-vimtex
-      copilot-lua
+      copilot-vim
       vim-nix
       coc-sh
       coc-docker
@@ -31,9 +32,12 @@
       '';
     extraLuaConfig =
       ''
+        require 'coc'
         vim.g.coq_settings = {auto_start = true}
         vim.cmd.colorscheme "catppuccin-latte"
-        require("copilot").setup({})
+        require("coq_3p") {
+          { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
+        }
       '';
   };
 }

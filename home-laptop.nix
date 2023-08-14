@@ -25,6 +25,8 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  # Add neovim configuration
+  home.file."/.config/nvim/lua/coc.lua".source = ./hm/nvim-config/coc.lua;
   programs.git = {
     enable = true;
     userName = "Alto";
