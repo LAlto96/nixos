@@ -24,7 +24,7 @@ from collections import deque
 # /bin/plasma-systemmonitor => plasma-systemmo
 # 
 # This will also match on the first word of window titles
-icon_map_path = "/etc/nixos/wm/eww/scripts/workspaces_map.json"
+icon_map_path = "/etc/nixos/wm-laptop/eww/scripts/workspaces_map.json"
 
 HYPRLAND_INSTANCE_SIGNATURE = os.getenv('HYPRLAND_INSTANCE_SIGNATURE')
 SOCKET_PATH = f"/tmp/hypr/{HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock"

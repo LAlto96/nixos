@@ -28,7 +28,7 @@
   imports = [
     ./hm/vscode.nix
     ./hm/zsh.nix
-    # ./hm/neovim.nix
+    ./hm/neovim.nix
     ./wm-laptop/wm.nix
   ];
 }
