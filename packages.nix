@@ -20,6 +20,12 @@
       kitty
       wl-clipboard
       firefox
+      discord
+      betterdiscordctl
+      steam
+      heroic
+      lutris
+      protonup-qt
       
       #Wallpaper
       swaybg
