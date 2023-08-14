@@ -230,7 +230,7 @@
     font ={
      package = pkgs.meslo-lgs-nf;
      name = "MesloLGS NF";
-     size = 10;
+     size = 9;
     };
     extraConfig = "
     # font_family MesloLGS NF
