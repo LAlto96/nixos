@@ -34,6 +34,8 @@
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
+  services.udisks2.enable = true;
+
   # Select internationalisation properties.
   i18n.defaultLocale = "fr_FR.UTF-8";
 
