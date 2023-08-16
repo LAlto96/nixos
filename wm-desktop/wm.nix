@@ -14,7 +14,8 @@
     #
     
     # See https://wiki.hyprland.org/Configuring/Monitors/
-    monitor=eDP-1,1920x1080@60,auto,auto
+    monitor=DP-1,1920x1080@144,1920x0,1
+    monitor=HDMI-A-1,1920x1080@60,0x0,1
     exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
     #exec-once = ~/Documents/.git/eww/target/release/eww daemon
     exec-once = eww open bar
@@ -179,16 +180,16 @@
     bindm = $mainMod, mouse:273, resizewindow
     
     # Binds Workspace To Monitors
-    workspace=1,monitor:eDP-1,default:true
-    workspace=2,monitor:eDP-1
-    workspace=3,monitor:eDP-1
-    workspace=4,monitor:eDP-1
-    workspace=5,monitor:eDP-1
-    workspace=6,monitor:eDP-1
-    workspace=7,monitor:eDP-1
-    workspace=8,monitor:eDP-1	
-    workspace=9,monitor:eDP-1
-    workspace=10,monitor:eDP-1
+    workspace=1,monitor:DP-1,default:true
+    workspace=2,monitor:DP-1
+    workspace=3,monitor:DP-1
+    workspace=4,monitor:DP-1
+    workspace=5,monitor:DP-1
+    workspace=6,monitor:HDMI-A-1
+    workspace=7,monitor:HDMI-A-1
+    workspace=8,monitor:HDMI-A-1	
+    workspace=9,monitor:HDMI-A-1
+    workspace=10,monitor:HDMI-A-1
 
     # unscale XWayland
     xwayland {
@@ -230,7 +231,7 @@
     font ={
      package = pkgs.meslo-lgs-nf;
      name = "MesloLGS NF";
-     size = 9;
+     size = 11;
     };
     extraConfig = "
     # font_family MesloLGS NF

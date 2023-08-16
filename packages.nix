@@ -26,6 +26,8 @@
       heroic
       lutris
       protonup-qt
+      udisks
+      gnome.gnome-disk-utility
       
       #Wallpaper
       swaybg
