@@ -13,17 +13,18 @@ let my-python-packages = ps: with ps; [
         };
         doCheck = false;
         format = "pyproject";
-        propagatedBuildInputs = [
+        propagatedBuildInputs = with pkgs.python3Packages; [
           # Specify dependencies
-          pkgs.python3Packages.numpy
-          pkgs.python3Packages.hatchling
-          pkgs.python3Packages.rich
-          pkgs.python3Packages.distro
-          pkgs.python3Packages.typer
-          pkgs.python3Packages.requests
+          numpy
+          hatchling
+          rich
+          distro
+          typer
+          requests
         ];
       }
     )
+    (
 ];
 in
 {
