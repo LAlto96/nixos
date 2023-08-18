@@ -121,7 +121,15 @@
   # Environment variables
   environment.variables = {
     QT_QPA_PLATFORM="wayland;xcb";
-};
+  };
+  #XDG Portal
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   # Neovim
   # programs.neovim = { enable = true;

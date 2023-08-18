@@ -14,9 +14,7 @@
       zip
       unzip
       p7zip
-      xdg-desktop-portal
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
+      xdg-utils
       wineWowPackages.waylandFull
       protontricks
       # nur.repos.rycee.firefox-addons
@@ -39,6 +37,8 @@
       gamemode
       gamescope
       mangohud
+      pavucontrol
+      easyeffects
       
       #Wallpaper
       swaybg
