@@ -21,6 +21,9 @@
     "/crypto_keyfile.bin" = null;
   };
   boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = "204800";
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
