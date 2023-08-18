@@ -43,5 +43,6 @@
     ./hm/neovim.nix
     ./wm-laptop/wm.nix
   ];
+  services.syncthing.enable = true;
 }
 

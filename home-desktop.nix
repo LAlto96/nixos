@@ -10,6 +10,7 @@
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [        
     mesa
+    droidcam
   ];
 
   # This value determines the Home Manager release that your
@@ -43,5 +44,6 @@
     ./hm/neovim.nix
     ./wm-desktop/wm.nix
   ];
+  services.syncthing.enable = true;
 }
 
