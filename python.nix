@@ -24,7 +24,6 @@ let my-python-packages = ps: with ps; [
         ];
       }
     )
-    (
 ];
 in
 {

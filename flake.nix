@@ -37,12 +37,27 @@
         modules = [
           ./configuration.nix
           ./amdgpu.nix
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.desktop = import ./home-desktop.nix;
           }
+          {
+            fileSystems."/mnt/storage" =
+              { 
+                device = "/dev/disk/by-uuid/323ce481-302f-4675-89a9-ca0b1971d8f2";
+                fsType = "ext4";
+              };
+              fileSystems."/mnt/ssd" =
+              { 
+                device = "/dev/disk/by-uuid/D0CE962DCE960C3A";
+                fsType = "ntfs-3g";
+              };
+          }
+          
+   
         ];
 
       };

@@ -10,4 +10,4 @@ rm /etc/nixos/update.sh
 echo "Copied content from ~/Documents/nix-configuration to /etc/nixos"
 
 # Update NixOS
-cd /etc/nixos && nixos-generate-config && nixos-rebuild switch --flake .#desktop --show-trace
+cd /etc/nixos && nixos-rebuild switch --flake .#desktop --show-trace

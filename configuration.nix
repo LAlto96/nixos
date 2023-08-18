@@ -73,6 +73,7 @@
       noto-fonts
       noto-fonts-emoji
       meslo-lgs-nf
+      corefonts
     ];
 
     fontconfig = {

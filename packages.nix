@@ -1,5 +1,6 @@
 {pkgs, inputs, ...}:
 {
+  programs.java.enable = true;
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
@@ -9,6 +10,15 @@
       lm_sensors
       ffmpeg_6
       ffmpegthumbnailer
+      corefonts
+      zip
+      unzip
+      p7zip
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-hyprland
+      wineWowPackages.waylandFull
+      protontricks
       # nur.repos.rycee.firefox-addons
 
       
@@ -22,11 +32,13 @@
       firefox
       discord
       betterdiscordctl
-      steam
       heroic
       lutris
       protonup-qt
       gnome.gnome-disk-utility
+      gamemode
+      gamescope
+      mangohud
       
       #Wallpaper
       swaybg
@@ -44,5 +56,24 @@
       # Brightness Control
       wluma
       brightnessctl
+
+      # Steam
+      (steam.override {
+       extraPkgs = pkgs: [ bumblebee glxinfo libkrb5 keyutils ];
+      }).run
     ];
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+  nixpkgs.overlays = [
+    (final: prev: {
+      steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
+        extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
+          libgdiplus
+        ]);
+      });
+    })
+  ];
 }
