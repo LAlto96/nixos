@@ -39,6 +39,7 @@
       mangohud
       pavucontrol
       easyeffects
+      davinci-resolve
       
       #Wallpaper
       swaybg
@@ -61,11 +62,29 @@
       (steam.override {
        extraPkgs = pkgs: [ bumblebee glxinfo libkrb5 keyutils ];
       }).run
+
+      # Steam Tinker Launch
+      gawk
+      gnumake
+      bash
+      procps
+      xdotool
+      xorg.xprop
+      xorg.xrandr
+      vim
+      xorg.xwininfo
+      yad
+
     ];
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    package = pkgs.steam.override {
+    extraPkgs = pkgs: with pkgs; [
+      gamescope
+    ];
+  };
   };
   nixpkgs.overlays = [
     (final: prev: {
