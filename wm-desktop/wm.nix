@@ -196,6 +196,10 @@
     xwayland {
       force_zero_scaling = true
     }
+    misc {
+       vrr = 1
+    }
+
   
     # toolkit-specific scale
     # env = GDK_SCALE,1.95
