@@ -2,80 +2,81 @@
 {
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-      wget
-      git
-      wirelesstools
-      lm_sensors
-      ffmpeg_6
-      ffmpegthumbnailer
-      corefonts
-      zip
-      unzip
-      p7zip
-      xdg-utils
-      wineWowPackages.waylandFull
-      protontricks
-      # nur.repos.rycee.firefox-addons
-
-      
       # Le sang de la veine
-      ranger
-      poppler_utils # pdf image preview for ranger
-      btop
-      neofetch
-      kitty
-      wl-clipboard
-      firefox
-      discord
-      betterdiscordctl
-      heroic
-      lutris
-      protonup-qt
-      gnome.gnome-disk-utility
-      gamemode
-      gamescope
-      mangohud
-      pavucontrol
-      easyeffects
-      davinci-resolve
+      ranger # File manager
+      btop # htop but better
+      neofetch # System info
+      kitty # Terminal
+      firefox # Browser
+      discord # Chat
+      betterdiscordctl # BetterDiscord
+      nzbget # NZB Downloader
       
-      #Wallpaper
-      swaybg
 
-      #media
-      youtube-music
-      mpv
-      yt-dlp
+      # Media
+      youtube-music # Youtube Music
+      mpv # Video Player
+      yt-dlp # Youtube Downloader
       pamixer # PulseAudio Mixer
+      pavucontrol # PulseAudio Volume Control
+      easyeffects # Audio Effects
+      davinci-resolve # Video Editor
 
-      # Screenshot
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-      swappy
+      # System packages
+      wl-clipboard # Clipboard manager
+      wget # Download manager
+      git # Version control
+      wirelesstools # Wireless tools
+      lm_sensors # Sensor tools
+      ffmpeg_6 # Video tools
+      ffmpegthumbnailer # Video thumbnailer
+      corefonts # Fonts
+      zip # Zip
+      unzip # Unzip
+      p7zip # 7zip
+      xdg-utils # XDG utils
+      unrar # Rar
+      w3m # Image preview for ranger
+      poppler_utils # pdf image preview for ranger
+      gnome.gnome-disk-utility # Disk utility
+      gdu # Disk usage
+      wineWowPackages.waylandFull # Wine
+        # Screenshot
+        inputs.hyprland-contrib.packages.${pkgs.system}.grimblast # Grim but from Hypr
+        swappy # Screenshot
+        #Wallpaper
+        swaybg # Wallpaper
       
       # Brightness Control
-      wluma
-      brightnessctl
+      wluma # Automatic Brightness control
+      brightnessctl # Brightness control (hardware)
 
-      # Steam
-      (steam.override {
-       extraPkgs = pkgs: [ bumblebee glxinfo libkrb5 keyutils ];
-      }).run
-
-      # Steam Tinker Launch
-      gawk
-      gnumake
-      bash
-      procps
-      xdotool
-      xorg.xprop
-      xorg.xrandr
-      vim
-      xorg.xwininfo
-      yad
+      # Gaming
+      gamemode # Game mode
+      gamescope # Game mode
+      mangohud # Game mode
+      heroic # Epic Games
+      lutris # Game manager
+      protonup-qt # Proton updater
+      protontricks # Proton tricks
+        # Steam
+        (steam.override {
+         extraPkgs = pkgs: [ bumblebee glxinfo libkrb5 keyutils ]; 
+        }).run
+        # Steam Tinker Launch dependencies for protonup-qt
+        gawk
+        gnumake
+        bash
+        procps
+        xdotool
+        xorg.xprop
+        xorg.xrandr
+        vim
+        xorg.xwininfo
+        yad
 
     ];
+  # Steam
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
