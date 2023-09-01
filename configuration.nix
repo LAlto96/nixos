@@ -3,8 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }:
-
-{
+  {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -15,7 +14,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
   # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
@@ -24,6 +23,9 @@
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "204800";
   };
+  # boot.kernelModules = [ "v4l2loopback" ];
+  # boot.extraModulePackages = [ pkgs.linuxKernel.packages.linux_6_4.v4l2loopback ];
+
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -107,7 +109,7 @@
   users.users.desktop = {
     isNormalUser = true;
     description = "desktop";
-    extraGroups = [ "networkmanager" "wheel" "video"];
+    extraGroups = [ "networkmanager" "wheel" "video" "docker"];
   };
 
   # Allow unfree packages

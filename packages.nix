@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}:
+{config, pkgs, inputs, ...}:
 {
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
@@ -11,7 +11,13 @@
       discord # Chat
       betterdiscordctl # BetterDiscord
       nzbget # NZB Downloader
-      
+      protonvpn-gui # VPN
+      obsidian # Notes
+      ledger # Finance Management
+      ledger-web # Finance Management
+      conda
+      multiviewer-for-f1
+      moonlight-qt
 
       # Media
       youtube-music # Youtube Music
@@ -59,6 +65,8 @@
       lutris # Game manager
       protonup-qt # Proton updater
       protontricks # Proton tricks
+      steamPackages.steamcmd
+      steam-tui
         # Steam
         (steam.override {
          extraPkgs = pkgs: [ bumblebee glxinfo libkrb5 keyutils ]; 

@@ -11,6 +11,7 @@
   home.packages = with pkgs; [        
     mesa
     droidcam
+    sunshine
   ];
 
   # This value determines the Home Manager release that your

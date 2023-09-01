@@ -66,9 +66,6 @@
     
         rounding = 10
         blur = true
-        blur_size = 3
-        blur_passes = 1
-        blur_new_optimizations = true
     
         drop_shadow = true
         shadow_range = 4
@@ -128,11 +125,11 @@
     bind = $mainMod, Z, killactive,
     #bind = $mainMod, Z, exit,
     #bind = $mainMod, E, exec, dolphin
-    bind = $mainMod, F, togglefloating,
+    bind = $mainMod, T, togglefloating,
     bind = $mainMod, space, exec, rofi -show drun
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, S, togglesplit, # dwindle
-    bind = $mainMod SHIFT, F,fullscreen
+    bind = $mainMod, F,fullscreen
     bind = ,print, exec, grimblast --freeze save area - | swappy -f - 
     bind=, XF86AudioRaiseVolume, exec, pamixer -i 5 
     bind=, XF86AudioLowerVolume, exec, pamixer -d 5
@@ -167,7 +164,7 @@
     bind = $mainMod SHIFT, minus, movetoworkspace, 6
     bind = $mainMod SHIFT, egrave, movetoworkspace, 7
     bind = $mainMod SHIFT, underscore, movetoworkspace, 8
-    bind = $mainMod SHIFT, ccdedilla, movetoworkspace, 9
+    bind = $mainMod SHIFT, ccedilla, movetoworkspace, 9
     bind = $mainMod SHIFT, agrave, movetoworkspace, 10
     
     # Scroll through existing workspaces with mainMod + scroll

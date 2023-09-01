@@ -17,10 +17,8 @@
     monitor=DP-1,1920x1080@144,1920x0,1
     monitor=HDMI-A-1,1920x1080@60,0x0,1
     exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
-    #exec-once = ~/Documents/.git/eww/target/release/eww daemon
     exec-once = eww open bar
     exec-once = eww open bar2
-    #exec-once = ~/Documents/.git/eww/target/release/eww open bar2
     
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
     
@@ -67,11 +65,6 @@
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
     
         rounding = 10
-        blur = true
-        blur_size = 3
-        blur_passes = 1
-        blur_new_optimizations = true
-    
         drop_shadow = true
         shadow_range = 4
         shadow_render_power = 3
@@ -130,11 +123,11 @@
     bind = $mainMod, Z, killactive,
     #bind = $mainMod, Z, exit,
     #bind = $mainMod, E, exec, dolphin
-    bind = $mainMod, F, togglefloating,
+    bind = $mainMod, T, togglefloating,
     bind = $mainMod, space, exec, rofi -show drun
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, S, togglesplit, # dwindle
-    bind = $mainMod SHIFT, F,fullscreen
+    bind = $mainMod, F,fullscreen
     bind = ,print, exec, grimblast --freeze save area - | swappy -f - 
     bind=, XF86AudioRaiseVolume, exec, pamixer -i 5 
     bind=, XF86AudioLowerVolume, exec, pamixer -d 5
@@ -169,7 +162,7 @@
     bind = $mainMod SHIFT, minus, movetoworkspace, 6
     bind = $mainMod SHIFT, egrave, movetoworkspace, 7
     bind = $mainMod SHIFT, underscore, movetoworkspace, 8
-    bind = $mainMod SHIFT, ccdedilla, movetoworkspace, 9
+    bind = $mainMod SHIFT, ccedilla, movetoworkspace, 9
     bind = $mainMod SHIFT, agrave, movetoworkspace, 10
     
     # Scroll through existing workspaces with mainMod + scroll

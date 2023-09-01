@@ -7,7 +7,7 @@
     enableExtensionUpdateCheck = true;
     extensions = with pkgs.vscode-extensions; [
       github.copilot
-      ms-python.python
+      #ms-python.python
       ms-python.vscode-pylance
       catppuccin.catppuccin-vsc
       grapecity.gc-excelviewer

@@ -4,6 +4,8 @@ then
 	exit 1
 else
 	# Remove content in /etc/nixos
+	rm /home/$1/Documents/nix-configuration/flake.lock # Remove flake.lock to avoid error
+	cp /etc/nixos/flake.lock /home/$1/Documents/nix-configuration/flake.lock # Backup flake.lock
 	rm -rf /etc/nixos/*
 	echo "Removed content in /etc/nixos"
 

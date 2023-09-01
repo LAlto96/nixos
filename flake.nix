@@ -2,7 +2,7 @@
   description = "A template that shows all standard flake outputs";
   inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-      hyprland.url = "github:hyprwm/Hyprland/v0.28.0";
+      hyprland.url = "github:hyprwm/Hyprland";
       home-manager = {
         url = "github:nix-community/home-manager";
 	      inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +56,14 @@
                 fsType = "ntfs-3g";
               };
           }
+          {
+            # Open ports in the firewall.
+            networking.firewall.allowedTCPPorts = [ 47990 47984 48010 47998 47999 48000 48002 48010 47989 ];
+            networking.firewall.allowedUDPPorts = [ 47990 47984 48010 47998 47999 48000 48002 48010 47989 ];
+          }
+          # {
+          #   virtualisation.docker.enable = true;
+          # }
           
    
         ];
