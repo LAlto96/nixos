@@ -15,9 +15,9 @@
       obsidian # Notes
       ledger # Finance Management
       ledger-web # Finance Management
-      conda
-      multiviewer-for-f1
-      moonlight-qt
+      conda # Python
+      multiviewer-for-f1 # F1
+      moonlight-qt # Nvidia Gamestream
 
       # Media
       youtube-music # Youtube Music

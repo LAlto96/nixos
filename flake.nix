@@ -29,6 +29,10 @@
             home-manager.useUserPackages = true;
             home-manager.users.laptop = import ./home-laptop.nix;
           }
+          {
+            hardware.bluetooth.enable = true;
+            services.blueman.enable = true;
+          }
         ];
       };
       desktop = nixpkgs.lib.nixosSystem {
