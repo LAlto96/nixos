@@ -32,6 +32,10 @@
           {
             hardware.bluetooth.enable = true;
             services.blueman.enable = true;
+            swapDevices = [ {
+              device = "/var/lib/swapfile";
+              size = 16*1024;
+            } ];
           }
         ];
       };

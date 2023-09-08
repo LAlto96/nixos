@@ -18,6 +18,7 @@
       conda # Python
       multiviewer-for-f1 # F1
       moonlight-qt # Nvidia Gamestream
+      nodejs # Node
 
       # Media
       youtube-music # Youtube Music
