@@ -59,6 +59,7 @@
       brightnessctl # Brightness control (hardware)
 
       # Gaming
+      mgba # Gameboy emulator
       gamemode # Game mode
       gamescope # Game mode
       mangohud # Game mode
