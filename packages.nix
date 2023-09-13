@@ -59,7 +59,7 @@
       brightnessctl # Brightness control (hardware)
 
       # Gaming
-      mgba # Gameboy emulator
+      retroarchFull # Retroarch
       gamemode # Game mode
       gamescope # Game mode
       mangohud # Game mode
