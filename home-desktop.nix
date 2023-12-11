@@ -12,6 +12,7 @@
     mesa
     droidcam
     sunshine
+    linuxKernel.packages.linux_6_5.v4l2loopback
   ];
 
   # This value determines the Home Manager release that your
@@ -46,5 +47,20 @@
     ./wm-desktop/wm.nix
   ];
   services.syncthing.enable = true;
+  
+  # Obs Studio
+  programs.obs-studio.enable = true;
+  programs.obs-studio.plugins = with pkgs; [
+    obs-studio-plugins.obs-vkcapture
+    obs-studio-plugins.wlrobs
+    obs-studio-plugins.obs-vaapi
+    obs-studio-plugins.obs-pipewire-audio-capture
+    obs-studio-plugins.obs-multi-rtmp
+    obs-studio-plugins.obs-livesplit-one
+    obs-studio-plugins.obs-gstreamer
+    obs-studio-plugins.obs-backgroundremoval
+    obs-studio-plugins.input-overlay
+    obs-studio-plugins.input-overlay
+    ];
 }
 

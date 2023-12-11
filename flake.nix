@@ -1,5 +1,20 @@
 {
   description = "A template that shows all standard flake outputs";
+  nixConfig = {
+    experimental-features = [ "nix-command" "flakes"];
+    substituters = [
+      "https://cache.nixos.org/"
+     ];
+
+    extra-substituters = [
+      # Nix community's cache server
+      "https://nix-community.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
       hyprland.url = "github:hyprwm/Hyprland";
@@ -11,11 +26,11 @@
         url = "github:hyprwm/contrib";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
 
-  # ...
   };
 
-  outputs = {self, nixpkgs, home-manager, hyprland, ... }@inputs: {
+  outputs = {self, nixpkgs, home-manager, hyprland, pipewire-screenaudio,  ... }@inputs: {
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -69,9 +84,9 @@
             networking.firewall.allowedTCPPorts = [ 47990 47984 48010 47998 47999 48000 48002 48010 47989 ];
             networking.firewall.allowedUDPPorts = [ 47990 47984 48010 47998 47999 48000 48002 48010 47989 ];
           }
-          # {
-          #   virtualisation.docker.enable = true;
-          # }
+          {
+            virtualisation.docker.enable = true;
+          }
           
    
         ];

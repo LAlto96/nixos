@@ -11,10 +11,11 @@
       ./python.nix
     ];
 
+  services.flatpak.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
   # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
@@ -23,9 +24,15 @@
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "204800";
   };
-  # boot.kernelModules = [ "v4l2loopback" ];
-  # boot.extraModulePackages = [ pkgs.linuxKernel.packages.linux_6_4.v4l2loopback ];
-
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ pkgs.linuxPackages.v4l2loopback ];
+ # boot.extraModprobeConfig = ''
+ #   # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
+ #   # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
+ #   # https://github.com/umlaeute/v4l2loopback
+ #   options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+ # '';
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -115,12 +122,16 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Unsecure packages
+  nixpkgs.config.permittedInsecurePackages = [
+                "electron-24.8.6"
+              ];
+
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.nixPath = [ "nixpkgs=/etc/channels/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
+  environment.etc."channels/nixpkgs".source = inputs.nixpkgs.outPath;
   
 
   # Environment variables
@@ -175,6 +186,7 @@
 
   };
 
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -189,10 +201,11 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  #networking.firewall.allowedTCPPorts = [  ];
+  #networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -203,3 +216,4 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
 }
+

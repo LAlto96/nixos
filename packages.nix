@@ -2,12 +2,19 @@
 {
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
+      atool
+      v4l-utils
+      qemu
+      drawio
+      zathura
+      texliveFull #LaTeX
       # Le sang de la veine
       ranger # File manager
       btop # htop but better
       neofetch # System info
       kitty # Terminal
-      firefox # Browser
+      # firefox # Browser
+      (firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
       discord # Chat
       betterdiscordctl # BetterDiscord
       nzbget # NZB Downloader
@@ -19,7 +26,17 @@
       multiviewer-for-f1 # F1
       moonlight-qt # Nvidia Gamestream
       nodejs # Node
+      motrix # Downloader
+      
+      deluged
+      xclip
 
+     # godot_4
+     # trenchbroom
+     # godot3-mono
+     # blender
+
+      docker-compose 
       # Media
       youtube-music # Youtube Music
       mpv # Video Player
@@ -27,7 +44,7 @@
       pamixer # PulseAudio Mixer
       pavucontrol # PulseAudio Volume Control
       easyeffects # Audio Effects
-      davinci-resolve # Video Editor
+      # davinci-resolve # Video Editor
 
       # System packages
       wl-clipboard # Clipboard manager
@@ -59,9 +76,11 @@
       brightnessctl # Brightness control (hardware)
 
       # Gaming
-      retroarchFull # Retroarch
+      # retroarchFull # Retroarch
       gamemode # Game mode
       gamescope # Game mode
+      prismlauncher
+      optifine
       mangohud # Game mode
       heroic # Epic Games
       lutris # Game manager
@@ -93,7 +112,16 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     package = pkgs.steam.override {
     extraPkgs = pkgs: with pkgs; [
-      gamescope
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXinerama
+      xorg.libXScrnSaver
+      libpng
+      libpulseaudio
+      libvorbis
+      stdenv.cc.cc.lib
+      libkrb5
+      keyutils
     ];
   };
   };

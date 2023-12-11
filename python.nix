@@ -18,6 +18,8 @@ let my-python-packages = ps: with ps; [
           # Specify dependencies
           numpy
           hatchling
+          pygame
+          tkinter
           rich
           distro
           typer
