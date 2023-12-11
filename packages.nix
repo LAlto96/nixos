@@ -2,6 +2,8 @@
 {
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
+      droidcam
+      w3m # Image preview for ranger
       atool
       v4l-utils
       qemu

@@ -10,7 +10,6 @@
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [        
     mesa
-    droidcam
     sunshine
     linuxKernel.packages.linux_6_5.v4l2loopback
   ];
