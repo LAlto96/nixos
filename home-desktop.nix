@@ -11,7 +11,8 @@
   home.packages = with pkgs; [        
     mesa
     sunshine
-    linuxKernel.packages.linux_6_5.v4l2loopback
+    handbrake
+    davinci-resolve
   ];
 
   # This value determines the Home Manager release that your

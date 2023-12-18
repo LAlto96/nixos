@@ -17,7 +17,7 @@
     monitor=DP-1,1920x1080@144,1920x0,1
     monitor=HDMI-A-1,1920x1080@60,0x0,1
     exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
-    exec-once = eww open bar
+    # exec-once = eww open bar
     exec-once = eww open bar2
     
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more

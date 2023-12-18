@@ -2,7 +2,17 @@
 {
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
-      droidcam
+
+      # Catppuccin GTK Theme
+      (catppuccin-gtk.override {
+        accents = [ "sapphire" ]; # You can specify multiple accents here to output multiple themes
+        size = "compact";
+        tweaks = [ "rimless" ]; # You can also specify multiple tweaks here
+        variant = "latte";
+      })
+
+      qalculate-gtk # Calculator
+      (pkgs.callPackage ./droidcam.nix {}) # Droidcam
       w3m # Image preview for ranger
       atool
       v4l-utils

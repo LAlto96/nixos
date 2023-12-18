@@ -24,8 +24,9 @@
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "204800";
   };
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
   boot.kernelModules = [ "v4l2loopback" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ pkgs.linuxPackages.v4l2loopback ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ config.boot.kernelPackages.v4l2loopback ];
  # boot.extraModprobeConfig = ''
  #   # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
  #   # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
@@ -124,7 +125,7 @@
 
   # Unsecure packages
   nixpkgs.config.permittedInsecurePackages = [
-                "electron-24.8.6"
+                "electron-25.9.0"
               ];
 
   # Enable Flakes
