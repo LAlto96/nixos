@@ -24,7 +24,8 @@
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "204800";
   };
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ config.boot.kernelPackages.v4l2loopback ];
  # boot.extraModprobeConfig = ''
@@ -126,6 +127,7 @@
   # Unsecure packages
   nixpkgs.config.permittedInsecurePackages = [
                 "electron-25.9.0"
+                "freeimage-unstable-2021-11-01"
               ];
 
   # Enable Flakes
@@ -186,7 +188,15 @@
     wireplumber.enable = true;
 
   };
-
+  hardware.opengl.extraPackages = with pkgs; [
+    amdvlk
+  ];
+  # For 32 bit applications 
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+  # Force radv
+  environment.variables.AMD_VULKAN_ICD = "RADV";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -198,12 +208,18 @@
 
   # List services that you want to enable:
 
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs; # replace with emacs-gtk, or a version provided by the community overlay if desired.
+  };
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8989 8096 ];
-  networking.firewall.allowedUDPPorts = [ 8989 8096 ];
+  networking.firewall.allowedTCPPorts = [ 8989 8096 8211 27015 ];
+  networking.firewall.allowedUDPPorts = [ 8989 8096 8211 27015 ];
+  services.logrotate.checkConfig = false;
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
   # networking.firewall.enable = false;

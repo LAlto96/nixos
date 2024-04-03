@@ -10,10 +10,17 @@
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [        
     mesa
+    amdvlk
     sunshine
     handbrake
-    # davinci-resolve # Video Editor
     libsForQt5.kdenlive # Video Editor
+    r2modman # Mod manager for Lethal Company (and others???)
+    godot_4
+    trenchbroom
+    # godot3-mono
+    blender
+
+
   ];
 
   # This value determines the Home Manager release that your
@@ -59,8 +66,7 @@
     obs-studio-plugins.obs-multi-rtmp
     obs-studio-plugins.obs-livesplit-one
     obs-studio-plugins.obs-gstreamer
-    obs-studio-plugins.obs-backgroundremoval
-    obs-studio-plugins.input-overlay
+    # obs-studio-plugins.obs-backgroundremoval
     obs-studio-plugins.input-overlay
     ];
 }

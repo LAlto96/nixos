@@ -25,12 +25,12 @@
       fsType = "vfat";
     };
 
-  fileSystems."/mnt/homeback" =
-    { device = "/dev/disk/by-uuid/af9f3ce1-a071-4ad8-92ef-cf195002ea76";
-      fsType = "ext4";
-    };
+  #fileSystems."/mnt/homeback" =
+  #  { device = "/dev/disk/by-uuid/af9f3ce1-a071-4ad8-92ef-cf195002ea76";
+  #    fsType = "ext4";
+  #  };
 
-  boot.initrd.luks.devices."luks-84736376-3af5-4f0a-a92b-0b97ad71709f".device = "/dev/disk/by-uuid/84736376-3af5-4f0a-a92b-0b97ad71709f";
+  #boot.initrd.luks.devices."luks-84736376-3af5-4f0a-a92b-0b97ad71709f".device = "/dev/disk/by-uuid/84736376-3af5-4f0a-a92b-0b97ad71709f";
 
   fileSystems."/mnt/storage" =
     { device = "/dev/disk/by-uuid/323ce481-302f-4675-89a9-ca0b1971d8f2";

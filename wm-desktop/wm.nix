@@ -16,7 +16,7 @@
     # See https://wiki.hyprland.org/Configuring/Monitors/
     monitor=DP-1,1920x1080@144,1920x0,1
     monitor=HDMI-A-1,1920x1080@60,0x0,1
-    exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
+    exec-once = swaybg -i /home/desktop/Pictures/sammys/sammy5.png -m fill &
     # exec-once = eww open bar
     exec-once = eww open bar2
     exec-once = wl-paste -t text -w xclip -selection clipboard
@@ -105,7 +105,8 @@
     
     # Example per-device config
     # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
-    device:epic-mouse-v1 {
+    device {
+        name = epic-mouse-v1
         sensitivity = -0.5
     }
     

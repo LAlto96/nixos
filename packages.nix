@@ -10,7 +10,19 @@
         tweaks = [ "rimless" ]; # You can also specify multiple tweaks here
         variant = "latte";
       })
-      r2modman # Mod manager for Lethal Company (and others???)
+
+      ctop # Container monitoring tool
+
+
+
+      # Emacs
+      emacs
+      emacsPackages.vterm
+      coreutils # Coreutils
+      ripgrep # Ripgrep
+      fd
+      clang
+      libvterm
 
       qalculate-gtk # Calculator
       (pkgs.callPackage ./droidcam.nix {}) # Droidcam
@@ -21,6 +33,8 @@
       drawio
       zathura
       texliveFull #LaTeX
+
+
       # Le sang de la veine
       ranger # File manager
       btop # htop but better
@@ -28,10 +42,12 @@
       kitty # Terminal
       # firefox # Browser
       (firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
-      discord # Chat
-      betterdiscordctl # BetterDiscord
+      webcord-vencord # Discord
+      #discord # Chat
+      #betterdiscordctl # BetterDiscord
       nzbget # NZB Downloader
       protonvpn-gui # VPN
+      protonvpn-cli
       obsidian # Notes
       ledger # Finance Management
       ledger-web # Finance Management
@@ -44,20 +60,17 @@
       deluged
       xclip
 
-     # godot_4
-     # trenchbroom
-     # godot3-mono
-     # blender
 
-      docker-compose 
+      docker-compose
+
       # Media
-      youtube-music # Youtube Music
+      #youtube-music # Youtube Music
+      moc
       mpv # Video Player
       yt-dlp # Youtube Downloader
       pamixer # PulseAudio Mixer
       pavucontrol # PulseAudio Volume Control
       easyeffects # Audio Effects
-      # davinci-resolve # Video Editor
 
       # System packages
       wl-clipboard # Clipboard manager
@@ -99,52 +112,11 @@
       lutris # Game manager
       protonup-qt # Proton updater
       protontricks # Proton tricks
-      steamPackages.steamcmd
-      steam-tui
-        # Steam
-        (steam.override {
-         extraPkgs = pkgs: [ bumblebee glxinfo libkrb5 keyutils ]; 
-        }).run
-        # Steam Tinker Launch dependencies for protonup-qt
-        gawk
-        gnumake
-        bash
-        procps
-        xdotool
-        xorg.xprop
-        xorg.xrandr
-        vim
-        xorg.xwininfo
-        yad
-
     ];
   # Steam
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    package = pkgs.steam.override {
-    extraPkgs = pkgs: with pkgs; [
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libXScrnSaver
-      libpng
-      libpulseaudio
-      libvorbis
-      stdenv.cc.cc.lib
-      libkrb5
-      keyutils
-    ];
   };
-  };
-  nixpkgs.overlays = [
-    (final: prev: {
-      steam = prev.steam.override ({ extraPkgs ? pkgs': [], ... }: {
-        extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
-          libgdiplus
-        ]);
-      });
-    })
-  ];
 }

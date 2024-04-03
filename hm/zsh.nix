@@ -5,6 +5,10 @@
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
+    shellAliases = {
+        doom = "/home/desktop/.config/emacs/bin/doom";
+        emacs = "emacsclient -c -a 'emacs'";
+    };
     plugins = [
       {
         name = "powerlevel10k";

@@ -1,5 +1,5 @@
 {
-  "Vivaldi-stable": "",
+  "firefox": "",
   "kitty": "",
   "pavucontrol": "",
   "Code": "",
@@ -7,14 +7,14 @@
   "MultiViewer for F1": "󱊫",
   "7": "",
   "8": "",
-  "9": "",
+  "steam": "",
   "10": "",
   "Ripcord": "󰙯",
-  "discord": "󰙯", 
+  "discord": "󰙯",
+  "webcord": "󰙯",
   "Vmware-view": "󱧐",
   "zoom": "",
   "Lutris": "",
-  "steam": "",
   "no-icon": "",
   "default": ""
 }
