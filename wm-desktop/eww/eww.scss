@@ -76,8 +76,6 @@ scale > contents > trough > slider {
   border-bottom-right-radius: 30px;
   border-top-right-radius: 30px;
   padding-right: 15px;
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
   padding-left: 15px;
 }
 
@@ -88,6 +86,8 @@ scale > contents > trough > slider {
 .temp {
   background-color: $lavender;
   color: $mantle;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
 }
 
 .net {
@@ -117,12 +117,14 @@ scale > contents > trough > slider {
 
 .stats {
   background-color: $lavender;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  padding-left: 15px;
 }
 
 .volume {
   background-color: $lavender;
-  color: $mantle;border-bottom-right-radius: 30px;
-  border-top-right-radius: 30px;
+  color: $mantle;
   padding-right: 10px;
 }
 

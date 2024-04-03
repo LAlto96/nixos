@@ -173,11 +173,17 @@
                 :transition "slideright"
                 (children :nth 1)))))
 
+; (defwidget barcontent []
+;     (centerbox
+;         (bar-left)
+;         (bar-center)
+;         (bar-right)))
+
+
 (defwidget barcontent []
-    (centerbox
-        (bar-left)
-        (bar-center)
-        (bar-right)))
+  (box
+    (bar-left)
+    (bar-right)))
 
 (defwidget bar-left []
   (box
@@ -197,11 +203,12 @@
    :space-evenly false
    :halign "end"
    :class "bar-right"
-   (netwidget)
+   ;; (netwidget)
    ;; (systray :pack-direction "rtl")
    (statswidget)
    (batterywidget)
    (volumewidget)
+   (timewidget)
    ))
 
 
