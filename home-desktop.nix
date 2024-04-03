@@ -12,7 +12,8 @@
     mesa
     sunshine
     handbrake
-    davinci-resolve
+    # davinci-resolve # Video Editor
+    libsForQt5.kdenlive # Video Editor
   ];
 
   # This value determines the Home Manager release that your

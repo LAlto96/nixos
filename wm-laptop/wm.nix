@@ -19,6 +19,7 @@
     #exec-once = ~/Documents/.git/eww/target/release/eww daemon
     exec-once = eww open bar
     #exec-once = ~/Documents/.git/eww/target/release/eww open bar2
+    exec-once = wl-paste -t text -w xclip -selection clipboard
     
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
     

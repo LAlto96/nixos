@@ -10,6 +10,7 @@
         tweaks = [ "rimless" ]; # You can also specify multiple tweaks here
         variant = "latte";
       })
+      r2modman # Mod manager for Lethal Company (and others???)
 
       qalculate-gtk # Calculator
       (pkgs.callPackage ./droidcam.nix {}) # Droidcam

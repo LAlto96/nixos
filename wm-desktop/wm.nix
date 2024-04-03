@@ -19,6 +19,7 @@
     exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
     # exec-once = eww open bar
     exec-once = eww open bar2
+    exec-once = wl-paste -t text -w xclip -selection clipboard
     
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
     
