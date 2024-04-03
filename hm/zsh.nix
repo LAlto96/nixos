@@ -3,7 +3,7 @@
   #ZSH
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     shellAliases = {
         doom = "/home/desktop/.config/emacs/bin/doom";
