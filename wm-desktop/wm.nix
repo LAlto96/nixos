@@ -205,6 +205,7 @@
   # Rofi Config
   programs.rofi = {
     enable = true;
+    package = pkgs.rofi-wayland;
     extraConfig = {
       modi = "run,drun,window";
       icon-theme = "Oranchelo";
