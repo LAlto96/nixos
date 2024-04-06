@@ -8,6 +8,7 @@
     shellAliases = {
         doom = "/home/desktop/.config/emacs/bin/doom";
         emacs = "emacsclient -c -a 'emacs'";
+        sysupdate = "cd ~/Documents/nix-configuration && sudo nixos-rebuild switch --flake .#desktop";
     };
     plugins = [
       {

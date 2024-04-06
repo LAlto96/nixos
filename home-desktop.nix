@@ -19,8 +19,11 @@
     trenchbroom
     # godot3-mono
     blender
-
-
+    davinci-resolve
+    flowblade
+    openshot-qt
+    shotcut
+    olive-editor
   ];
 
   # This value determines the Home Manager release that your

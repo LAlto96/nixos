@@ -14,6 +14,10 @@
       ctop # Container monitoring tool
 
 
+      # DAWs
+      reaper
+      yabridge
+      yabridgectl
 
       # Emacs
       emacs
@@ -36,6 +40,7 @@
 
 
       # Le sang de la veine
+      upscayl
       ranger # File manager
       btop # htop but better
       neofetch # System info
@@ -91,11 +96,11 @@
       gnome.gnome-disk-utility # Disk utility
       gdu # Disk usage
       wineWowPackages.waylandFull # Wine
-        # Screenshot
-        inputs.hyprland-contrib.packages.${pkgs.system}.grimblast # Grim but from Hypr
-        swappy # Screenshot
-        #Wallpaper
-        swaybg # Wallpaper
+      # Screenshot
+      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast # Grim but from Hypr
+      swappy # Screenshot
+      #Wallpaper
+      swaybg # Wallpaper
       
       # Brightness Control
       wluma # Automatic Brightness control
