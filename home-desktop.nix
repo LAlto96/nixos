@@ -11,19 +11,26 @@
   home.packages = with pkgs; [        
     mesa
     amdvlk
-    sunshine
+    # sunshine
     handbrake
-    libsForQt5.kdenlive # Video Editor
+    # libsForQt5.kdenlive # Video Editor
     r2modman # Mod manager for Lethal Company (and others???)
-    godot_4
-    trenchbroom
+    # godot_4
+    # trenchbroom
     # godot3-mono
-    blender
-    davinci-resolve
-    flowblade
-    openshot-qt
-    shotcut
-    olive-editor
+    # blender
+    # openshot-qt
+    # shotcut
+
+
+    #GStreamer Packages
+    gst_all_1.gstreamer
+    gst_all_1.gst-vaapi
+    gst_all_1.gst-libav
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
   ];
 
   # This value determines the Home Manager release that your

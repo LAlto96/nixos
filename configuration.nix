@@ -10,6 +10,29 @@
       ./packages.nix
       ./python.nix
     ];
+  
+  # systemd-services
+  # systemd.services.deckyloader = {
+  #   enable = true;
+  #   description = "Deckyloader";
+  #   unitConfig = {
+  #     Type = "simple";
+  #     After = network-online.target;
+  #     Wants = network-online.target;
+  #     };
+  #   serviceConfig = {
+  #     User = "root";
+  #     Restart = "always";
+  #     RestartSec = "1";
+  #     ExecStart = "${HOMEBREW_FOLDER}/services/PluginLoader";
+  #     WorkingDirectory="${HOMEBREW_FOLDER}/services";
+  #     Environment="PLUGIN_PATH=${HOMEBREW_FOLDER}/plugins";
+  #     KillSignal="SIGKILL";
+  #     };
+  #   serviceInstall = {
+  #     WantedBy = [ "multi-user.target" ];
+  #     };
+  #   };
 
   services.flatpak.enable = true;
 
@@ -26,6 +49,7 @@
   };
   # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_lqx;
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ config.boot.kernelPackages.v4l2loopback ];
  # boot.extraModprobeConfig = ''
@@ -217,8 +241,6 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8989 8096 8211 27015 ];
-  networking.firewall.allowedUDPPorts = [ 8989 8096 8211 27015 ];
   services.logrotate.checkConfig = false;
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

@@ -1,4 +1,4 @@
-{config, pkgs, inputs, ...}:
+{config, pkgs, lib, inputs, ...}:
 {
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
@@ -40,6 +40,7 @@
 
 
       # Le sang de la veine
+      helvum
       upscayl
       ranger # File manager
       btop # htop but better
@@ -48,6 +49,7 @@
       # firefox # Browser
       (firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
       webcord-vencord # Discord
+      pandoc
       #discord # Chat
       #betterdiscordctl # BetterDiscord
       nzbget # NZB Downloader
@@ -117,6 +119,7 @@
       lutris # Game manager
       protonup-qt # Proton updater
       protontricks # Proton tricks
+      steamtinkerlaunch
     ];
   # Steam
   programs.steam = {
