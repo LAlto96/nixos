@@ -29,7 +29,8 @@
       libvterm
 
       qalculate-gtk # Calculator
-      (pkgs.callPackage ./droidcam.nix {}) # Droidcam
+      #(pkgs.callPackage ./droidcam.nix {}) # Droidcam
+      droidcam
       w3m # Image preview for ranger
       atool
       v4l-utils

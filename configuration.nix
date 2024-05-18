@@ -52,12 +52,12 @@
   # boot.kernelPackages = pkgs.linuxPackages_lqx;
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ config.boot.kernelPackages.v4l2loopback ];
- # boot.extraModprobeConfig = ''
- #   # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
- #   # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
- #   # https://github.com/umlaeute/v4l2loopback
- #   options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
- # '';
+  boot.extraModprobeConfig = ''
+    # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
+    # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
+    # https://github.com/umlaeute/v4l2loopback
+    options v4l2loopback video_nr=0,1 exclusive_caps=1,1 card_label="Virtual Camera 0","Virtual Camera 1"
+  '';
   nixpkgs.config.nvidia.acceptLicense = true;
 
   networking.hostName = "nixos"; # Define your hostname.
