@@ -188,6 +188,9 @@
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
+
+  jovian.steam.enable = true;
+  jovian.decky-loader.enable = true;
   
   # ZSH Integration
   programs.zsh.enable = true ;
@@ -212,16 +215,6 @@
     wireplumber.enable = true;
 
   };
-  hardware.opengl.extraPackages = with pkgs; [
-    amdvlk
-  ];
-  # For 32 bit applications 
-  hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
-  # Force radv
-  environment.variables.AMD_VULKAN_ICD = "RADV";
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -239,7 +232,8 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
+  environment.variables.AMD_VULKAN_ICD = "RADV";
+  environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
   # Open ports in the firewall.
   services.logrotate.checkConfig = false;
   # Or disable the firewall altogether.

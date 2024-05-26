@@ -29,10 +29,13 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
       pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
+      jovian = {
+            url = "github:Jovian-Experiments/Jovian-NixOS";
+      };
 
   };
 
-  outputs = {self, nixpkgs, home-manager, hyprland, pipewire-screenaudio,  ... }@inputs: {
+  outputs = {self, nixpkgs, home-manager, hyprland, pipewire-screenaudio, jovian,  ... }@inputs: {
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -62,7 +65,7 @@
         modules = [
           ./configuration.nix
           ./amdgpu.nix
-
+          "${jovian}/modules"
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

@@ -32,7 +32,8 @@
     
     # Some default env vars.
     env = XCURSOR_SIZE,24
-    
+    # windowrulev2 = tile, class:^([Ss]team)$
+    # windowrulev2 = workspace 5, class:^([Ss]team)$
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
         kb_layout = fr
