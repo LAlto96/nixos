@@ -43,6 +43,7 @@
         modules = [
           ./configuration.nix
           ./amdgpu.nix
+          "${jovian}/modules"
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
