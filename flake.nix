@@ -52,6 +52,13 @@
             home-manager.users.laptop = import ./home-laptop.nix;
           }
           {
+            virtualisation.docker.enable = true;
+          }
+          {
+            networking.firewall.allowedTCPPorts = [ 80 91 443 444 8501 9100 ];
+            networking.firewall.allowedUDPPorts = [ 80 91 443 444 8501 9100 ];
+          }
+          {
             hardware.bluetooth.enable = true;
             services.blueman.enable = true;
             swapDevices = [ {
