@@ -9,7 +9,7 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [        
-    mesa
+    # mesa
   ];
 
   # This value determines the Home Manager release that your

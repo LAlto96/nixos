@@ -12,7 +12,7 @@
       })
 
       ctop # Container monitoring tool
-
+      cliphist # CLipboard manager
 
       # DAWs
       reaper
@@ -41,6 +41,8 @@
 
 
       # Le sang de la veine
+      dvc
+      gpu-viewer
       helvum
       upscayl
       ranger # File manager

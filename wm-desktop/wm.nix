@@ -21,6 +21,10 @@
     # exec-once = eww open bar
     exec-once = eww open bar2
     exec-once = wl-paste -t text -w xclip -selection clipboard
+    # Clipboard Manager
+    exec-once = wl-paste --type text --watch cliphist store #Stores only text data
+    exec-once = wl-paste --type image --watch cliphist store #Stores only image data
+    bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
     
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
     

@@ -13,7 +13,10 @@
     rocmPackages.clr.icd
     rocm-opencl-icd
     rocm-opencl-runtime
-   # amdvlk
+    vulkan-loader
+    vulkan-validation-layers
+    vulkan-extension-layer
+    # amdvlk
   ];
   # AMDvlk For 32 bit applications
   #hardware.opengl.extraPackages32 = with pkgs; [
