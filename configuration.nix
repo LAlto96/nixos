@@ -48,9 +48,9 @@
     "fs.inotify.max_user_watches" = "204800";
   };
   # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
+  # boot.kernelPackages = pkgs.linuxPackages_lqx;
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ config.boot.kernelPackages.v4l2loopback ];
   boot.extraModprobeConfig = ''
