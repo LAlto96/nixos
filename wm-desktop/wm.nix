@@ -20,7 +20,7 @@
     # exec-once = swaybg -i /home/desktop/Pictures/sammys/sammy5.png -m fill &
     # exec-once = eww open bar
     exec-once = eww open bar2
-    exec-once = wl-paste -t text -w xclip -selection clipboard
+    # exec-once = wl-paste -t text -w xclip -selection clipboard
     # Clipboard Manager
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
     exec-once = wl-paste --type image --watch cliphist store #Stores only image data
