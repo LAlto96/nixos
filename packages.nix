@@ -14,6 +14,8 @@
       ctop # Container monitoring tool
       cliphist # CLipboard manager
 
+      postman # API testing
+
       # DAWs
       reaper
       yabridge
