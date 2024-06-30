@@ -95,8 +95,8 @@
           }
           {
             # Open ports in the firewall.
-            networking.firewall.allowedTCPPorts = [ 80 91 443 444 7777 7878 8080 8501 9100 47990 47984 48010 47998 47999 48000 48002 48010 47989 8989 8096 8211 27015 ];
-            networking.firewall.allowedUDPPorts = [ 80 91 443 444 7777 7878 8080 8501 9100 47990 47984 48010 47998 47999 48000 48002 48010 47989 8989 8096 8211 27015 ];
+            networking.firewall.allowedTCPPorts = [ 80 91 443 444 6379 7777 7878 8080 8501 9100 47990 47984 48010 47998 47999 48000 48002 48010 47989 8989 8096 8211 27015 ];
+            networking.firewall.allowedUDPPorts = [ 80 91 443 444 6379 7777 7878 8080 8501 9100 47990 47984 48010 47998 47999 48000 48002 48010 47989 8989 8096 8211 27015 ];
           }
           {
             virtualisation.docker.enable = true;
