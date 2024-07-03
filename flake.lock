@@ -207,11 +207,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1719982578,
-        "narHash": "sha256-NBI3jN7NH784t+6XiEWvfIzxZnCqOBLCIIe9mbXHJ10=",
+        "lastModified": 1720025282,
+        "narHash": "sha256-I70ARXPm1YjGJ0efykd5zsapUZtmVZ/sIgwJ0F0j17w=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "b4b7577219500b93d60d9d85781a8b6aeeff672c",
+        "rev": "8dd0f8383bd60b8ed66cd27c1b49cdbf7be4ad9d",
         "type": "github"
       },
       "original": {

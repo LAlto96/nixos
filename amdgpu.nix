@@ -9,6 +9,7 @@
   # services.xserver.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   hardware.graphics.extraPackages = with pkgs; [
     rocmPackages.clr.icd
     rocm-opencl-icd
@@ -22,9 +23,7 @@
   #hardware.opengl.extraPackages32 = with pkgs; [
   #  driversi686Linux.amdvlk
   #];
-  # hardware.opengl.driSupport = true;
   # For 32 bit applications
-  # hardware.opengl.driSupport32Bit = true;
   #wayland specific apps
   #environment.systemPackages = with pkgs; [
   #  rofi-wayland
