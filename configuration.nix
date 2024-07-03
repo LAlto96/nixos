@@ -191,7 +191,7 @@
   };
 
   jovian.steam.enable = true;
-  jovian.decky-loader.enable = true;
+  # jovian.decky-loader.enable = true;
   
   # ZSH Integration
   programs.zsh.enable = true ;
