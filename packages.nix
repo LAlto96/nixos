@@ -43,6 +43,7 @@
 
 
       # Le sang de la veine
+      cmatrix
       dvc
       gpu-viewer
       helvum
@@ -100,7 +101,7 @@
       unrar # Rar
       w3m # Image preview for ranger
       poppler_utils # pdf image preview for ranger
-      gnome.gnome-disk-utility # Disk utility
+      gnome-disk-utility # Disk utility
       gdu # Disk usage
       wineWowPackages.waylandFull # Wine
       # Screenshot
@@ -124,7 +125,13 @@
       lutris # Game manager
       protonup-qt # Proton updater
       protontricks # Proton tricks
-      steamtinkerlaunch
+      # steamtinkerlaunch
+      xdotool
+      xorg.xprop
+      unixtools.xxd
+      xorg.xwininfo
+      yad
+      # steamtinkerlaunch
     ];
   # Steam
   programs.steam = {
