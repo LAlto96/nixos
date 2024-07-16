@@ -13,6 +13,7 @@
 
       ctop # Container monitoring tool
       cliphist # CLipboard manager
+      ispell
 
       postman # API testing
 
@@ -40,6 +41,7 @@
       drawio
       zathura
       texliveFull #LaTeX
+      graphviz
 
 
       # Le sang de la veine
@@ -115,12 +117,14 @@
       brightnessctl # Brightness control (hardware)
 
       # Gaming
+      radeontop
       # retroarchFull # Retroarch
       gamemode # Game mode
       gamescope # Game mode
       prismlauncher
       optifine
       mangohud # Game mode
+      goverlay
       heroic # Epic Games
       lutris # Game manager
       protonup-qt # Proton updater

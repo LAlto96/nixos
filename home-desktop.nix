@@ -15,7 +15,7 @@
     handbrake
     # libsForQt5.kdenlive # Video Editor
     r2modman # Mod manager for Lethal Company (and others???)
-    # godot_4
+    godot_4
     # trenchbroom
     # godot3-mono
     # blender
