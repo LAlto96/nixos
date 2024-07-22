@@ -199,7 +199,7 @@
   environment.shells = with pkgs; [ zsh ];
 
   # Enable sound with pipewire.
-  sound.enable = false;
+  # sound.enable = false;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
