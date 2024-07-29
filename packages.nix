@@ -3,144 +3,184 @@
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
 
-      # Catppuccin GTK Theme
-      (catppuccin-gtk.override {
-        accents = [ "sapphire" ]; # You can specify multiple accents here to output multiple themes
-        size = "compact";
-        tweaks = [ "rimless" ]; # You can also specify multiple tweaks here
-        variant = "latte";
-      })
+    libmpg123
+    # Themes
+    (catppuccin-gtk.override {
+      accents = [ "sapphire" ];
+      size = "compact";
+      tweaks = [ "rimless" ];
+      variant = "latte";
+    })
 
-      ctop # Container monitoring tool
-      cliphist # CLipboard manager
-      ispell
+    # Container Management
+    ctop
 
-      postman # API testing
+    # Clipboard Management
+    cliphist
+    wl-clipboard
+    xclip
 
-      # DAWs
-      reaper
-      yabridge
-      yabridgectl
+    # Spell Checking
+    ispell
 
-      # Emacs
-      emacs
-      emacsPackages.vterm
-      coreutils # Coreutils
-      ripgrep # Ripgrep
-      fd
-      clang
-      libvterm
+    # API Testing
+    postman
 
-      qalculate-gtk # Calculator
-      #(pkgs.callPackage ./droidcam.nix {}) # Droidcam
-      droidcam
-      w3m # Image preview for ranger
-      atool
-      v4l-utils
-      qemu
-      drawio
-      zathura
-      texliveFull #LaTeX
-      graphviz
+    # Digital Audio Workstations (DAWs)
+    reaper
+    yabridge
+    yabridgectl
 
+    # Text Editors and IDEs
+    emacs
+    emacsPackages.vterm
 
-      # Le sang de la veine
-      cmatrix
-      dvc
-      gpu-viewer
-      helvum
-      upscayl
-      ranger # File manager
-      btop # htop but better
-      neofetch # System info
-      kitty # Terminal
-      # firefox # Browser
-      (firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
-      webcord-vencord # Discord
-      pandoc
-      #discord # Chat
-      #betterdiscordctl # BetterDiscord
-      nzbget # NZB Downloader
-      protonvpn-gui # VPN
-      protonvpn-cli
-      obsidian # Notes
-      ledger # Finance Management
-      ledger-web # Finance Management
-      conda # Python
-      multiviewer-for-f1 # F1
-      moonlight-qt # Nvidia Gamestream
-      nodejs # Node
-      motrix # Downloader
-      
-      deluged
-      xclip
+    # Terminal Utilities
+    coreutils
+    ripgrep
+    fd
+    clang
+    libvterm
+    neofetch
+    kitty
 
+    # Calculator
+    qalculate-gtk
 
-      docker-compose
+    # Camera Tools
+    droidcam
 
-      # Media
-      #youtube-music # Youtube Music
-      moc
-      mpv # Video Player
-      yt-dlp # Youtube Downloader
-      pamixer # PulseAudio Mixer
-      pavucontrol # PulseAudio Volume Control
-      easyeffects # Audio Effects
+    # File Management
+    ranger
+    atool
 
-      # System packages
-      wl-clipboard # Clipboard manager
-      wget # Download manager
-      git # Version control
-      wirelesstools # Wireless tools
-      lm_sensors # Sensor tools
-      ffmpeg_6 # Video tools
-      ffmpegthumbnailer # Video thumbnailer
-      corefonts # Fonts
-      zip # Zip
-      unzip # Unzip
-      p7zip # 7zip
-      xdg-utils # XDG utils
-      unrar # Rar
-      w3m # Image preview for ranger
-      poppler_utils # pdf image preview for ranger
-      gnome-disk-utility # Disk utility
-      gdu # Disk usage
-      wineWowPackages.waylandFull # Wine
-      # Screenshot
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast # Grim but from Hypr
-      swappy # Screenshot
-      #Wallpaper
-      swaybg # Wallpaper
-      
-      # Brightness Control
-      wluma # Automatic Brightness control
-      brightnessctl # Brightness control (hardware)
+    # Video Utilities
+    v4l-utils
+    ffmpeg_6
+    ffmpegthumbnailer
 
-      # Gaming
-      radeontop
-      # retroarchFull # Retroarch
-      gamemode # Game mode
-      gamescope # Game mode
-      prismlauncher
-      optifine
-      mangohud # Game mode
-      goverlay
-      heroic # Epic Games
-      lutris # Game manager
-      protonup-qt # Proton updater
-      protontricks # Proton tricks
-      # steamtinkerlaunch
-      xdotool
-      xorg.xprop
-      unixtools.xxd
-      xorg.xwininfo
-      yad
-      # steamtinkerlaunch
-    ];
+    # Virtualization
+    qemu
+
+    # Diagramming and Visualization
+    drawio
+    graphviz
+
+    # PDF and Document Handling
+    zathura
+    texliveFull
+    poppler_utils
+
+    # System Monitoring and Info
+    cmatrix
+    dvc
+    gpu-viewer
+    helvum
+    upscayl
+    btop
+    lm_sensors
+
+    # Networking
+    git
+    wirelesstools
+    docker-compose
+
+    # Browsers and Internet Tools
+    (firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
+    w3m
+
+    # Communication
+    webcord-vencord
+    vesktop
+
+    # Text Processing
+    pandoc
+
+    # Downloaders
+    nzbget
+    motrix
+    wget
+
+    # VPN
+    protonvpn-gui
+    protonvpn-cli
+
+    # Finance Management
+    ledger
+    ledger-web
+
+    # Python
+    conda
+
+    # Media Streaming
+    multiviewer-for-f1
+    moonlight-qt
+
+    # Development Tools
+    nodejs
+
+    # Torrent Clients
+    deluged
+
+    # Media Players and Tools
+    moc
+    mpv
+    yt-dlp
+    pamixer
+    pavucontrol
+    easyeffects
+
+    # Compression Tools
+    zip
+    unzip
+    p7zip
+    unrar
+
+    # Utilities
+    xdg-utils
+    gnome-disk-utility
+    gdu
+
+    # Wine
+    wineWowPackages.waylandFull
+
+    # Screenshots
+    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+    swappy
+
+    # Wallpaper
+    swaybg
+
+    # Brightness Control
+    wluma
+    brightnessctl
+
+    # Gaming
+    radeontop
+    gamemode
+    gamescope
+    prismlauncher
+    optifine
+    mangohud
+    goverlay
+    heroic
+    lutris
+    protonup-qt
+    vkbasalt
+    protontricks
+
+    # Xorg Tools
+    xdotool
+    xorg.xprop
+    unixtools.xxd
+    xorg.xwininfo
+    yad
+  ];
+
   # Steam
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
 }
