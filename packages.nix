@@ -1,9 +1,38 @@
 {config, pkgs, lib, inputs, ...}:
+# let
+#   # Override the dvc package with the correct hash
+#   dvc = pkgs.dvc.overrideAttrs (oldAttrs: rec {
+#     src = oldAttrs.src.overrideAttrs (_: {
+#       outputHash = "sha256-FBn7u8XDnq3oxffLxRHwASd9uiRNMYrzOwzi/o9JZZo=";
+#     });
+#   });
+#
+# in
 {
+ nixpkgs.overlays = [ (final: prev: {
+    davinci-resolve-studio = prev.davinci-resolve-studio.override (old: {
+      buildFHSEnv = a: (old.buildFHSEnv (a // {
+        extraBwrapArgs = a.extraBwrapArgs ++ [
+          "--bind /run/opengl-driver/etc/OpenCL /etc/OpenCL"
+        ];
+      }));
+    });
+  })];
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
 
+    feh
+    gimp-with-plugins
+    dosbox-staging
     libmpg123
+    pipes
+    cbonsai
+    cmatrix
+    cava
+    davinci-resolve
+    qpwgraph
+    # musescore
+
     # Themes
     (catppuccin-gtk.override {
       accents = [ "sapphire" ];
@@ -90,7 +119,6 @@
     w3m
 
     # Communication
-    webcord-vencord
     vesktop
 
     # Text Processing
@@ -157,7 +185,6 @@
 
     # Gaming
     radeontop
-    gamemode
     gamescope
     prismlauncher
     optifine
@@ -175,6 +202,10 @@
     unixtools.xxd
     xorg.xwininfo
     yad
+
+
+
+    steamtinkerlaunch
   ];
 
   # Steam

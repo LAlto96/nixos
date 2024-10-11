@@ -278,37 +278,9 @@
             for = "unix";
           }
         ];
-        open = [
-          {
-            run = ''xdg-open "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
-        edit = [
-          {
-            run = ''nvim "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
-        play = [
-          {
-            run = ''mpv "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
-        archive = [
-          {
-            run = ''atool -x -e "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
     };
       open = {
-       prepend_rules = [
+        rules = [
           {
             mime = "application/pdf";
             use = "pdf";
@@ -342,8 +314,5 @@
   stylix.image = /home/desktop/Documents/nix-configuration/hm/wallpaper/wall2.png;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml" ;
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
 }
 

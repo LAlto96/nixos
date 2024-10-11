@@ -9,6 +9,8 @@
         doom = "/home/desktop/.config/emacs/bin/doom";
         emacs = "emacsclient -c -a 'emacs'";
         sysupdate = "cd ~/Documents/nix-configuration && sudo nixos-rebuild switch --flake .#desktop";
+        v4l2loopback-ctl0 = "nix-shell -p linuxKernel.packages.linux_zen.v4l2loopback --run 'v4l2loopback-ctl set-caps /dev/video0 \"YU12:1280x720\" && sudo v4l2loopback-ctl set-fps /dev/video0 60'";
+        v4l2loopback-ctl1 = "nix-shell -p linuxKernel.packages.linux_zen.v4l2loopback --run 'v4l2loopback-ctl set-caps /dev/video1 \"YU12:1280x720\" && sudo v4l2loopback-ctl set-fps /dev/video1 60'";
     };
     plugins = [
       {

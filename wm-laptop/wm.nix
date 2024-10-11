@@ -15,11 +15,10 @@
     
     # See https://wiki.hyprland.org/Configuring/Monitors/
     monitor=eDP-1,1920x1080@60,auto,auto
-    exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
+    # exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
     #exec-once = ~/Documents/.git/eww/target/release/eww daemon
     exec-once = eww open bar
     #exec-once = ~/Documents/.git/eww/target/release/eww open bar2
-    exec-once = wl-paste -t text -w xclip -selection clipboard
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
     exec-once = wl-paste --type image --watch cliphist store #Stores only image data
     bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
@@ -171,7 +170,19 @@
     bind = $mainMod SHIFT, underscore, movetoworkspace, 8
     bind = $mainMod SHIFT, ccedilla, movetoworkspace, 9
     bind = $mainMod SHIFT, agrave, movetoworkspace, 10
-    
+
+    # Resize windows with mainMod + SHIFT + vim keys
+    binde = $mainMod SHIFT, h, resizeactive, -40 0
+    binde = $mainMod SHIFT, l, resizeactive, 40 0
+    binde = $mainMod SHIFT, k, resizeactive, 0 -40
+    binde = $mainMod SHIFT, j, resizeactive, 0 40
+
+    # Move windows with mainMod + CTRL + vim keys
+    bind = $mainMod CTRL, h, movewindow, l
+    bind = $mainMod CTRL, l, movewindow, r
+    bind = $mainMod CTRL, k, movewindow, u
+    bind = $mainMod CTRL, j, movewindow, d
+
     # Scroll through existing workspaces with mainMod + scroll
     bind = $mainMod, mouse_down, workspace, e+1
     bind = $mainMod, mouse_up, workspace, e-1
@@ -222,105 +233,105 @@
       display-Network = " 󰤨  Network";
       sidebar-mode = true;
     };
-    theme = ./rofi/catppuccin-latte.rasi;
-    font = "MesloLGS NF";
+    # theme = ./rofi/catppuccin-latte.rasi;
+    # font = "MesloLGS NF";
   };
 
   # kitty config
   programs.kitty = {
     enable = true;
     shellIntegration.enableZshIntegration = true;
-    font ={
-     package = pkgs.meslo-lgs-nf;
-     name = "MesloLGS NF";
-     size = 9;
-    };
-    extraConfig = "
-    # font_family MesloLGS NF
+    # font ={
+    #  package = pkgs.meslo-lgs-nf;
+    #  name = "MesloLGS NF";
+    #  size = 9;
+    # };
+    # extraConfig = "
+    # # font_family MesloLGS NF
 
-    # vim:ft=kitty
+    # # vim:ft=kitty
 
-    ## name:     Catppuccin Kitty Latte
-    ## author:   Catppuccin Org
-    ## license:  MIT
-    ## upstream: https://github.com/catppuccin/kitty/blob/main/themes/latte.conf
-    ## blurb:    Soothing pastel theme for the high-spirited!
+    # ## name:     Catppuccin Kitty Latte
+    # ## author:   Catppuccin Org
+    # ## license:  MIT
+    # ## upstream: https://github.com/catppuccin/kitty/blob/main/themes/latte.conf
+    # ## blurb:    Soothing pastel theme for the high-spirited!
 
 
 
-    # The basic colors
-    foreground              #4C4F69
-    background              #EFF1F5
-    selection_foreground    #EFF1F5
-    selection_background    #DC8A78
+    # # The basic colors
+    # foreground              #4C4F69
+    # background              #EFF1F5
+    # selection_foreground    #EFF1F5
+    # selection_background    #DC8A78
 
-    # Cursor colors
-    cursor                  #DC8A78
-    cursor_text_color       #EFF1F5
+    # # Cursor colors
+    # cursor                  #DC8A78
+    # cursor_text_color       #EFF1F5
 
-    # URL underline color when hovering with mouse
-    url_color               #DC8A78
+    # # URL underline color when hovering with mouse
+    # url_color               #DC8A78
 
-    # Kitty window border colors
-    active_border_color     #7287FD
-    inactive_border_color   #9CA0B0
-    bell_border_color       #DF8E1D
+    # # Kitty window border colors
+    # active_border_color     #7287FD
+    # inactive_border_color   #9CA0B0
+    # bell_border_color       #DF8E1D
 
-    # OS Window titlebar colors
-    wayland_titlebar_color system
-    macos_titlebar_color system
+    # # OS Window titlebar colors
+    # wayland_titlebar_color system
+    # macos_titlebar_color system
 
-    # Tab bar colors
-    active_tab_foreground   #EFF1F5
-    active_tab_background   #8839EF
-    inactive_tab_foreground #4C4F69
-    inactive_tab_background #9CA0B0
-    tab_bar_background      #BCC0CC
+    # # Tab bar colors
+    # active_tab_foreground   #EFF1F5
+    # active_tab_background   #8839EF
+    # inactive_tab_foreground #4C4F69
+    # inactive_tab_background #9CA0B0
+    # tab_bar_background      #BCC0CC
 
-    # Colors for marks (marked text in the terminal)
-    mark1_foreground #EFF1F5
-    mark1_background #7287fD
-    mark2_foreground #EFF1F5
-    mark2_background #8839EF
-    mark3_foreground #EFF1F5
-    mark3_background #209FB5
+    # # Colors for marks (marked text in the terminal)
+    # mark1_foreground #EFF1F5
+    # mark1_background #7287fD
+    # mark2_foreground #EFF1F5
+    # mark2_background #8839EF
+    # mark3_foreground #EFF1F5
+    # mark3_background #209FB5
 
-    # The 16 terminal colors
+    # # The 16 terminal colors
 
-    # black
-    color0 #5C5F77
-    color8 #6C6F85
+    # # black
+    # color0 #5C5F77
+    # color8 #6C6F85
 
-    # red
-    color1 #D20F39
-    color9 #D20F39
+    # # red
+    # color1 #D20F39
+    # color9 #D20F39
 
-    # green
-    color2  #40A02B
-    color10 #40A02B
+    # # green
+    # color2  #40A02B
+    # color10 #40A02B
 
-    # yellow
-    color3  #DF8E1D
-    color11 #DF8E1D
+    # # yellow
+    # color3  #DF8E1D
+    # color11 #DF8E1D
 
-    # blue
-    color4  #1E66F5
-    color12 #1E66F5
+    # # blue
+    # color4  #1E66F5
+    # color12 #1E66F5
 
-    # magenta
-    color5  #EA76CB
-    color13 #EA76CB
+    # # magenta
+    # color5  #EA76CB
+    # color13 #EA76CB
 
-    # cyan
-    color6  #179299
-    color14 #179299
+    # # cyan
+    # color6  #179299
+    # color14 #179299
 
-    # white
-    color7  #ACB0BE
-    color15 #BCC0CC   
+    # # white
+    # color7  #ACB0BE
+    # color15 #BCC0CC
 
-    background_opacity 0.85
-    ";
+    # background_opacity 0.85
+    # ";
   };
 
   #eww config

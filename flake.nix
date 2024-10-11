@@ -17,10 +17,6 @@
 
   inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-      hyprland = {
-        # url = "github:hyprwm/Hyprland/v0.39.1";
-        url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      };
       home-manager = {
         url = "github:nix-community/home-manager";
 	      inputs.nixpkgs.follows = "nixpkgs";
@@ -30,21 +26,18 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
       pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
-      jovian = {
-            url = "github:Jovian-Experiments/Jovian-NixOS";
-      };
-
+      stylix.url = "github:danth/stylix";
   };
 
-  outputs = {self, nixpkgs, home-manager, hyprland, pipewire-screenaudio, jovian,  ... }@inputs: {
+  outputs = {self, nixpkgs, home-manager, pipewire-screenaudio, stylix,  ... }@inputs: {
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          stylix.nixosModules.stylix
           ./configuration.nix
           ./amdgpu.nix
-          "${jovian}/modules"
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -72,14 +65,15 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          stylix.nixosModules.stylix
           ./configuration.nix
           ./amdgpu.nix
-          "${jovian}/modules"
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.desktop = import ./home-desktop.nix;
+            home-manager.backupFileExtension = "backup";
           }
           {
             fileSystems."/mnt/storage" =
