@@ -345,5 +345,13 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "02:00";
+    options = "--delete-older-than 10d";
+  };
+
+
 }
 

@@ -21,6 +21,7 @@
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
 
+    audacity
     feh
     gimp-with-plugins
     dosbox-staging
@@ -213,5 +214,6 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+    gamescopeSession.enable = true;
   };
 }

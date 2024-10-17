@@ -17,12 +17,13 @@
     vulkan-loader
     vulkan-validation-layers
     vulkan-extension-layer
-    # amdvlk
+    amdvlk
   ];
   # AMDvlk For 32 bit applications
-  #hardware.opengl.extraPackages32 = with pkgs; [
-  #  driversi686Linux.amdvlk
-  #];
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+  environment.variables.AMD_VULKAN_ICD = "RADV";
   # For 32 bit applications
   #wayland specific apps
   #environment.systemPackages = with pkgs; [
