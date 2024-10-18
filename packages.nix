@@ -162,7 +162,8 @@
     # Compression Tools
     zip
     unzip
-    p7zip
+    _7zz
+    _7zz-rar
     unrar
 
     # Utilities

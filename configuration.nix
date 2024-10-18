@@ -278,34 +278,34 @@
             for = "unix";
           }
         ];
-        open = [
-          {
-            run = ''xdg-open "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
-        edit = [
-          {
-            run = ''nvim "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
-        play = [
-          {
-            run = ''mpv "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
-        archive = [
-          {
-            run = ''atool -x -e "$@"'';
-            block = true;
-            for = "unix";
-          }
-        ];
+        #open = [
+        #  {
+        #    run = ''xdg-open "$@"'';
+        #    block = true;
+        #    for = "unix";
+        #  }
+        #];
+        #edit = [
+        #  {
+        #    run = ''nvim "$@"'';
+        #    block = true;
+        #    for = "unix";
+        #  }
+        #];
+        #play = [
+        #  {
+        #    run = ''mpv "$@"'';
+        #    block = true;
+        #    for = "unix";
+        #  }
+        #];
+        #archive = [
+        #  {
+        #    run = ''atool -x -e "$@"'';
+        #    block = true;
+        #    for = "unix";
+        #  }
+        #];
     };
       open = {
        prepend_rules = [

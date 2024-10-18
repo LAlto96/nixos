@@ -59,6 +59,9 @@
               size = 16*1024;
             } ];
           }
+          {
+            stylix.image = /home/laptop/Documents/nix-configuration/hm/wallpaper/wall2.png;
+          }
         ];
       };
       desktop = nixpkgs.lib.nixosSystem {
@@ -94,6 +97,9 @@
           }
           {
             virtualisation.docker.enable = true;
+          }
+          {
+            stylix.image = /home/desktop/Documents/nix-configuration/hm/wallpaper/wall2.png;
           }
           
    
