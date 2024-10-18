@@ -339,7 +339,6 @@
   };
 
   stylix.enable = true;
-  stylix.image = /home/desktop/Documents/nix-configuration/hm/wallpaper/wall2.png;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml" ;
 
   hardware.bluetooth.enable = true;
