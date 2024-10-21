@@ -25,7 +25,6 @@ in
   })];
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
-
     audacity
     feh
     gimp-with-plugins
