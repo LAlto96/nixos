@@ -3,7 +3,13 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes"];
     substituters = [
-      "https://cache.nixos.org/"
+      # cache mirror located in China
+      # status: https://mirror.sjtu.edu.cn/
+      # "https://mirror.sjtu.edu.cn/nix-channels/store"
+      # status: https://mirrors.ustc.edu.cn/status/
+      # "https://mirrors.ustc.edu.cn/nix-channels/store"
+
+      "https://cache.nixos.org"
      ];
 
     extra-substituters = [
@@ -36,6 +42,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           stylix.nixosModules.stylix
+          ./hardware-configuration-laptop.nix
           ./configuration.nix
           ./amdgpu.nix
           home-manager.nixosModules.home-manager
@@ -62,6 +69,11 @@
           {
             stylix.image = /home/laptop/Documents/nix-configuration/hm/wallpaper/wall2.png;
           }
+          {
+            # given the users in this list the right to specify additional substituters via:
+            #    1. `nixConfig.substituters` in `flake.nix`
+            nix.settings.trusted-users = [ "laptop" ];
+          }
         ];
       };
       desktop = nixpkgs.lib.nixosSystem {
@@ -69,6 +81,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           stylix.nixosModules.stylix
+          ./hardware-configuration-desktop.nix
           ./configuration.nix
           ./amdgpu.nix
           home-manager.nixosModules.home-manager
@@ -101,8 +114,11 @@
           {
             stylix.image = /home/desktop/Documents/nix-configuration/hm/wallpaper/wall2.png;
           }
-          
-   
+          {
+            # given the users in this list the right to specify additional substituters via:
+            #    1. `nixConfig.substituters` in `flake.nix`
+            nix.settings.trusted-users = [ "desktop" ];
+          }
         ];
 
       };

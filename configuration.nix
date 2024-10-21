@@ -15,7 +15,7 @@
   {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      #./hardware-configuration.nix
       ./packages.nix
       ./python.nix
     ];
@@ -203,12 +203,7 @@
   # programs.neovim = { enable = true;
   #   defaultEditor = true;
   # };
-  # Cachix for Hypland
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
-  
+ 
   # Enabling Hyprland
   programs.hyprland = {
     enable = true;
