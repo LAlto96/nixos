@@ -23,6 +23,7 @@
 
   inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+      nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
       home-manager = {
         url = "github:nix-community/home-manager";
 	      inputs.nixpkgs.follows = "nixpkgs";
@@ -35,11 +36,25 @@
       stylix.url = "github:danth/stylix";
   };
 
-  outputs = {self, nixpkgs, home-manager, pipewire-screenaudio, stylix,  ... }@inputs: {
-    nixosConfigurations = {
-      laptop = nixpkgs.lib.nixosSystem {
+  outputs = {self, nixpkgs, nixpkgs-stable, home-manager, pipewire-screenaudio, stylix,  ... }@inputs: {
+    nixosConfigurations =  {
+      laptop = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        # The `specialArgs` parameter passes the
+        # non-default nixpkgs instances to other nix modules
+        specialArgs = {
+          inherit inputs;
+          # To use packages from nixpkgs-stable,
+          # we configure some parameters for it first
+          pkgs-stable = import nixpkgs-stable {
+            # Refer to the `system` parameter from
+            # the outer scope recursively
+            inherit system;
+            # To use Chrome, we need to allow the
+            # installation of non-free software.
+            config.allowUnfree = true;
+          };
+        };
         modules = [
           stylix.nixosModules.stylix
           ./hardware-configuration-laptop.nix
@@ -73,9 +88,21 @@
           }
         ];
       };
-      desktop = nixpkgs.lib.nixosSystem {
+      desktop = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+          # To use packages from nixpkgs-stable,
+          # we configure some parameters for it first
+          pkgs-stable = import nixpkgs-stable {
+            # Refer to the `system` parameter from
+            # the outer scope recursively
+            inherit system;
+            # To use Chrome, we need to allow the
+            # installation of non-free software.
+            config.allowUnfree = true;
+          };
+        };
         modules = [
           stylix.nixosModules.stylix
           ./hardware-configuration-desktop.nix

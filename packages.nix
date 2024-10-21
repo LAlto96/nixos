@@ -1,4 +1,5 @@
-{config, pkgs, lib, inputs, ...}:
+{config, pkgs, pkgs-stable,  lib, inputs, ...}:
+
 # let
 #   # Override the dvc package with the correct hash
 #   dvc = pkgs.dvc.overrideAttrs (oldAttrs: rec {
@@ -8,6 +9,10 @@
 #   });
 #
 # in
+let stablepkgs = with pkgs-stable; [
+      kicad
+    ];
+in
 {
  nixpkgs.overlays = [ (final: prev: {
     davinci-resolve-studio = prev.davinci-resolve-studio.override (old: {
@@ -208,7 +213,7 @@
 
 
     steamtinkerlaunch
-  ];
+  ] ++ stablepkgs;
 
   # Steam
   programs.steam = {
