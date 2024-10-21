@@ -21,7 +21,7 @@
     # blender
     # openshot-qt
     # shotcut
-    kicad
+    # kicad
 
 
     #GStreamer Packages
@@ -74,7 +74,7 @@
     obs-studio-plugins.wlrobs
     obs-studio-plugins.obs-vaapi
     obs-studio-plugins.obs-pipewire-audio-capture
-    obs-studio-plugins.obs-multi-rtmp
+    # obs-studio-plugins.obs-multi-rtmp
     obs-studio-plugins.obs-livesplit-one
     obs-studio-plugins.obs-gstreamer
     obs-studio-plugins.obs-backgroundremoval

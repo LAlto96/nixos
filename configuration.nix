@@ -15,7 +15,7 @@
   {
   imports =
     [ # Include the results of the hardware scan.
-      #./hardware-configuration.nix
+      ./hardware-configuration.nix
       ./packages.nix
       ./python.nix
     ];
@@ -334,6 +334,7 @@
   };
 
   stylix.enable = true;
+  stylix.image = ./hm/wallpaper/wall2.png;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml" ;
 
   hardware.bluetooth.enable = true;

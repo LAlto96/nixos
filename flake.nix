@@ -67,9 +67,6 @@
             } ];
           }
           {
-            stylix.image = /home/laptop/Documents/nix-configuration/hm/wallpaper/wall2.png;
-          }
-          {
             # given the users in this list the right to specify additional substituters via:
             #    1. `nixConfig.substituters` in `flake.nix`
             nix.settings.trusted-users = [ "laptop" ];
@@ -110,9 +107,6 @@
           }
           {
             virtualisation.docker.enable = true;
-          }
-          {
-            stylix.image = /home/desktop/Documents/nix-configuration/hm/wallpaper/wall2.png;
           }
           {
             # given the users in this list the right to specify additional substituters via:
