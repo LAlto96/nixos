@@ -15,16 +15,13 @@ let stablepkgs = with pkgs-stable; [
 in
 {
  nixpkgs.overlays = [ (final: prev: {
-    davinci-resolve-studio = prev.davinci-resolve-studio.override (old: {
-      buildFHSEnv = a: (old.buildFHSEnv (a // {
-        extraBwrapArgs = a.extraBwrapArgs ++ [
-          "--bind /run/opengl-driver/etc/OpenCL /etc/OpenCL"
-        ];
-      }));
-    });
+    # Fix 'utillinux' reference by mapping it to 'util-linux'
+      utillinux = prev.util-linux;
   })];
+
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
+    onlyoffice-desktopeditors
     audacity
     feh
     gimp-with-plugins

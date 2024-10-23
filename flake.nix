@@ -24,9 +24,11 @@
   inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+      nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
       home-manager = {
         url = "github:nix-community/home-manager";
 	      inputs.nixpkgs.follows = "nixpkgs";
+	      # inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
       hyprland-contrib = {
         url = "github:hyprwm/contrib";
@@ -36,7 +38,7 @@
       stylix.url = "github:danth/stylix";
   };
 
-  outputs = {self, nixpkgs, nixpkgs-stable, home-manager, pipewire-screenaudio, stylix,  ... }@inputs: {
+  outputs = {self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix,  ... }@inputs: {
     nixosConfigurations =  {
       laptop = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -100,6 +102,10 @@
             inherit system;
             # To use Chrome, we need to allow the
             # installation of non-free software.
+            config.allowUnfree = true;
+          };
+          pkgs-unstable = import nixpkgs-unstable {
+            inherit system;
             config.allowUnfree = true;
           };
         };
