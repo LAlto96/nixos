@@ -12,8 +12,8 @@
   hardware.graphics.enable32Bit = true;
   hardware.graphics.extraPackages = with pkgs; [
     rocmPackages.clr.icd
-    rocm-opencl-icd
-    rocm-opencl-runtime
+    # rocm-opencl-icd
+    # rocm-opencl-runtime
     vulkan-loader
     vulkan-validation-layers
     vulkan-extension-layer
