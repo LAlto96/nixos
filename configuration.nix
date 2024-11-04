@@ -336,9 +336,12 @@
   stylix.image = ./hm/wallpaper/wall2.png;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml" ;
 
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+  virtualisation.waydroid.enable = true;
 
   nix.gc = {
     automatic = true;
