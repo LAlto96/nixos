@@ -146,6 +146,14 @@
             #    1. `nixConfig.substituters` in `flake.nix`
             nix.settings.trusted-users = [ "desktop" ];
           }
+          {
+            services.sunshine = {
+              enable = true;
+              autoStart = true;
+              capSysAdmin = true;
+              openFirewall = true;
+          };
+          }
         ];
 
       };

@@ -14,10 +14,10 @@ let stablepkgs = with pkgs-stable; [
     ];
 in
 {
- nixpkgs.overlays = [ (final: prev: {
-    # Fix 'utillinux' reference by mapping it to 'util-linux'
-      utillinux = prev.util-linux;
-  })];
+# nixpkgs.overlays = [ (final: prev: {
+#    # Fix 'utillinux' reference by mapping it to 'util-linux'
+#      utillinux = prev.util-linux;
+#  })];
 
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
@@ -144,7 +144,6 @@ in
 
     # Media Streaming
     multiviewer-for-f1
-    moonlight-qt
 
     # Development Tools
     nodejs
