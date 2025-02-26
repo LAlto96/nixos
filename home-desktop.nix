@@ -1,4 +1,4 @@
-{ config, pkgs, lib,  ... }:
+{ inputs, config, pkgs, lib,  ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -81,6 +81,4 @@
     obs-studio-plugins.input-overlay
     obs-studio-plugins.obs-shaderfilter
     ];
-
 }
-

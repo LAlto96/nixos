@@ -42,6 +42,12 @@
   #     };
   #   };
 
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "desktop" ];
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+  services.tailscale.enable = true;
+  networking.firewall.checkReversePath = "loose";
   services.flatpak.enable = true;
   nix.settings.auto-optimise-store = true;
   # Bootloader.
@@ -137,6 +143,7 @@
       noto-fonts-emoji
       meslo-lgs-nf
       corefonts
+      nerd-fonts.jetbrains-mono
     ];
 
     fontconfig = {
@@ -168,6 +175,13 @@
     isNormalUser = true;
     description = "desktop";
     extraGroups = [ "networkmanager" "wheel" "video" "docker" "gamemode"];
+  };
+
+  users.users.sinusbot = {
+    isNormalUser = true;
+    description = "sinusbot";
+    extraGroups = [ "networkmanager" "wheel"];
+    uid = 1234;
   };
 
   # Allow unfree packages
@@ -211,6 +225,8 @@
   programs.zsh.enable = true ;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
+
+  programs.kdeconnect.enable = true;
 
   # Enable sound with pipewire.
   # sound.enable = false;
@@ -333,8 +349,12 @@
   };
 
   stylix.enable = true;
-  stylix.image = ./hm/wallpaper/wall2.png;
+  stylix.image = ./hm/wallpaper/wall3.png;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml" ;
+  stylix.homeManagerIntegration.followSystem = true;
+  stylix.targets.qt.platform = "qtct";
+  stylix.cursor.package = pkgs.catppuccin-cursors.latteSapphire;
+  stylix.cursor.name = "catppuccin-latte-sapphire-cursors";
 
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
@@ -349,6 +369,7 @@
     options = "--delete-older-than 10d";
   };
 
+  programs.corectrl.enable = true;
 
 }
 

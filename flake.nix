@@ -36,9 +36,13 @@
       };
       pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
       stylix.url = "github:danth/stylix";
+      hyprpanel = {
+        url = "github:jas-singhfsu/hyprpanel";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
-  outputs = {self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix,  ... }@inputs: {
+  outputs = {self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, hyprpanel,  ... }@inputs: {
     nixosConfigurations =  {
       laptop = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -110,6 +114,7 @@
           };
         };
         modules = [
+          {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
           stylix.nixosModules.stylix
           ./hardware-configuration-desktop.nix
           ./configuration.nix
@@ -167,24 +172,24 @@
             # services.xserver.enable = true;
             services.displayManager.sddm.enable = true;
             # services.displayManager.autoLogin.enable = true;
-            services.displayManager.autoLogin.user = "desktop";
+            # services.displayManager.autoLogin.user = "desktop";
             services.displayManager.sddm.wayland.enable = true;
             services.displayManager.defaultSession = "plasma";
             services.desktopManager.plasma6.enable = true;
-            boot.kernelParams = [ "ip=dhcp" ];
-            boot.initrd = {
-              availableKernelModules = [ "r8169" ];
-              systemd.users.root.shell = "/bin/cryptsetup-askpass";
-              network = {
-                enable = true;
-                ssh = {
-                  enable = true;
-                  port = 22;
-                  authorizedKeys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDWTL6IAnn17hgapb6vJlPhRU9T4aXgY+XteLRBJrlqhkENCJw7I7KWAA/7xRwLCMGw4JJtAglCMAyXDzvHy70Csn5u4ZqZ3MMzbjmsyq08y/uco4aWE7b76h/sNB5XC264NJ3nQpl4F+bTk81mFSGDzaiTh6pGcKGYCUq1FOvrGMzamqz9TQtNGqgL5j+Q4RKFOAep41Vg2+xqdTjJQMhdOcY4pz8MXQ+SUC9NQXqcmYJi95SZ9eY666kWeDChFySKNSzxdXE6vL53xh+LmnELYH3OP/IA9XfW1NEZ4tONUVR6clvSlyw5+ITlSIPjRR41PArCxQhHzTTPEEwWje+gEVduXWFZFx4tfVngId/pqMaTfCrjMkKirDQUznnbJ99Y1AQb3EzuSIZRYA+PZC1+Adhz+lddj+3BXcN9jxniNXS2hsIl5XgfJb5HdszmvALGHueW5oFZtasnR18JMjIhCFs/mjTjSi2JubGytdafRIXaCLyGRyIDgCE/c2v0q7c=" ];
-                  hostKeys = [ "/etc/secrets/initrd/ssh_host_rsa_key" ];
-                };
-              };
-            };
+            # boot.kernelParams = [ "ip=dhcp" ];
+            # boot.initrd = {
+            #   availableKernelModules = [ "r8169" ];
+            #   systemd.users.root.shell = "/bin/cryptsetup-askpass";
+            #   network = {
+            #     enable = true;
+            #     ssh = {
+            #       enable = true;
+            #       port = 22;
+            #       authorizedKeys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDWTL6IAnn17hgapb6vJlPhRU9T4aXgY+XteLRBJrlqhkENCJw7I7KWAA/7xRwLCMGw4JJtAglCMAyXDzvHy70Csn5u4ZqZ3MMzbjmsyq08y/uco4aWE7b76h/sNB5XC264NJ3nQpl4F+bTk81mFSGDzaiTh6pGcKGYCUq1FOvrGMzamqz9TQtNGqgL5j+Q4RKFOAep41Vg2+xqdTjJQMhdOcY4pz8MXQ+SUC9NQXqcmYJi95SZ9eY666kWeDChFySKNSzxdXE6vL53xh+LmnELYH3OP/IA9XfW1NEZ4tONUVR6clvSlyw5+ITlSIPjRR41PArCxQhHzTTPEEwWje+gEVduXWFZFx4tfVngId/pqMaTfCrjMkKirDQUznnbJ99Y1AQb3EzuSIZRYA+PZC1+Adhz+lddj+3BXcN9jxniNXS2hsIl5XgfJb5HdszmvALGHueW5oFZtasnR18JMjIhCFs/mjTjSi2JubGytdafRIXaCLyGRyIDgCE/c2v0q7c=" ];
+            #       hostKeys = [ "/etc/secrets/initrd/ssh_host_rsa_key" ];
+            #     };
+            #   };
+            # };
           }
         ];
 

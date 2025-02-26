@@ -21,6 +21,9 @@ in
 
   programs.java.enable = true;
   environment.systemPackages = with pkgs; [
+    hyprpanel
+    winetricks
+    qemu
     onlyoffice-desktopeditors
     audacity
     feh
@@ -33,6 +36,9 @@ in
     cava
     davinci-resolve
     qpwgraph
+    speedtest-go
+    android-tools
+    scrcpy
     # musescore
 
     # Themes
@@ -137,7 +143,7 @@ in
 
     # Finance Management
     ledger
-    ledger-web
+    # ledger-web
 
     # Python
     conda
@@ -155,7 +161,7 @@ in
     moc
     mpv
     yt-dlp
-    pamixer
+    # pamixer
     pavucontrol
     easyeffects
 

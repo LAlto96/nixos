@@ -19,7 +19,10 @@
     # exec-once = swaybg -i /home/desktop/Documents/nix-configuration/hm/wallpaper/wall1.png -m fill &
     # exec-once = swaybg -i /home/desktop/Pictures/sammys/sammy5.png -m fill &
     # exec-once = eww open bar
-    exec-once = eww open bar2
+    # exec-once = eww open bar2
+    exec-once = hyprpanel
+    exec-once = hyprctl setcursor catppuccin-latte-sapphire-cursors 32
+    # exec-once = hyprpanel toggleWindow bar-0
     # exec-once = wl-paste -t text -w xclip -selection clipboard
     # Clipboard Manager
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
@@ -59,43 +62,86 @@
     general {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
     
-        gaps_in = 5
-        gaps_out = 5
-        border_size = 2
+        gaps_in = 2
+        gaps_out = 10
+        border_size = 0
         col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
-        col.inactive_border = rgba(595959aa)
+        # col.inactive_border = rgba(595959aa)
     
         layout = dwindle
     }
     
-    decoration {
-        # See https://wiki.hyprland.org/Configuring/Variables/ for more
-    
-        rounding = 10
-        drop_shadow = true
-        shadow_range = 4
-        shadow_render_power = 3
-        col.shadow = rgba(1a1a1aee)
-    }
-    
-    animations {
+    # decoration {
+    #     # See https://wiki.hyprland.org/Configuring/Variables/ for more
+    #
+    #     rounding = 10
+    #     drop_shadow = true
+    #     shadow_range = 4
+    #     shadow_render_power = 3
+    #     col.shadow = rgba(1a1a1aee)
+    # }
+
+decoration {
+    rounding = 10
+        active_opacity = 0.85
+        inactive_opacity = 0.75
+        fullscreen_opacity = 1
+        # dim_inactive = true
+        # dim_strength = 0.1
+        blur {
+            enabled = true
+                size = 1
+                passes = 1
+                new_optimizations = true
+                ignore_opacity = true
+                xray = false
+                popups = true
+        }
+    shadow {
         enabled = true
-    
-        # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-    
-        bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-    
-        animation = windows, 1, 7, myBezier
-        animation = windowsOut, 1, 7, default, popin 80%
-        animation = border, 1, 10, default
-        animation = borderangle, 1, 8, default
-        animation = fade, 1, 7, default
-        animation = workspaces, 1, 6, default
+            range = 15
+            render_power = 5
+            color = rgba(0,0,0,.5)
     }
-    
+}
+
+
+    # animations {
+    #     enabled = true
+    #
+    #     # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+    #
+    #     bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    #
+    #     animation = windows, 1, 7, myBezier
+    #     animation = windowsOut, 1, 7, default, popin 80%
+    #     animation = border, 1, 10, default
+    #     animation = borderangle, 1, 8, default
+    #     animation = fade, 1, 7, default
+    #     animation = workspaces, 1, 6, default
+    # }
+
+animations {
+    enabled = true
+    bezier = fluid, 0.15, 0.85, 0.25, 1
+    bezier = snappy, 0.3, 1, 0.4, 1
+    animation = windows, 1, 3, fluid, popin 5%
+    animation = windowsOut, 1, 2.5, snappy
+    animation = fade, 1, 4, snappy
+    animation = workspaces, 1, 1.7, snappy, slide
+    animation = specialWorkspace, 1, 4, fluid, slidefadevert -35%
+    animation = layers, 1, 2, snappy, popin 70%
+}
+
+misc {
+    force_default_wallpaper = -1
+    disable_hyprland_logo = true
+    focus_on_activate = true
+}
+
     dwindle {
         # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+        # pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
         preserve_split = true # you probably want this
     }
     
@@ -136,6 +182,8 @@
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, S, togglesplit, # dwindle
     bind = $mainMod, F,fullscreen
+    bind = $mainMod, M, exec, hyprpanel toggleWindow settings-dialog
+    bind = $mainMod, B, exec, hyprpanel toggleWindow bar-0
     bind = ,print, exec, grimblast --freeze save area - | swappy -f - 
     bind=, XF86AudioRaiseVolume, exec, pamixer -i 5 
     bind=, XF86AudioLowerVolume, exec, pamixer -d 5
