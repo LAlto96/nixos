@@ -23,7 +23,6 @@ in
   environment.systemPackages = with pkgs; [
     hyprpanel
     winetricks
-    qemu
     onlyoffice-desktopeditors
     audacity
     feh
@@ -50,7 +49,7 @@ in
     })
 
     # Container Management
-    ctop
+    # ctop
 
     # Clipboard Management
     cliphist
@@ -88,7 +87,7 @@ in
     droidcam
 
     # File Management
-    ranger
+    # ranger
     atool
 
     # Video Utilities
@@ -100,8 +99,8 @@ in
     qemu
 
     # Diagramming and Visualization
-    drawio
-    graphviz
+    # drawio
+    # graphviz
 
     # PDF and Document Handling
     zathura
@@ -110,8 +109,6 @@ in
 
     # System Monitoring and Info
     cmatrix
-    dvc
-    gpu-viewer
     helvum
     upscayl
     btop
@@ -149,19 +146,19 @@ in
     conda
 
     # Media Streaming
-    multiviewer-for-f1
+    # multiviewer-for-f1
 
     # Development Tools
     nodejs
 
     # Torrent Clients
-    deluged
+    # deluged
 
     # Media Players and Tools
     moc
     mpv
     yt-dlp
-    # pamixer
+    pamixer
     pavucontrol
     easyeffects
 
@@ -182,7 +179,7 @@ in
 
     # Screenshots
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-    swappy
+    # swappy
 
     # Wallpaper
     swaybg
@@ -195,13 +192,10 @@ in
     radeontop
     gamescope
     prismlauncher
-    optifine
     mangohud
-    goverlay
     heroic
     lutris
     protonup-qt
-    vkbasalt
     protontricks
 
     # Xorg Tools
@@ -210,9 +204,6 @@ in
     unixtools.xxd
     xorg.xwininfo
     yad
-
-
-
     steamtinkerlaunch
   ] ++ stablepkgs;
 

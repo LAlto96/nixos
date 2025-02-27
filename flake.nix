@@ -142,6 +142,8 @@
             # Open ports in the firewall.
             networking.firewall.allowedTCPPorts = [ 22 80 91 443 444 6379 7777 7878 8080 8501 9100 47990 47984 48010 47998 47999 48000 48002 48010 47989 8989 8096 8211 27015 ];
             networking.firewall.allowedUDPPorts = [ 22 80 91 443 444 6379 7777 7878 8080 8501 9100 47990 47984 48010 47998 47999 48000 48002 48010 47989 8989 8096 8211 27015 ];
+            # networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+            # networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
           }
           {
             virtualisation.docker.enable = true;
@@ -152,30 +154,31 @@
             nix.settings.trusted-users = [ "desktop" ];
           }
           {
-            services.sunshine = {
-              enable = true;
-              autoStart = true;
-              capSysAdmin = true;
-              openFirewall = true;
-            };
-            services.openssh = {
-            enable = true;
-            ports = [ 22 ];
-            settings = {
-              PasswordAuthentication = true;
-              AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-              UseDns = true;
-              X11Forwarding = false;
-              PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
-              };
-            };
+            # services.sunshine = {
+            #   enable = true;
+            #   autoStart = true;
+            #   capSysAdmin = true;
+            #   openFirewall = true;
+            # };
+           
+            # services.openssh = {
+            # enable = true;
+            # ports = [ 22 ];
+            # settings = {
+            #   PasswordAuthentication = true;
+            #   AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
+            #   UseDns = true;
+            #   X11Forwarding = false;
+            #   PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+            #   };
+            # };
             # services.xserver.enable = true;
             services.displayManager.sddm.enable = true;
             # services.displayManager.autoLogin.enable = true;
             # services.displayManager.autoLogin.user = "desktop";
             services.displayManager.sddm.wayland.enable = true;
-            services.displayManager.defaultSession = "plasma";
             services.desktopManager.plasma6.enable = true;
+            services.displayManager.defaultSession = "hyprland";
             # boot.kernelParams = [ "ip=dhcp" ];
             # boot.initrd = {
             #   availableKernelModules = [ "r8169" ];
