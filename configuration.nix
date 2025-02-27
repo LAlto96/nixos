@@ -355,6 +355,15 @@
   stylix.targets.qt.platform = "qtct";
   stylix.cursor.package = pkgs.catppuccin-cursors.latteSapphire;
   stylix.cursor.name = "catppuccin-latte-sapphire-cursors";
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.nerd-fonts.jetbrains-mono;
+      name = "JetBrainsMono NF";
+    };
+    serif = config.stylix.fonts.monospace;
+    sansSerif = config.stylix.fonts.monospace;
+    emoji = config.stylix.fonts.monospace;
+  };
 
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;

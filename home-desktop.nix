@@ -81,4 +81,5 @@
     obs-studio-plugins.input-overlay
     obs-studio-plugins.obs-shaderfilter
     ];
+
 }

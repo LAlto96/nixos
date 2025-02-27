@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Hyprland Config
@@ -84,14 +84,14 @@
 decoration {
     rounding = 10
         active_opacity = 0.85
-        inactive_opacity = 0.75
+        inactive_opacity = 0.70
         fullscreen_opacity = 1
         # dim_inactive = true
         # dim_strength = 0.1
         blur {
             enabled = true
-                size = 1
-                passes = 1
+                size = 2
+                passes = 2
                 new_optimizations = true
                 ignore_opacity = true
                 xray = false
@@ -269,9 +269,12 @@ misc {
     '';
 
   # Rofi Config
+  stylix.targets.rofi.enable = false;
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
+    theme = ./rofi/catppuccin-latte.rasi;
+    # font = "MesloLGS NF";
     extraConfig = {
       modi = "run,drun,window";
       icon-theme = "Oranchelo";
@@ -287,19 +290,16 @@ misc {
       display-Network = " 󰤨  Network";
       sidebar-mode = true;
     };
-    # theme = ./rofi/catppuccin-latte.rasi;
-    # font = "MesloLGS NF";
   };
 
   # kitty config
   programs.kitty = {
     enable = true;
     shellIntegration.enableZshIntegration = true;
-    # font ={
-    #  package = pkgs.meslo-lgs-nf;
-    #  name = "MesloLGS NF";
-    #  size = 11;
-    # };
+    font ={
+        name = lib.mkForce "JetBrainsMono NF";
+        size = lib.mkForce 13;
+    };
     # extraConfig = "
     # # font_family MesloLGS NF
 
