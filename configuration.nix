@@ -1,282 +1,277 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, nixpkgs-stable, inputs, ... }:
-# let
-#   myOverlays = [
-#     (self: super: {
-#       lsp-plugins = super.lsp-plugins.override {
-#         php = super.php82;
-#       };
-#     })
-#   ];
-# in
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./packages.nix
-      ./python.nix
-    ];
-  # nixpkgs.overlays = myOverlays;
-  # systemd-services
-  # systemd.services.deckyloader = {
-  #   enable = true;
-  #   description = "Deckyloader";
-  #   unitConfig = {
-  #     Type = "simple";
-  #     After = network-online.target;
-  #     Wants = network-online.target;
-  #     };
-  #   serviceConfig = {
-  #     User = "root";
-  #     Restart = "always";
-  #     RestartSec = "1";
-  #     ExecStart = "${HOMEBREW_FOLDER}/services/PluginLoader";
-  #     WorkingDirectory="${HOMEBREW_FOLDER}/services";
-  #     Environment="PLUGIN_PATH=${HOMEBREW_FOLDER}/plugins";
-  #     KillSignal="SIGKILL";
-  #     };
-  #   serviceInstall = {
-  #     WantedBy = [ "multi-user.target" ];
-  #     };
-  #   };
 
+{
+  ###############################
+  # 1. Imports & External Files
+  ###############################
+  # Import additional NixOS configuration files and package definitions.
+  imports =
+    [
+      ./packages.nix    # Custom package definitions
+      ./python.nix      # Python-specific configurations
+    ];
+
+  ######################################
+  # 2. Hardware & Virtualization Settings
+  ######################################
+  # VirtualBox host support and group membership for desktop user.
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "desktop" ];
+
+  # Enable libvirt for virtualization management and virt-manager as the GUI.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-  services.tailscale.enable = true;
-  networking.firewall.checkReversePath = "loose";
-  services.flatpak.enable = true;
-  nix.settings.auto-optimise-store = true;
-  # Bootloader.
+
+  # Enable Logitech wireless devices with both CLI and graphical tools.
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
+
+  # Enable Bluetooth and its graphical manager.
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
+  ##############################
+  # 3. Boot & Kernel Settings
+  ##############################
+  # Use systemd-boot as the bootloader and allow it to manage EFI variables.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  # Setup keyfile
+
+  # Secure boot: include a secret for the initrd (adjust as needed).
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
   };
+
+  # Enable support for NTFS filesystems.
   boot.supportedFilesystems = [ "ntfs" ];
+
+  # Increase inotify watch limit.
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "204800";
   };
-  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+
+  # Configure the kernel and add custom kernel modules.
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages_lqx;
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.extraModprobeConfig = ''
-    # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
-    # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
-    # https://github.com/umlaeute/v4l2loopback
+    # Configure v4l2loopback: virtual camera settings for apps like Skype, Zoom, and Teams.
     options v4l2loopback video_nr=0,1 exclusive_caps=1,1 card_label="Virtual Camera 0","OBS Camera"
   '';
+
+  # Enable Plymouth boot splash.
+  boot.plymouth.enable = true;
+
+  ##############################
+  # 4. Security & Policy
+  ##############################
+  # Enable Polkit for managing system-wide privileges.
   security.polkit.enable = true;
+  # Enable realtime kit for low-latency processes (e.g., audio).
+  security.rtkit.enable = true;
 
+  ##############################
+  # 5. Networking Configuration
+  ##############################
+  # Set the system hostname.
+  networking.hostName = "nixos";
 
-# Plymouth
+  # Firewall configuration: use a loose reverse path check.
+  networking.firewall.checkReversePath = "loose";
 
-  boot.plymouth = {
-    enable = true;
-    # theme = "pixels";
-    # themePackages = with pkgs; [
-    #   # By default we would install all themes
-    #   (adi1090x-plymouth-themes.override {
-    #     selected_themes = [ "pixels" ];
-    #   })
-    # ];
-  };
+  # Enable wireless support (wpa_supplicant will be used).
+  networking.wireless.enable = true;
 
-  nixpkgs.config.nvidia.acceptLicense = true;
-
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  # Enable NetworkManager for easier network management.
   networking.networkmanager.enable = true;
 
+  ##############################
+  # 6. Time & Internationalization
+  ##############################
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
-  services.udisks2.enable = true;
-
-  # Select internationalisation properties.
+  # Set default locale and additional locale settings for internationalization.
   i18n.defaultLocale = "fr_FR.UTF-8";
-
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
+    LC_ADDRESS       = "fr_FR.UTF-8";
     LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
+    LC_MEASUREMENT   = "fr_FR.UTF-8";
+    LC_MONETARY      = "fr_FR.UTF-8";
+    LC_NAME          = "fr_FR.UTF-8";
+    LC_NUMERIC       = "fr_FR.UTF-8";
+    LC_PAPER         = "fr_FR.UTF-8";
+    LC_TELEPHONE     = "fr_FR.UTF-8";
+    LC_TIME          = "fr_FR.UTF-8";
   };
 
-  # Configure keymap in X11
+  ##############################
+  # 7. Console & X11 Settings
+  ##############################
+  # Configure X11 keymap.
   services.xserver = {
-    xkb.layout = "fr";
+    xkb.layout = "fr";  # Set keyboard layout to French.
     xkb.variant = "";
   };
 
-  # Configure console keymap
+  # Configure console keymap and font for a better CLI experience.
   console.keyMap = "fr";
-
-  # Console font
   console = {
     earlySetup = true;
-    packages = with pkgs; [ terminus_font ];
-    font = "ter-u32n";
+    packages = with pkgs; [ terminus_font ];  # Use Terminus font during early boot.
+    font = "ter-u32n";  # Set console font.
   };
 
+  ##############################
+  # 8. Font & Appearance Settings
+  ##############################
+  # Install and configure system fonts.
   fonts = {
     packages = with pkgs; [
-      noto-fonts
-      noto-fonts-emoji
-      meslo-lgs-nf
-      corefonts
-      nerd-fonts.jetbrains-mono
+      noto-fonts          # General purpose fonts.
+      noto-fonts-emoji    # Emoji support.
+      meslo-lgs-nf        # Monospaced font.
+      corefonts         # Basic core fonts.
+      nerd-fonts.jetbrains-mono  # JetBrains Mono with extra glyphs.
     ];
-
     fontconfig = {
-      # Fixes pixelation
+      # Enable antialiasing to improve font rendering.
       antialias = true;
-
-      # Fixes antialiasing blur
+      # Hinting settings for sharper text.
       hinting = {
         enable = true;
-        style = "full"; # no difference
-        autohint = true; # no difference
+        style = "full";
+        autohint = true;
       };
-
+      # Subpixel rendering settings.
       subpixel = {
-        # Makes it bolder
         rgba = "rgb";
-        lcdfilter = "default"; # no difference
+        lcdfilter = "default";
       };
     };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  ##############################
+  # 9. User & Group Management
+  ##############################
+  # Define non-root users and assign them to groups as needed.
   users.users.laptop = {
     isNormalUser = true;
     description = "laptop";
-    extraGroups = [ "networkmanager" "wheel" "video" "gamemode"];
+    extraGroups = [ "networkmanager" "wheel" "video" "gamemode" ];
   };
+
   users.users.desktop = {
     isNormalUser = true;
     description = "desktop";
-    extraGroups = [ "networkmanager" "wheel" "video" "docker" "gamemode"];
+    extraGroups = [ "networkmanager" "wheel" "video" "docker" "gamemode" ];
   };
 
   users.users.sinusbot = {
     isNormalUser = true;
     description = "sinusbot";
-    extraGroups = [ "networkmanager" "wheel"];
-    uid = 1234;
+    extraGroups = [ "networkmanager" "wheel" ];
+    uid = 1234;  # Specify a fixed UID for sinusbot.
   };
 
-  # Allow unfree packages
+  ##############################
+  # 10. Nix, Package & Channel Configuration
+  ##############################
+  # Allow installation of unfree packages.
   nixpkgs.config.allowUnfree = true;
 
-  # Unsecure packages
+  # Accept NVIDIA license for proprietary drivers.
+  nixpkgs.config.nvidia.acceptLicense = true;
+
+  # Permit specific insecure packages.
   nixpkgs.config.permittedInsecurePackages = [
-                "electron-25.9.0"
-                "freeimage-unstable-2021-11-01"
-              ];
+    "electron-25.9.0"
+    "freeimage-unstable-2021-11-01"
+  ];
 
-  # Enable Flakes
+  # Enable experimental Nix features like the nix-command and flakes.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Configure the flake input for nixpkgs.
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
-  nix.nixPath = [ "nixpkgs=/etc/channels/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
+
+  # Set up Nix paths.
+  nix.nixPath = [
+    "nixpkgs=/etc/channels/nixpkgs"
+    "nixos-config=/etc/nixos/configuration.nix"
+    "/nix/var/nix/profiles/per-user/root/channels"
+  ];
+
+  # Link the nixpkgs channel to the specified input.
   environment.etc."channels/nixpkgs".source = inputs.nixpkgs.outPath;
-  
 
-  # Environment variables
+  ##############################
+  # 11. Environment & Shell Configuration
+  ##############################
+  # Set global environment variables.
   environment.variables = {
-    QT_QPA_PLATFORM="wayland;xcb";
-  };
-  #XDG Portal
-  services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    QT_QPA_PLATFORM = "wayland;xcb";  # Allow Qt apps to use Wayland with fallback to X.
   };
 
-  # Neovim
-  # programs.neovim = { enable = true;
-  #   defaultEditor = true;
-  # };
- 
-  # Enabling Hyprland
-  programs.hyprland = {
-    enable = true;
-  };
-
-  programs.zsh.enable = true ;
+  # Enable and set Zsh as the default shell.
+  programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 
-  programs.kdeconnect.enable = true;
+  ##############################
+  # 12. D-Bus & XDG Portals
+  ##############################
+  # Enable D-Bus for inter-process communication.
+  services.dbus.enable = true;
 
-  # Enable sound with pipewire.
-  # sound.enable = false;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
+  # Enable XDG portals, adding the GTK portal for better GTK application compatibility.
+  xdg.portal = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-    wireplumber.enable = true;
-
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
-  # List services that you want to enable:
+  ##############################
+  # 13. Additional Service Configurations
+  ##############################
+  # Enable Flatpak support for sandboxed applications.
+  services.flatpak.enable = true;
 
+  # Enable Udisks2 for disk management and mounting.
+  services.udisks2.enable = true;
+
+  # Disable logrotate config checking (useful if you have custom logrotate setups).
+  services.logrotate.checkConfig = false;
+
+  # Enable the Emacs service and set the package to be used.
   services.emacs = {
     enable = true;
-    package = pkgs.emacs; # replace with emacs-gtk, or a version provided by the community overlay if desired.
+    package = pkgs.emacs;  # Optionally replace with a different Emacs build if desired.
   };
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  # Open ports in the firewall.
-  services.logrotate.checkConfig = false;
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  # networking.firewall.enable = false;
+  ##############################
+  # 14. Application & Program Settings
+  ##############################
+  # Enable Hyprland (a Wayland compositor).
+  programs.hyprland.enable = true;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  # Enable KDE Connect for device integration.
+  programs.kdeconnect.enable = true;
 
+  # Configure and enable Gamemode for gaming performance improvements.
+  programs.gamemode = {
+    enable = true;
+    enableRenice = true;
+    settings = {
+      general = {
+        renice = 11;
+        ioprio = 0;
+        disable_splitlock = 1;
+      };
+    };
+  };
+
+  # Enable Yazi text editor with a custom PDF opener configuration.
   programs.yazi = {
     enable = true;
     settings.yazi = {
@@ -288,37 +283,9 @@
             for = "unix";
           }
         ];
-        #open = [
-        #  {
-        #    run = ''xdg-open "$@"'';
-        #    block = true;
-        #    for = "unix";
-        #  }
-        #];
-        #edit = [
-        #  {
-        #    run = ''nvim "$@"'';
-        #    block = true;
-        #    for = "unix";
-        #  }
-        #];
-        #play = [
-        #  {
-        #    run = ''mpv "$@"'';
-        #    block = true;
-        #    for = "unix";
-        #  }
-        #];
-        #archive = [
-        #  {
-        #    run = ''atool -x -e "$@"'';
-        #    block = true;
-        #    for = "unix";
-        #  }
-        #];
-    };
+      };
       open = {
-       prepend_rules = [
+        prepend_rules = [
           {
             mime = "application/pdf";
             use = "pdf";
@@ -326,31 +293,37 @@
         ];
       };
     };
-    settings.keymap = builtins.fromTOML (builtins.readFile ./yazikeymap.toml);  };
-
-
-
-  programs.gamemode = {
-    enable = true;
-    enableRenice = true;
-    settings = {
-      general = {
-        renice = 11;
-        ioprio = 0;
-        disable_splitlock = 1;
-      };
-      # Warning: GPU optimisations have the potential to damage hardware
-     # gpu = {
-     #   apply_gpu_optimisations = "accept-responsibility";
-     #   gpu_device = 1;
-     #   amd_performance_level = "high";
-     # };
-    };
+    # Import additional keymap settings from an external TOML file.
+    settings.keymap = builtins.fromTOML (builtins.readFile ./yazikeymap.toml);
   };
 
+  # Enable CoreCtrl for system monitoring and hardware control.
+  programs.corectrl.enable = true;
+
+  ##############################
+  # 15. Multimedia & Audio Settings
+  ##############################
+  # Disable PulseAudio since Pipewire is used.
+  hardware.pulseaudio.enable = false;
+
+  # Configure Pipewire for audio and multimedia.
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # Uncomment the following line to enable JACK support if needed.
+    # jack.enable = true;
+    wireplumber.enable = true;
+  };
+
+  ##############################
+  # 16. Desktop Appearance & Stylix Integration
+  ##############################
+  # Configure Stylix for theming and desktop customization.
   stylix.enable = true;
-  stylix.image = ./hm/wallpaper/wall3.png;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml" ;
+  stylix.image = ./hm/wallpaper/wall3.png;  # Set the desktop wallpaper.
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
   stylix.homeManagerIntegration.followSystem = true;
   stylix.targets.qt.platform = "qtct";
   stylix.cursor.package = pkgs.catppuccin-cursors.latteSapphire;
@@ -360,25 +333,25 @@
       package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrainsMono NF";
     };
+    # Use the same monospace font for other font roles.
     serif = config.stylix.fonts.monospace;
     sansSerif = config.stylix.fonts.monospace;
     emoji = config.stylix.fonts.monospace;
   };
 
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
-  virtualisation.waydroid.enable = true;
-
+  ##############################
+  # 17. System Maintenance
+  ##############################
+  # Configure Nix garbage collection settings.
   nix.gc = {
     automatic = true;
-    dates = "02:00";
-    options = "--delete-older-than 10d";
+    dates = "02:00";  # Schedule GC daily at 2 AM.
+    options = "--delete-older-than 10d";  # Remove GC roots older than 10 days.
   };
 
-  programs.corectrl.enable = true;
-
+  ##############################
+  # 18. Final System State Version
+  ##############################
+  # Set the state version for NixOS. This should remain unchanged unless you understand the implications.
+  system.stateVersion = "23.05";  # Did you read the comment?
 }
-
