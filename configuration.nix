@@ -326,7 +326,7 @@
         ];
       };
     };
-  };
+    settings.keymap = builtins.fromTOML (builtins.readFile ./yazikeymap.toml);  };
 
 
 

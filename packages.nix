@@ -55,6 +55,7 @@ in
     cliphist
     wl-clipboard
     xclip
+    clipse
 
     # Spell Checking
     ispell
