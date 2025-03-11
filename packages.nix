@@ -29,6 +29,11 @@ in
   environment.systemPackages = with pkgs; [
 
     #####################################
+    # 2.0: To categorize
+    #####################################
+    nodejs
+
+    #####################################
     # 2.1: General Productivity & Multimedia Tools
     #####################################
     hyprpanel             # Hyprland panel integration

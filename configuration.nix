@@ -345,7 +345,7 @@
   # Configure Nix garbage collection settings.
   nix.gc = {
     automatic = true;
-    dates = "02:00";  # Schedule GC daily at 2 AM.
+    dates = "13:30";  # Schedule GC daily at 01:30 PM.
     options = "--delete-older-than 10d";  # Remove GC roots older than 10 days.
   };
 
