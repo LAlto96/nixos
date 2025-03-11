@@ -217,7 +217,7 @@ in
     #####################################
     # grimblast: screenshot utility for Hyprland (sourced from hyprland-contrib).
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-    # swappy              # Alternative screenshot tool (currently commented out)
+    swappy              # Alternative screenshot tool
     swaybg                # Wallpaper setter for Wayland compositors
 
     #####################################
