@@ -68,7 +68,7 @@
           ./amdgpu.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.laptop = import ./home-laptop.nix;
           }
@@ -121,7 +121,7 @@
           ./amdgpu.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.desktop = import ./home-desktop.nix;
             home-manager.backupFileExtension = "backup";

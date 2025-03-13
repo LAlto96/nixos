@@ -5,6 +5,7 @@
   # paths it should manage.
   home.username = "desktop";
   home.homeDirectory = "/home/desktop";
+  nixpkgs.config.allowUnfree = true;
 
 
   # Packages that should be installed to the user profile.
@@ -51,8 +52,8 @@
   home.file."/.config/nvim/lua/coc.lua".source = ./hm/nvim-config/coc.lua;
   home.file."/.config/btop/themes/catppuccin_latte.theme".source = ./hm/btop/themes/catppuccin_latte.theme;
   home.file."/.config/btop/themes/catppuccin_mocha.theme".source = ./hm/btop/themes/catppuccin_mocha.theme;
-  home.file.".config/YouTube Music/config.json".source = ./hm/youtube-config/config-desktop.json;
-  home.file.".config/YouTube Music/latte.css".source = ./hm/youtube-config/latte.css;
+  home.file."/.config/YouTube Music/config.json".source = ./hm/youtube-config/config-desktop.json;
+  home.file."/.config/YouTube Music/latte.css".source = ./hm/youtube-config/latte.css;
   programs.git = {
     enable = true;
     userName = "Alto";
@@ -82,4 +83,6 @@
     obs-studio-plugins.obs-shaderfilter
     ];
 
+
+  stylix.targets.vscode.enable = false;
 }

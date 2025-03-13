@@ -304,7 +304,7 @@
   # 15. Multimedia & Audio Settings
   ##############################
   # Disable PulseAudio since Pipewire is used.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Configure Pipewire for audio and multimedia.
   services.pipewire = {
