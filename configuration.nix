@@ -328,6 +328,7 @@
   stylix.targets.qt.platform = "qtct";
   stylix.cursor.package = pkgs.catppuccin-cursors.latteSapphire;
   stylix.cursor.name = "catppuccin-latte-sapphire-cursors";
+  stylix.cursor.size = 32;
   stylix.fonts = {
     monospace = {
       package = pkgs.nerd-fonts.jetbrains-mono;
