@@ -40,9 +40,13 @@
         url = "github:jas-singhfsu/hyprpanel";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      zen-browser = {
+        url = "github:youwen5/zen-browser-flake"; # https://github.com/youwen5/zen-browser-flake/
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
-  outputs = {self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, hyprpanel,  ... }@inputs: {
+  outputs = {self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, hyprpanel, zen-browser,  ... }@inputs: {
     nixosConfigurations =  {
       laptop = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
