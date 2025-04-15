@@ -14,6 +14,10 @@
   ######################################
   # 2. Hardware & Virtualization Settings
   ######################################
+
+  #zSwap
+  zramSwap.enable = true;
+
   # VirtualBox host support and group membership for desktop user.
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "desktop" ];
@@ -54,7 +58,7 @@
   # Configure the kernel and add custom kernel modules.
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelModules = [ "v4l2loopback" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback  ];
   boot.extraModprobeConfig = ''
     # Configure v4l2loopback: virtual camera settings for apps like Skype, Zoom, and Teams.
     options v4l2loopback video_nr=0,1 exclusive_caps=1,1 card_label="Virtual Camera 0","OBS Camera"
@@ -82,6 +86,7 @@
 
   # Enable wireless support (wpa_supplicant will be used).
   networking.wireless.enable = true;
+  networking.wireless.userControlled.enable = true;
 
   # Enable NetworkManager for easier network management.
   networking.networkmanager.enable = true;

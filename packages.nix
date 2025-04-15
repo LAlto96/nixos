@@ -161,6 +161,7 @@ in
     # 2.16: Communication Tools
     #####################################
     vesktop               # Communication application (verify details online)
+    discord-canary
 
     #####################################
     # 2.17: Text Processing & Document Conversion

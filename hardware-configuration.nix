@@ -10,7 +10,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -24,11 +24,6 @@
     { device = "/dev/disk/by-uuid/EF0B-31A6";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
-    };
-
-  fileSystems."/mnt/swap" =
-    { device = "/dev/disk/by-uuid/0051cb2b-f83a-41af-9ad2-0df756ae4a04";
-      fsType = "ext4";
     };
 
   fileSystems."/mnt/4to" =
@@ -51,11 +46,10 @@
   # networking.interfaces.br-74e4756b4c1c.useDHCP = lib.mkDefault true;
   # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp37s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp45s0f3u3.useDHCP = lib.mkDefault true;
-  # networking.interfaces.ipv6leakintrf0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.proton0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp43s0f3u4.useDHCP = lib.mkDefault true;
   # networking.interfaces.vboxnet0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.veth4220a75.useDHCP = lib.mkDefault true;
+  # networking.interfaces.vethb11bd43.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp43s0f3u3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
