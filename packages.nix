@@ -48,7 +48,7 @@ in
     cbonsai               # Bonsai tree generator for the terminal
     cmatrix               # Matrix-style screensaver for the terminal
     cava                  # Audio visualizer for the terminal
-    davinci-resolve       # Professional video editing and color correction suite
+    # davinci-resolve       # Professional video editing and color correction suite
     qpwgraph              # Graphing tool (verify details online if needed)
     speedtest-go          # Command-line internet speed test
     android-tools         # Tools for interacting with Android devices
@@ -141,6 +141,9 @@ in
     upscayl               # AI-powered image upscaling tool
     btop                  # Resource monitor for system metrics
     lm_sensors            # Hardware monitoring tool
+    mission-center
+    s-tui
+    stress
 
     #####################################
     # 2.14: Networking Tools
@@ -153,8 +156,9 @@ in
     # 2.15: Browsers & Internet Utilities
     #####################################
     # Firefox with custom native messaging hosts for pipewire audio capture.
-    (firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
+    #(firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
     inputs.zen-browser.packages.${pkgs.system}.default # zen-browser
+    firefox
     w3m                   # Text-based web browser
 
     #####################################

@@ -10,29 +10,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [        
-    # mesa
-    # amdvlk
-    # sunshine
-    # handbrake
-    # libsForQt5.kdenlive # Video Editor
-    # r2modman # Mod manager for Lethal Company (and others???)
-    # godot_4
-    # trenchbroom
-    # godot3-mono
-    # blender
-    # openshot-qt
-    # shotcut
-    # kicad
-
-
-    #GStreamer Packages
-    # gst_all_1.gstreamer
-    # gst_all_1.gst-vaapi
-    # gst_all_1.gst-libav
-    # gst_all_1.gst-plugins-base
-    # gst_all_1.gst-plugins-good
-    # gst_all_1.gst-plugins-bad
-    # gst_all_1.gst-plugins-ugly
   ];
 
   # This value determines the Home Manager release that your

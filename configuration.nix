@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-stable, inputs, ... }:
+{ config, pkgs, nixpkgs-stable, inputs, lib, ... }:
 
 {
   ###############################
@@ -8,7 +8,7 @@
   imports =
     [
       ./packages.nix    # Custom package definitions
-      ./python.nix      # Python-specific configurations
+      #  ./python.nix      # Python-specific configurations
     ];
 
   ######################################
@@ -58,7 +58,7 @@
   # Configure the kernel and add custom kernel modules.
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelModules = [ "v4l2loopback" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback  ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.extraModprobeConfig = ''
     # Configure v4l2loopback: virtual camera settings for apps like Skype, Zoom, and Teams.
     options v4l2loopback video_nr=0,1 exclusive_caps=1,1 card_label="Virtual Camera 0","OBS Camera"
@@ -251,7 +251,7 @@
   # Enable the Emacs service and set the package to be used.
   services.emacs = {
     enable = true;
-    package = pkgs.emacs;  # Optionally replace with a different Emacs build if desired.
+    defaultEditor = true;
   };
 
   ##############################
@@ -330,7 +330,7 @@
   stylix.image = ./hm/wallpaper/wall3.png;  # Set the desktop wallpaper.
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
   stylix.homeManagerIntegration.followSystem = true;
-  stylix.targets.qt.platform = "qtct";
+  stylix.targets.qt.platform = lib.mkForce "qtct";
   stylix.cursor.package = pkgs.catppuccin-cursors.latteSapphire;
   stylix.cursor.name = "catppuccin-latte-sapphire-cursors";
   stylix.cursor.size = 32;

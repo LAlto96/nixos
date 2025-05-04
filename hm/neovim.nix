@@ -12,7 +12,7 @@
       vimtex
       coq-thirdparty
       coc-vimtex
-      copilot-vim
+      #copilot-vim
       vim-nix
       coc-sh
       coc-docker
