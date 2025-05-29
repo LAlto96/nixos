@@ -248,6 +248,7 @@ in
     lutris                # Gaming platform for Linux games
     protonup-qt           # GUI tool to update Proton versions
     protontricks          # Utility for managing Proton tweaks
+    gwe
 
     #####################################
     # 2.28: Xorg Specific Tools

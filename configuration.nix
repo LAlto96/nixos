@@ -14,9 +14,11 @@
   ######################################
   # 2. Hardware & Virtualization Settings
   ######################################
-
   #zSwap
   zramSwap.enable = true;
+
+
+  # virtualisation.docker.enable = true;
 
   # VirtualBox host support and group membership for desktop user.
   virtualisation.virtualbox.host.enable = true;
@@ -35,6 +37,7 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  hardware.nvidia-container-toolkit.enable = true;
   ##############################
   # 3. Boot & Kernel Settings
   ##############################
@@ -91,6 +94,8 @@
   # Enable NetworkManager for easier network management.
   networking.networkmanager.enable = true;
 
+
+  networking.enableIPv6  = false;
   ##############################
   # 6. Time & Internationalization
   ##############################
@@ -218,6 +223,7 @@
   environment.variables = {
     QT_QPA_PLATFORM = "wayland;xcb";  # Allow Qt apps to use Wayland with fallback to X.
   };
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Enable and set Zsh as the default shell.
   programs.zsh.enable = true;
@@ -254,11 +260,22 @@
     defaultEditor = true;
   };
 
+  # LLM - Ollama - OpenWebUI
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "cuda";
+  # };
+  # services.open-webui = {
+  #   enable = true;
+  #   port = 8777;
+  # };
+
   ##############################
   # 14. Application & Program Settings
   ##############################
-  # Enable Hyprland (a Wayland compositor).
+  # Enable Hyprland (a Wayland compositor) & Hyprlock.
   programs.hyprland.enable = true;
+  programs.hyprlock.enable = true;
 
   # Enable KDE Connect for device integration.
   programs.kdeconnect.enable = true;
@@ -349,11 +366,11 @@
   # 17. System Maintenance
   ##############################
   # Configure Nix garbage collection settings.
-  nix.gc = {
-    automatic = true;
-    dates = "13:30";  # Schedule GC daily at 01:30 PM.
-    options = "--delete-older-than 10d";  # Remove GC roots older than 10 days.
-  };
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "13:30";  # Schedule GC daily at 01:30 PM.
+  #   options = "--delete-older-than 10d";  # Remove GC roots older than 10 days.
+  # };
 
   ##############################
   # 18. Final System State Version
