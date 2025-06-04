@@ -27,9 +27,9 @@
   programs.home-manager.enable = true;
 
   # Add neovim configuration
-  home.file."/.config/nvim/lua/coc.lua".source = ./hm/nvim-config/coc.lua;
-  home.file."/.config/btop/themes/catppuccin_latte.theme".source = ./hm/btop/themes/catppuccin_latte.theme;
-  home.file."/.config/btop/themes/catppuccin_mocha.theme".source = ./hm/btop/themes/catppuccin_mocha.theme;
+  home.file.".config/nvim/lua/coc.lua".source = ./hm/nvim-config/coc.lua;
+  home.file.".config/btop/themes/catppuccin_latte.theme".source = ./hm/btop/themes/catppuccin_latte.theme;
+  home.file.".config/btop/themes/catppuccin_mocha.theme".source = ./hm/btop/themes/catppuccin_mocha.theme;
   home.file.".config/YouTube Music/config.json".source = ./hm/youtube-config/config.json;
   home.file.".config/YouTube Music/latte.css".source = ./hm/youtube-config/latte.css;
   programs.git = {
