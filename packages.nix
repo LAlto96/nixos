@@ -158,14 +158,12 @@ in
     # Firefox with custom native messaging hosts for pipewire audio capture.
     #(firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
     inputs.zen-browser.packages.${pkgs.system}.default # zen-browser
-    firefox
     w3m                   # Text-based web browser
 
     #####################################
     # 2.16: Communication Tools
     #####################################
     vesktop               # Communication application (verify details online)
-    discord-canary
 
     #####################################
     # 2.17: Text Processing & Document Conversion

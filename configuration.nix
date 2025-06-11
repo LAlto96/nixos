@@ -46,9 +46,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Secure boot: include a secret for the initrd (adjust as needed).
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  # boot.initrd.secrets = {
+  #   "/crypto_keyfile.bin" = null;
+  # };
 
   # Enable support for NTFS filesystems.
   boot.supportedFilesystems = [ "ntfs" ];
