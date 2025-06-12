@@ -66,6 +66,7 @@
           };
         };
         modules = [
+          {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
           stylix.nixosModules.stylix
           ./hardware-configuration-laptop.nix
           ./configuration.nix
