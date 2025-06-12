@@ -16,9 +16,7 @@
     # See https://wiki.hyprland.org/Configuring/Monitors/
     monitor=eDP-1,1920x1080@60,auto,auto
     # exec-once = swaybg -i /etc/nixos/hm/wallpaper/wall1.png -m fill &
-    #exec-once = ~/Documents/.git/eww/target/release/eww daemon
-    exec-once = eww open bar
-    #exec-once = ~/Documents/.git/eww/target/release/eww open bar2
+
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
     exec-once = wl-paste --type image --watch cliphist store #Stores only image data
     bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
@@ -334,10 +332,4 @@
     # ";
   };
 
-  #eww config
-  programs.eww = {
-    enable = true;
-    package = pkgs.eww;
-    configDir = ./eww;
-  };
 }
