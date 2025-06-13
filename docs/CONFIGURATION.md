@@ -70,11 +70,8 @@ Custom package definitions and system-wide packages are declared here. Highlight
 
 - `droidcam.nix` and `v4l2loopback-dc.nix` – provide DroidCam and its kernel module.
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
-- `ollama` overlay and `ollama.nix` – build the Ollama AI application with optional ROCm or CUDA support.
+- `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
 
-## Update Script
-
-`update.sh` is a helper used to copy this repository to `/etc/nixos` and rebuild the system for either `laptop` or `desktop` targets.
 
 ---
 
