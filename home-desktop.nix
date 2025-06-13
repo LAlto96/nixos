@@ -31,6 +31,9 @@
   home.file.".config/btop/themes/catppuccin_mocha.theme".source = ./hm/btop/themes/catppuccin_mocha.theme;
   home.file.".config/YouTube Music/config.json".source = ./hm/youtube-config/config-desktop.json;
   home.file.".config/YouTube Music/latte.css".source = ./hm/youtube-config/latte.css;
+  home.file.".config/hyprpanel/config.json".source = ./hm/hyprpanel/config.json;
+  home.file.".config/hyprpanel/modules.json".source = ./hm/hyprpanel/modules.json;
+  home.file.".config/hyprpanel/modules.scss".source = ./hm/hyprpanel/modules.scss;
   programs.git = {
     enable = true;
     userName = "Alto";
