@@ -32,11 +32,13 @@ in
     # 2.0: To categorize
     #####################################
     nodejs
+    jq
 
     #####################################
     # 2.1: General Productivity & Multimedia Tools
     #####################################
     hyprpanel             # Hyprland panel integration
+    hyprsunset            # Application to enable a blue-light filter on Hyprland
     winetricks            # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors  # Office suite for document editing
     audacity              # Audio editor for recording and editing
