@@ -286,6 +286,8 @@
     enableRenice = true;
     settings = {
       general = {
+        desiredgov = "performance";
+        desiredprof = "performance";
         renice = 11;
         ioprio = 0;
         disable_splitlock = 1;
