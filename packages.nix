@@ -6,14 +6,14 @@ let
     # kicad
   ];
 
-  # 2.0: To categorize
-  pkgs2_0 = with pkgs; [
+  uncategorizedPkgs = with pkgs; [
     nodejs
+    jq
   ];
 
-  # 2.1: General Productivity & Multimedia Tools
-  pkgs2_1 = with pkgs; [
+  generalPkgs = with pkgs; [
     hyprpanel             # Hyprland panel integration
+    hyprsunset            # Application to enable a blue-light filter on Hyprland
     winetricks            # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors  # Office suite for document editing
     audacity              # Audio editor for recording and editing
@@ -32,8 +32,7 @@ let
     scrcpy                # Screen mirroring tool for Android
   ];
 
-  # 2.2: Themes & Appearance Customizations
-  pkgs2_2 = with pkgs; [
+  appearancePkgs = with pkgs; [
     # Catppuccin GTK theme with custom settings.
     (catppuccin-gtk.override {
       accents = [ "sapphire" ];
@@ -43,8 +42,7 @@ let
     })
   ];
 
-  # 2.3: Clipboard Management & Spell Checking
-  pkgs2_3 = with pkgs; [
+  clipboardPkgs = with pkgs; [
     cliphist              # Clipboard history manager
     wl-clipboard          # Wayland clipboard utility
     xclip                 # X11 clipboard tool for copying/pasting
@@ -52,26 +50,22 @@ let
     ispell                # Spell-checking tool
   ];
 
-  # 2.4: API Testing and Development Utilities
-  pkgs2_4 = with pkgs; [
+  apiDevPkgs = with pkgs; [
     postman               # API development and testing tool
   ];
 
-  # 2.5: Digital Audio Workstations (DAWs) and Audio Tools
-  pkgs2_5 = with pkgs; [
+  dawPkgs = with pkgs; [
     reaper                # Digital Audio Workstation (DAW)
     yabridge              # Bridges Windows audio plugins (for DAWs)
     yabridgectl           # Utility to control yabridge
   ];
 
-  # 2.6: Text Editors & IDEs
-  pkgs2_6 = with pkgs; [
+  editorPkgs = with pkgs; [
     emacs                 # Powerful text editor
     emacsPackages.vterm   # Terminal emulator within Emacs
   ];
 
-  # 2.7: Terminal & System Utilities
-  pkgs2_7 = with pkgs; [
+  terminalPkgs = with pkgs; [
     coreutils             # Basic file, shell, and text utilities
     ripgrep               # Fast text search tool
     fd                    # Simple, fast file finder
@@ -81,38 +75,32 @@ let
     kitty                 # Modern, GPU-accelerated terminal emulator
   ];
 
-  # 2.8: Calculator
-  pkgs2_8 = with pkgs; [
+  calculatorPkgs = with pkgs; [
     qalculate-gtk         # Feature-rich GTK calculator
   ];
 
-  # 2.9: Camera & File Management Tools
-  pkgs2_9 = with pkgs; [
+  cameraPkgs = with pkgs; [
     droidcam              # Stream your Android camera to your PC
     atool                 # Archive management tool (alternative to file managers like ranger)
   ];
 
-  # 2.10: Video Processing & Utilities
-  pkgs2_10 = with pkgs; [
+  videoPkgs = with pkgs; [
     v4l-utils             # Tools for Video4Linux devices
     ffmpeg_6              # Multimedia framework for video/audio processing
     ffmpegthumbnailer     # Generates thumbnails from video files
   ];
 
-  # 2.11: Virtualization
-  pkgs2_11 = with pkgs; [
+  virtualizationPkgs = with pkgs; [
     qemu                  # Machine emulator and virtualizer
   ];
 
-  # 2.12: PDF & Document Handling
-  pkgs2_12 = with pkgs; [
+  pdfPkgs = with pkgs; [
     zathura               # Lightweight and customizable PDF viewer
     texliveFull           # Full TeX distribution for document compilation
     poppler_utils         # Utilities for PDF manipulation
   ];
 
-  # 2.13: System Monitoring & Information Tools
-  pkgs2_13 = with pkgs; [
+  monitoringPkgs = with pkgs; [
     helvum                # Graphical audio routing tool
     upscayl               # AI-powered image upscaling tool
     btop                  # Resource monitor for system metrics
@@ -122,33 +110,28 @@ let
     stress
   ];
 
-  # 2.14: Networking Tools
-  pkgs2_14 = with pkgs; [
+  networkPkgs = with pkgs; [
     git                   # Distributed version control system
     wirelesstools         # Tools for managing wireless interfaces
     docker-compose        # Define and run multi-container Docker applications
   ];
 
-  # 2.15: Browsers & Internet Utilities
-  pkgs2_15 = with pkgs; [
+  browserPkgs = with pkgs; [
     # Firefox with custom native messaging hosts for pipewire audio capture.
     #(firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
     inputs.zen-browser.packages.${pkgs.system}.default # zen-browser
     w3m                   # Text-based web browser
   ];
 
-  # 2.16: Communication Tools
-  pkgs2_16 = with pkgs; [
+  communicationPkgs = with pkgs; [
     vesktop               # Communication application (verify details online)
   ];
 
-  # 2.17: Text Processing & Document Conversion
-  pkgs2_17 = with pkgs; [
+  docConversionPkgs = with pkgs; [
     pandoc                # Universal document converter
   ];
 
-  # 2.18: Download Managers & VPN Tools
-  pkgs2_18 = with pkgs; [
+  downloadPkgs = with pkgs; [
     nzbget                # NZB download tool
     motrix                # Multi-protocol download manager
     wget                  # Command-line network downloader
@@ -156,19 +139,16 @@ let
     protonvpn-cli         # Command-line ProtonVPN client
   ];
 
-  # 2.19: Finance Management
-  pkgs2_19 = with pkgs; [
+  financePkgs = with pkgs; [
     ledger                # Command-line accounting tool
     # ledger-web          # Ledger web interface (currently commented out)
   ];
 
-  # 2.20: Python Environment Management
-  pkgs2_20 = with pkgs; [
+  pythonPkgs = with pkgs; [
     conda                 # Python package, dependency, and environment manager
   ];
 
-  # 2.21: Media Players & Streaming Tools
-  pkgs2_21 = with pkgs; [
+  mediaPkgs = with pkgs; [
     moc                   # Console audio player
     mpv                   # Versatile media player
     yt-dlp                # Command-line YouTube downloader
@@ -177,8 +157,7 @@ let
     easyeffects           # Audio effects processor
   ];
 
-  # 2.22: Compression & Archiving Tools
-  pkgs2_22 = with pkgs; [
+  archivePkgs = with pkgs; [
     zip                   # ZIP archiver
     unzip                 # Tool to extract ZIP archives
     _7zz                  # 7-Zip archiving tool
@@ -186,34 +165,29 @@ let
     unrar                 # Extractor for RAR archives
   ];
 
-  # 2.23: Additional Utilities
-  pkgs2_23 = with pkgs; [
+  additionalPkgs = with pkgs; [
     xdg-utils             # Utilities for XDG-compliant desktop environments
     gnome-disk-utility    # Graphical disk utility for managing storage
     gdu                   # Disk usage analyzer
   ];
 
-  # 2.24: Wine for Windows Applications
-  pkgs2_24 = with pkgs; [
+  winePkgs = with pkgs; [
     wineWowPackages.waylandFull  # Wine package optimized for Wayland
   ];
 
-  # 2.25: Screenshots & Wallpaper Management
-  pkgs2_25 = with pkgs; [
+  screenshotPkgs = with pkgs; [
     # grimblast: screenshot utility for Hyprland (sourced from hyprland-contrib).
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     swappy              # Alternative screenshot tool
     swaybg                # Wallpaper setter for Wayland compositors
   ];
 
-  # 2.26: Brightness Control Utilities
-  pkgs2_26 = with pkgs; [
+  brightnessPkgs = with pkgs; [
     wluma                 # Utility to adjust brightness in Wayland
     brightnessctl         # Command-line brightness controller
   ];
 
-  # 2.27: Gaming Tools & Enhancements
-  pkgs2_27 = with pkgs; [
+  gamingPkgs = with pkgs; [
     radeontop             # Monitor Radeon GPU usage in real time
     gamescope             # Compositor for game streaming and recording
     prismlauncher         # Game launcher for Linux
@@ -225,8 +199,7 @@ let
     gwe
   ];
 
-  # 2.28: Xorg Specific Tools
-  pkgs2_28 = with pkgs; [
+  xorgPkgs = with pkgs; [
     xdotool               # Automate X window interactions
     xorg.xprop            # Utility to display window properties in X
     unixtools.xxd         # Hex dump utility
@@ -256,34 +229,34 @@ in
   # 2. System-Wide Packages
   ##############################################################
   environment.systemPackages =
-    pkgs2_0 ++
-    pkgs2_1 ++
-    pkgs2_2 ++
-    pkgs2_3 ++
-    pkgs2_4 ++
-    pkgs2_5 ++
-    pkgs2_6 ++
-    pkgs2_7 ++
-    pkgs2_8 ++
-    pkgs2_9 ++
-    pkgs2_10 ++
-    pkgs2_11 ++
-    pkgs2_12 ++
-    pkgs2_13 ++
-    pkgs2_14 ++
-    pkgs2_15 ++
-    pkgs2_16 ++
-    pkgs2_17 ++
-    pkgs2_18 ++
-    pkgs2_19 ++
-    pkgs2_20 ++
-    pkgs2_21 ++
-    pkgs2_22 ++
-    pkgs2_23 ++
-    pkgs2_24 ++
-    pkgs2_25 ++
-    pkgs2_26 ++
-    pkgs2_27 ++
-    pkgs2_28 ++
+    uncategorizedPkgs ++
+    generalPkgs ++
+    appearancePkgs ++
+    clipboardPkgs ++
+    apiDevPkgs ++
+    dawPkgs ++
+    editorPkgs ++
+    terminalPkgs ++
+    calculatorPkgs ++
+    cameraPkgs ++
+    videoPkgs ++
+    virtualizationPkgs ++
+    pdfPkgs ++
+    monitoringPkgs ++
+    networkPkgs ++
+    browserPkgs ++
+    communicationPkgs ++
+    docConversionPkgs ++
+    downloadPkgs ++
+    financePkgs ++
+    pythonPkgs ++
+    mediaPkgs ++
+    archivePkgs ++
+    additionalPkgs ++
+    winePkgs ++
+    screenshotPkgs ++
+    brightnessPkgs ++
+    gamingPkgs ++
+    xorgPkgs ++
     stablepkgs;  # Append any additional stable packages (e.g., kicad)
 }
