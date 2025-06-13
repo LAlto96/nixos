@@ -21,8 +21,8 @@ This file is the heart of the system configuration. Key areas include:
 3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback`), and plymouth splash.
 4. **Security** – enabling policykit and realtime kit.
 5. **Networking** – hostname, firewall defaults, wireless support, and NetworkManager.
-6. **Locale & Time** – timezone `Europe/Paris` with French locales.
-7. **Console and X11** – sets French keyboard layout and console fonts.
+6. **Locale & Time** – timezone `Europe/Paris` with English locales.
+7. **Console and X11** – keeps the French keyboard layout while the system language is English.
 8. **Fonts** – installs a selection of fonts including JetBrains Mono and Noto packages.
 9. **Users** – defines `laptop`, `desktop`, and `sinusbot` users with group memberships.
 10. **Nix Settings** – allows unfree packages, sets flake registry, and configures nix path.
