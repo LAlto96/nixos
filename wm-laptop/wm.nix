@@ -3,7 +3,9 @@
 {
   # Hyprland Config
   wayland.windowManager.hyprland.enable = true;
-  wayland.windowManager.hyprland.extraConfig = builtins.readFile ./hyprland.conf;
+  wayland.windowManager.hyprland.extraConfig =
+    builtins.readFile ../hyprland.base.conf + "\n" +
+    builtins.readFile ./hyprland.conf;
 
   # Rofi Config
   programs.rofi = {
