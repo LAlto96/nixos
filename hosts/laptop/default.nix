@@ -20,4 +20,13 @@
 
   home-manager.users.laptop = import ../../home-laptop.nix;
   nix.settings.trusted-users = [ "laptop" ];
+
+  services.displayManager = {
+    sddm.enable = true;
+    autoLogin.enable = true;
+    autoLogin.user = "laptop";
+    sddm.wayland.enable = true;
+  };
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.defaultSession = "hyprland";
 }
