@@ -33,9 +33,9 @@
   hardware.logitech.wireless.enableGraphical = true;
 
   # Enable Bluetooth and its graphical manager.
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
+  hardware.bluetooth.enable = false;
+  hardware.bluetooth.powerOnBoot = false;
+  services.blueman.enable = false;
 
   hardware.nvidia-container-toolkit.enable = true;
   ##############################
