@@ -6,7 +6,7 @@ This repository contains the NixOS configuration for both a desktop and a laptop
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/<your-username>/nixos-config.git
+   git clone https://github.com/LAlto96/nixos.git
    cd nixos-config
    ```
 
