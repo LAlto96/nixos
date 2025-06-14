@@ -17,7 +17,7 @@ Each configuration pulls in common modules like `configuration.nix`, GPU configu
 This file is the heart of the system configuration. Key areas include:
 
 1. **Imports** – brings in other modules such as custom packages from `packages.nix`.
-2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, Bluetooth, and more. ZRAM swap is also activated.
+2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, and other hardware options. ZRAM swap is also activated. Bluetooth is enabled only for the laptop host.
 3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback`), and plymouth splash.
 4. **Security** – enabling policykit and realtime kit.
 5. **Networking** – hostname, firewall defaults, wireless support, and NetworkManager.
@@ -91,7 +91,7 @@ machine‑specific options. Below is a summary of the two provided hosts:
 - **laptop**
   - Imports `hardware-configuration-laptop.nix` with both AMD and NVIDIA GPU
     modules.
-  - Enables Bluetooth (with the Blueman applet) and provides a 16 GiB swap
+  - Enables Bluetooth (with the Blueman applet) so the service starts automatically, and provides a 16 GiB swap
     file at `/var/lib/swapfile`.
   - Allows a small set of firewall ports: 80, 91, 443, 444, 8501 and 9100.
 
