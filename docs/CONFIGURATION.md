@@ -66,6 +66,13 @@ Custom package definitions and system-wide packages are declared here. Highlight
 - Large list of utilities ranging from audio tools, terminal utilities, to gaming enhancements.
 - Overrides for themes like Catppuccin GTK.
 
+To add your own packages, edit `packages.nix` directly. Packages pulled from the
+main channel are organized into several `pkgs2_*` lists near the top of the
+file. Append your desired package to the appropriate group (or create a new
+group) and it will be included when all lists are concatenated into
+`environment.systemPackages`. Packages that should come from the alternate
+`pkgs-stable` channel go into the `stablepkgs` list defined above those groups.
+
 ## Hosts Directory
 
 Host-specific modules live under the `hosts` folder. Each subdirectory
