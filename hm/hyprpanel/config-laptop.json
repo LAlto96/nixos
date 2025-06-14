@@ -380,6 +380,7 @@
       ],
       "right": [
         "systray",
+        "battery",
         "volume",
         "clock",
         "network",
@@ -398,7 +399,7 @@
     }
   },
   "tear": false,
-  "scalingPriority": "gdk",
+  "scalingPriority": "hyprland",
   "theme.bar.scaling": 100,
   "theme.bar.enableShadow": false,
   "bar.launcher.autoDetectIcon": true,
