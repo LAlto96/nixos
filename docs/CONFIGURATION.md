@@ -66,6 +66,28 @@ Custom package definitions and system-wide packages are declared here. Highlight
 - Large list of utilities ranging from audio tools, terminal utilities, to gaming enhancements.
 - Overrides for themes like Catppuccin GTK.
 
+## Hosts Directory
+
+Host-specific modules live under the `hosts` folder. Each subdirectory
+contains a `default.nix` file that builds on the common modules and adds
+machine‑specific options. Below is a summary of the two provided hosts:
+
+- **desktop**
+  - Imports `hardware-configuration-desktop.nix` and the NVIDIA GPU module.
+  - Enables SDDM with auto‑login for the `desktop` user and sets Hyprland as
+    the default session.
+  - Reads `ports.nix` to open a large set of firewall ports:
+    22, 80, 91, 443, 444, 5037, 5555, 6379, 7777, 7878, 8080, 8096, 8211,
+    8501, 8777, 8989, 9100, 27015, 47984, 47989, 47990, 47998, 47999, 48000,
+    48002 and 48010.
+
+- **laptop**
+  - Imports `hardware-configuration-laptop.nix` with both AMD and NVIDIA GPU
+    modules.
+  - Enables Bluetooth (with the Blueman applet) and provides a 16 GiB swap
+    file at `/var/lib/swapfile`.
+  - Allows a small set of firewall ports: 80, 91, 443, 444, 8501 and 9100.
+
 ## Additional Modules
 
 - `droidcam.nix` and `v4l2loopback-dc.nix` – provide DroidCam and its kernel module.
