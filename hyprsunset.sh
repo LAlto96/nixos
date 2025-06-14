@@ -21,4 +21,4 @@ delay=$((sunset_unix - current_time))
 sleep $delay
 
 # Appliquer le filtre Hyprsunset
-hyprctl hyprsunset temperature 5000
+hyprctl hyprsunset temperature 4000

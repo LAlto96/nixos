@@ -27,7 +27,7 @@ let
     cbonsai               # Bonsai tree generator for the terminal
     cmatrix               # Matrix-style screensaver for the terminal
     cava                  # Audio visualizer for the terminal
-    # davinci-resolve       # Professional video editing and color correction suite
+    davinci-resolve       # Professional video editing and color correction suite
     qpwgraph              # Graphing tool (verify details online if needed)
     speedtest-go          # Command-line internet speed test
     android-tools         # Tools for interacting with Android devices
