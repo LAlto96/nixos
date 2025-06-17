@@ -101,6 +101,35 @@ machine‑specific options. Below is a summary of the two provided hosts:
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
 - `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
 
+## Hyprland and Hyprpanel
+
+Window manager configuration is split between a base file and host‑specific
+overrides:
+
+- `hyprland.base.conf` – common options shared by all machines.
+- `wm-desktop/hyprland.conf` and `wm-laptop/hyprland.conf` – settings that apply
+  only to the desktop or laptop.
+
+Hyprland reads both files through the `wm-*/wm.nix` modules.
+
+Hyprpanel themes are stored under `hyprpanel_themes/themes`.  The module
+`hm/hyprpanel.nix` exposes options to pick a theme and adjust the panel layout or
+other settings.  For example, enable the module and load one of the bundled
+themes like so:
+
+```nix
+{ ... }:
+{
+  programs.hyprpanel = {
+    enable = true;
+    theme = "catppuccin_frappe"; # file is hyprpanel_themes/themes/catppuccin_frappe.json
+  };
+}
+```
+
+Further customization is available through the `layout` and `settings` options
+documented in that file.
+
 
 ---
 
