@@ -101,6 +101,20 @@ machine‑specific options. Below is a summary of the two provided hosts:
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
 - `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
 
+## Hyprsunset Script
+
+The repository includes a small helper script `hyprsunset.sh`. It queries the
+[sunrisesunset.io](https://sunrisesunset.io/) API with `curl` and `jq` to obtain
+today's sunset time, sleeps until that moment and then applies a warm colour
+temperature via `hyprctl hyprsunset`. To automatically enable it in Hyprland add
+the following line to your configuration:
+
+```ini
+exec-once = ~/Documents/nix-configuration/hyprsunset.sh
+```
+
+Dependencies: `curl` and `jq` need to be available.
+
 
 ---
 
