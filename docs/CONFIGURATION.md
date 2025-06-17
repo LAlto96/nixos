@@ -12,6 +12,13 @@ The root `flake.nix` defines inputs for various channels such as `nixpkgs`, `hom
 
 Each configuration pulls in common modules like `configuration.nix`, GPU configuration files, and Home Manager.
 
+The shared pieces are defined in `common-modules.nix`. This file imports the
+main `configuration.nix`, the Stylix theming module and the Home Manager NixOS
+module with `useGlobalPkgs` disabled and `useUserPackages` enabled. It also sets
+`virtualisation.docker.enable = true` and applies overlays such as
+`hyprpanel.overlay`. Both hosts include this list of modules via the flake so
+they start from the same base configuration.
+
 ## Core System Configuration (`configuration.nix`)
 
 This file is the heart of the system configuration. Key areas include:
