@@ -27,7 +27,6 @@ let
     cbonsai               # Bonsai tree generator for the terminal
     cmatrix               # Matrix-style screensaver for the terminal
     cava                  # Audio visualizer for the terminal
-    davinci-resolve       # Professional video editing and color correction suite
     qpwgraph              # Graphing tool (verify details online if needed)
     speedtest-go          # Command-line internet speed test
     android-tools         # Tools for interacting with Android devices
@@ -57,13 +56,6 @@ let
   # 2.4: API Testing and Development Utilities
   pkgs2_4 = with pkgs; [
     postman               # API development and testing tool
-  ];
-
-  # 2.5: Digital Audio Workstations (DAWs) and Audio Tools
-  pkgs2_5 = with pkgs; [
-    reaper                # Digital Audio Workstation (DAW)
-    yabridge              # Bridges Windows audio plugins (for DAWs)
-    yabridgectl           # Utility to control yabridge
   ];
 
   # 2.6: Text Editors & IDEs
@@ -264,7 +256,6 @@ in
     pkgs2_2 ++
     pkgs2_3 ++
     pkgs2_4 ++
-    pkgs2_5 ++
     pkgs2_6 ++
     pkgs2_7 ++
     pkgs2_8 ++

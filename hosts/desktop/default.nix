@@ -3,6 +3,7 @@
   imports = [
     ../../hardware-configuration-desktop.nix
     ../../nvidiagpu.nix
+    ../../packages/desktop.nix
   ];
 
   networking.firewall = {

@@ -4,6 +4,7 @@
     ../../hardware-configuration-laptop.nix
     ../../amdgpu.nix
     ../../nvidiagpu.nix
+    ../../packages/laptop.nix
   ];
 
   networking.firewall = {

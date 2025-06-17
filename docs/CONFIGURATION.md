@@ -23,7 +23,7 @@ they start from the same base configuration.
 
 This file is the heart of the system configuration. Key areas include:
 
-1. **Imports** – brings in other modules such as custom packages from `packages.nix`.
+1. **Imports** – brings in other modules such as custom packages from `packages/common.nix`.
 2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, and other hardware options. ZRAM swap is also activated. Bluetooth is enabled only for the laptop host.
 3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback`), and plymouth splash.
 4. **Security** – enabling policykit and realtime kit.
@@ -65,7 +65,7 @@ Two optional modules configure graphics drivers:
 - `amdgpu.nix` – loads the AMD GPU driver, sets Vulkan packages, and exposes 32‑bit libraries.
 - `nvidiagpu.nix` – enables proprietary NVIDIA drivers with options like power management and nvidia-settings.
 
-## Package Collection (`packages.nix`)
+## Package Collection (`packages/common.nix`)
 
 Custom package definitions and system-wide packages are declared here. Highlights include:
 
@@ -73,7 +73,7 @@ Custom package definitions and system-wide packages are declared here. Highlight
 - Large list of utilities ranging from audio tools, terminal utilities, to gaming enhancements.
 - Overrides for themes like Catppuccin GTK.
 
-To add your own packages, edit `packages.nix` directly. Packages pulled from the
+To add your own packages, edit `packages/common.nix` directly. Packages pulled from the
 main channel are organized into several `pkgs2_*` lists near the top of the
 file. Append your desired package to the appropriate group (or create a new
 group) and it will be included when all lists are concatenated into

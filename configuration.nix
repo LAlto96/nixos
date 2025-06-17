@@ -7,7 +7,7 @@
   # Import additional NixOS configuration files and package definitions.
   imports =
     [
-      ./packages.nix    # Custom package definitions
+      ./packages/common.nix    # Common package definitions
       #  ./python.nix      # Python-specific configurations
     ];
 
