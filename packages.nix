@@ -136,6 +136,7 @@ let
     # Firefox with custom native messaging hosts for pipewire audio capture.
     #(firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
     inputs.zen-browser.packages.${pkgs.system}.default # zen-browser
+    ungoogled-chromium
     w3m                   # Text-based web browser
   ];
 

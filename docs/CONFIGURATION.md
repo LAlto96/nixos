@@ -12,6 +12,13 @@ The root `flake.nix` defines inputs for various channels such as `nixpkgs`, `hom
 
 Each configuration pulls in common modules like `configuration.nix`, GPU configuration files, and Home Manager.
 
+The shared pieces are defined in `common-modules.nix`. This file imports the
+main `configuration.nix`, the Stylix theming module and the Home Manager NixOS
+module with `useGlobalPkgs` disabled and `useUserPackages` enabled. It also sets
+`virtualisation.docker.enable = true` and applies overlays such as
+`hyprpanel.overlay`. Both hosts include this list of modules via the flake so
+they start from the same base configuration.
+
 ## Core System Configuration (`configuration.nix`)
 
 This file is the heart of the system configuration. Key areas include:
@@ -28,7 +35,7 @@ This file is the heart of the system configuration. Key areas include:
 10. **Nix Settings** – allows unfree packages, sets flake registry, and configures nix path.
 11. **Environment** – sets global environment variables and enables Zsh.
 12. **Services** – enables Flatpak, Udisks2, Emacs daemon, and XDG portals.
-13. **Programs** – Hyprland, KDE Connect, Gamemode, Yazi file manager with custom keymap, CoreCtrl for hardware control, and more.
+13. **Programs** – Hyprland, KDE Connect, Gamemode, Yazi file manager with custom keymap, CoreCtrl for hardware control, and more. Hyprland also launches Hyprpanel (themes in `hyprpanel_themes/`) and the `hyprsunset.sh` script.
 14. **Audio** – uses Pipewire with PulseAudio disabled.
 15. **Stylix** – manages desktop theming and fonts.
 16. **System Maintenance** – placeholder for garbage collection settings.
@@ -100,6 +107,9 @@ machine‑specific options. Below is a summary of the two provided hosts:
 - `droidcam.nix` and `v4l2loopback-dc.nix` – provide DroidCam and its kernel module.
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
 - `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
+-  Hyprpanel is provided as an overlay through `common-modules.nix`. Themes live in `hyprpanel_themes/`.
+- `hyprsunset.sh` – a script launched by Hyprland to adjust screen color at sunset.
+- System programs like **Yazi** and **CoreCtrl** are enabled in `configuration.nix` (see Core System Configuration, item 13).
 
 ## Adding a new host
 
@@ -118,8 +128,6 @@ Follow these steps to create another machine configuration:
      # ...
      modules = commonModules ++ [ ./hosts/hostname ];
    };
-   ```
-
 
 ---
 
