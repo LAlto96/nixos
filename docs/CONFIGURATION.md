@@ -23,7 +23,7 @@ they start from the same base configuration.
 
 This file is the heart of the system configuration. Key areas include:
 
-1. **Imports** – brings in other modules such as custom packages from `packages.nix`.
+1. **Imports** – brings in other modules such as custom packages from `packages/common.nix`.
 2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, and other hardware options. ZRAM swap is also activated. Bluetooth is enabled only for the laptop host.
 3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback`), and plymouth splash.
 4. **Security** – enabling policykit and realtime kit.
@@ -65,7 +65,7 @@ Two optional modules configure graphics drivers:
 - `amdgpu.nix` – loads the AMD GPU driver, sets Vulkan packages, and exposes 32‑bit libraries.
 - `nvidiagpu.nix` – enables proprietary NVIDIA drivers with options like power management and nvidia-settings.
 
-## Package Collection (`packages.nix`)
+## Package Collection (`packages/common.nix`)
 
 Custom package definitions and system-wide packages are declared here. Highlights include:
 
@@ -73,7 +73,7 @@ Custom package definitions and system-wide packages are declared here. Highlight
 - Large list of utilities ranging from audio tools, terminal utilities, to gaming enhancements.
 - Overrides for themes like Catppuccin GTK.
 
-To add your own packages, edit `packages.nix` directly. Packages pulled from the
+To add your own packages, edit `packages/common.nix` directly. Packages pulled from the
 main channel are organized into several `pkgs2_*` lists near the top of the
 file. Append your desired package to the appropriate group (or create a new
 group) and it will be included when all lists are concatenated into
@@ -158,6 +158,64 @@ themes like so:
 Further customization is available through the `layout` and `settings` options
 documented in that file.
 
+## Hyprland and Hyprpanel
+
+Window manager configuration is split between a base file and host‑specific
+overrides:
+
+- `hyprland.base.conf` – common options shared by all machines.
+- `wm-desktop/hyprland.conf` and `wm-laptop/hyprland.conf` – settings that apply
+  only to the desktop or laptop.
+
+Hyprland reads both files through the `wm-*/wm.nix` modules.
+
+Hyprpanel themes are stored under `hyprpanel_themes/themes`.  The module
+`hm/hyprpanel.nix` exposes options to pick a theme and adjust the panel layout or
+other settings.  For example, enable the module and load one of the bundled
+themes like so:
+
+```nix
+{ ... }:
+{
+  programs.hyprpanel = {
+    enable = true;
+    theme = "catppuccin_frappe"; # file is hyprpanel_themes/themes/catppuccin_frappe.json
+  };
+}
+```
+
+Further customization is available through the `layout` and `settings` options
+documented in that file.
+
+## Hyprland and Hyprpanel
+
+Window manager configuration is split between a base file and host‑specific
+overrides:
+
+- `hyprland.base.conf` – common options shared by all machines.
+- `wm-desktop/hyprland.conf` and `wm-laptop/hyprland.conf` – settings that apply
+  only to the desktop or laptop.
+
+Hyprland reads both files through the `wm-*/wm.nix` modules.
+
+Hyprpanel themes are stored under `hyprpanel_themes/themes`.  The module
+`hm/hyprpanel.nix` exposes options to pick a theme and adjust the panel layout or
+other settings.  For example, enable the module and load one of the bundled
+themes like so:
+
+```nix
+{ ... }:
+{
+  programs.hyprpanel = {
+    enable = true;
+    theme = "catppuccin_frappe"; # file is hyprpanel_themes/themes/catppuccin_frappe.json
+  };
+}
+```
+
+Further customization is available through the `layout` and `settings` options
+documented in that file.
+
 ## Hyprsunset Script
 
 The repository includes a small helper script `hyprsunset.sh`. It queries the
@@ -171,6 +229,74 @@ exec-once = ~/Documents/nix-configuration/hyprsunset.sh
 ```
 
 Dependencies: `curl` and `jq` need to be available.
+
+## Adding a new host
+
+Follow these steps to create another machine configuration:
+
+1. Edit `<hostname>/default.nix` to match your hardware and user setup:
+   - Update the `imports` list so it points to the correct hardware configuration
+     and GPU modules.
+   - Adjust the firewall port lists (or `ports.nix`) to open the ports you need.
+   - Map the new user under `home-manager.users` and `nix.settings.trusted-users`.
+2. Add the host to `flake.nix` under `nixosConfigurations` so it can be built via
+   `nixos-rebuild`:
+
+   ```nix
+   hostname = nixpkgs.lib.nixosSystem {
+     # ...
+     modules = commonModules ++ [ ./hosts/hostname ];
+   };
+   ```
+
+## Hyprland and Hyprpanel
+
+Window manager configuration is split between a base file and host‑specific
+overrides:
+
+- `hyprland.base.conf` – common options shared by all machines.
+- `wm-desktop/hyprland.conf` and `wm-laptop/hyprland.conf` – settings that apply
+  only to the desktop or laptop.
+
+Hyprland reads both files through the `wm-*/wm.nix` modules.
+
+Hyprpanel themes are stored under `hyprpanel_themes/themes`.  The module
+`hm/hyprpanel.nix` exposes options to pick a theme and adjust the panel layout or
+other settings.  For example, enable the module and load one of the bundled
+themes like so:
+
+```nix
+{ ... }:
+{
+  programs.hyprpanel = {
+    enable = true;
+    theme = "catppuccin_frappe"; # file is hyprpanel_themes/themes/catppuccin_frappe.json
+  };
+}
+```
+
+Further customization is available through the `layout` and `settings` options
+documented in that file.
+
+## Adding a new host
+
+Follow these steps to create another machine configuration:
+
+1. Edit `<hostname>/default.nix` to match your hardware and user setup:
+   - Update the `imports` list so it points to the correct hardware configuration
+     and GPU modules.
+   - Adjust the firewall port lists (or `ports.nix`) to open the ports you need.
+   - Map the new user under `home-manager.users` and `nix.settings.trusted-users`.
+2. Add the host to `flake.nix` under `nixosConfigurations` so it can be built via
+   `nixos-rebuild`:
+
+   ```nix
+   hostname = nixpkgs.lib.nixosSystem {
+     # ...
+     modules = commonModules ++ [ ./hosts/hostname ];
+   };
+   ```
+
 
 ---
 
