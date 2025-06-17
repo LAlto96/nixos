@@ -158,6 +158,20 @@ themes like so:
 Further customization is available through the `layout` and `settings` options
 documented in that file.
 
+## Hyprsunset Script
+
+The repository includes a small helper script `hyprsunset.sh`. It queries the
+[sunrisesunset.io](https://sunrisesunset.io/) API with `curl` and `jq` to obtain
+today's sunset time, sleeps until that moment and then applies a warm colour
+temperature via `hyprctl hyprsunset`. To automatically enable it in Hyprland add
+the following line to your configuration:
+
+```ini
+exec-once = ~/Documents/nix-configuration/hyprsunset.sh
+```
+
+Dependencies: `curl` and `jq` need to be available.
+
 ---
 
 This documentation aims to serve as a reference for understanding and extending the configuration.
