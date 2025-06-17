@@ -249,6 +249,25 @@ themes like so:
 Further customization is available through the `layout` and `settings` options
 documented in that file.
 
+## Adding a new host
+
+Follow these steps to create another machine configuration:
+
+1. Edit `<hostname>/default.nix` to match your hardware and user setup:
+   - Update the `imports` list so it points to the correct hardware configuration
+     and GPU modules.
+   - Adjust the firewall port lists (or `ports.nix`) to open the ports you need.
+   - Map the new user under `home-manager.users` and `nix.settings.trusted-users`.
+2. Add the host to `flake.nix` under `nixosConfigurations` so it can be built via
+   `nixos-rebuild`:
+
+   ```nix
+   hostname = nixpkgs.lib.nixosSystem {
+     # ...
+     modules = commonModules ++ [ ./hosts/hostname ];
+   };
+   ```
+
 
 ---
 
