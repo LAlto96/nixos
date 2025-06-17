@@ -101,6 +101,25 @@ machine‑specific options. Below is a summary of the two provided hosts:
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
 - `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
 
+## Adding a new host
+
+Follow these steps to create another machine configuration:
+
+1. Edit `<hostname>/default.nix` to match your hardware and user setup:
+   - Update the `imports` list so it points to the correct hardware configuration
+     and GPU modules.
+   - Adjust the firewall port lists (or `ports.nix`) to open the ports you need.
+   - Map the new user under `home-manager.users` and `nix.settings.trusted-users`.
+2. Add the host to `flake.nix` under `nixosConfigurations` so it can be built via
+   `nixos-rebuild`:
+
+   ```nix
+   hostname = nixpkgs.lib.nixosSystem {
+     # ...
+     modules = commonModules ++ [ ./hosts/hostname ];
+   };
+   ```
+
 
 ---
 
