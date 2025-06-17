@@ -107,9 +107,27 @@ machine‑specific options. Below is a summary of the two provided hosts:
 - `droidcam.nix` and `v4l2loopback-dc.nix` – provide DroidCam and its kernel module.
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
 - `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
-- Hyprpanel is provided as an overlay through `common-modules.nix`. Themes live in `hyprpanel_themes/`.
+-  Hyprpanel is provided as an overlay through `common-modules.nix`. Themes live in `hyprpanel_themes/`.
 - `hyprsunset.sh` – a script launched by Hyprland to adjust screen color at sunset.
 - System programs like **Yazi** and **CoreCtrl** are enabled in `configuration.nix` (see Core System Configuration, item 13).
+
+## Adding a new host
+
+Follow these steps to create another machine configuration:
+
+1. Edit `<hostname>/default.nix` to match your hardware and user setup:
+   - Update the `imports` list so it points to the correct hardware configuration
+     and GPU modules.
+   - Adjust the firewall port lists (or `ports.nix`) to open the ports you need.
+   - Map the new user under `home-manager.users` and `nix.settings.trusted-users`.
+2. Add the host to `flake.nix` under `nixosConfigurations` so it can be built via
+   `nixos-rebuild`:
+
+   ```nix
+   hostname = nixpkgs.lib.nixosSystem {
+     # ...
+     modules = commonModules ++ [ ./hosts/hostname ];
+   };
 
 ---
 
