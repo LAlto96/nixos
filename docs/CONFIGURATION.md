@@ -35,7 +35,7 @@ This file is the heart of the system configuration. Key areas include:
 10. **Nix Settings** – allows unfree packages, sets flake registry, and configures nix path.
 11. **Environment** – sets global environment variables and enables Zsh.
 12. **Services** – enables Flatpak, Udisks2, Emacs daemon, and XDG portals.
-13. **Programs** – Hyprland, KDE Connect, Gamemode, Yazi file manager with custom keymap, CoreCtrl for hardware control, and more. Hyprland also launches Hyprpanel (themes in `hyprpanel_themes/`) and the `hyprsunset.sh` script which adjusts the screen temperature based on sunrise and sunset times.
+13. **Programs** – Hyprland, KDE Connect, Gamemode, Yazi file manager with custom keymap, CoreCtrl for hardware control, and more. Hyprland also launches Hyprpanel (themes in `hyprpanel_themes/`) and the `hyprsunset.sh` script. The hyprsunset daemon itself runs as a systemd user service to adjust the screen temperature based on sunrise and sunset times.
 14. **Audio** – uses Pipewire with PulseAudio disabled.
 15. **Stylix** – manages desktop theming and fonts.
 16. **System Maintenance** – placeholder for garbage collection settings.
@@ -225,17 +225,17 @@ time falls between sunset and sunrise. If so, it lowers the screen temperature
 to 4000 K; otherwise it restores the `identity` temperature. Manual
 temperature changes are respected: if the user sets the temperature to
 `identity` while the sun is down, the script pauses until the temperature
-drops again. Failed API lookups are ignored until the next interval. To automatically
-enable it in
-Hyprland add
-the following line to your configuration:
+drops again. Failed API lookups are ignored until the next interval.
+Hyprsunset itself runs as a systemd user service. To launch the helper script in
+Hyprland add the following line to your configuration:
 
 ```ini
 exec-once = ~/Documents/nix-configuration/hyprsunset.sh
 ```
 
 The script logs its actions to `~/hyprsunset.log` so you can troubleshoot any
-issues that arise.
+issues that arise. The current temperature is determined by reading the latest
+"Received a request" entry from the hyprsunset systemd journal.
 
 Dependencies: `curl` and `jq` need to be available.
 

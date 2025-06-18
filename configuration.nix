@@ -273,6 +273,13 @@
   programs.hyprland.enable = true;
   programs.hyprlock.enable = true;
 
+  # Start the hyprsunset daemon as a user service
+  systemd.user.services.hyprsunset = {
+    Unit = { Description = "Hyprsunset color temperature control"; };
+    Service = { ExecStart = "${pkgs.hyprsunset}/bin/hyprsunset"; };
+    Install = { WantedBy = [ "graphical-session.target" ]; };
+  };
+
   # Enable KDE Connect for device integration.
   programs.kdeconnect.enable = true;
 

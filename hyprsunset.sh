@@ -31,7 +31,8 @@ fetch_times() {
 }
 
 get_temp() {
-  hyprctl -j hyprsunset 2>/dev/null | jq -r '.temperature // empty'
+  journalctl --user -u hyprsunset.service -n 20 --no-pager |
+    awk '/Received a request:/ { t=$NF } END { if (t) print t }'
 }
 
 set_temp() {
