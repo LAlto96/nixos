@@ -90,6 +90,17 @@
   # Enable NetworkManager for easier network management.
   networking.networkmanager.enable = true;
 
+  # Optimize DHCP client startup and avoid waiting for the network
+  networking.dhcpcd.wait = "background";
+  networking.dhcpcd.extraConfig = ''
+    timeout 1
+    noarp
+    nodelay
+  '';
+
+  # Skip waiting for full network connectivity during boot
+  systemd.services."NetworkManager-wait-online".enable = false;
+
 
   networking.enableIPv6  = false;
   ##############################
