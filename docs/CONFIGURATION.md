@@ -35,7 +35,7 @@ This file is the heart of the system configuration. Key areas include:
 10. **Nix Settings** – allows unfree packages, sets flake registry, and configures nix path.
 11. **Environment** – sets global environment variables and enables Zsh.
 12. **Services** – enables Flatpak, Udisks2, Emacs daemon, and XDG portals.
-13. **Programs** – Hyprland, KDE Connect, Gamemode, Yazi file manager with custom keymap, CoreCtrl for hardware control, and more. Hyprland also launches Hyprpanel (themes in `hyprpanel_themes/`) and the `hyprsunset.sh` script.
+13. **Programs** – Hyprland, KDE Connect, Gamemode, Yazi file manager with custom keymap, CoreCtrl for hardware control, and more. Hyprland also launches Hyprpanel (themes in `hyprpanel_themes/`) and the `hyprsunset.sh` script. The hyprsunset daemon itself runs as a systemd user service to adjust the screen temperature based on sunrise and sunset times.
 14. **Audio** – uses Pipewire with PulseAudio disabled.
 15. **Stylix** – manages desktop theming and fonts.
 16. **System Maintenance** – placeholder for garbage collection settings.
@@ -108,7 +108,7 @@ machine‑specific options. Below is a summary of the two provided hosts:
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
 - `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
 -  Hyprpanel is provided as an overlay through `common-modules.nix`. Themes live in `hyprpanel_themes/`.
-- `hyprsunset.sh` – a script launched by Hyprland to adjust screen color at sunset.
+- `hyprsunset.sh` – a script launched by Hyprland to adjust screen color automatically: 4000 K at night and `identity` during the day.
 - System programs like **Yazi** and **CoreCtrl** are enabled in `configuration.nix` (see Core System Configuration, item 13).
 
 ## Adding a new host
@@ -220,13 +220,22 @@ documented in that file.
 
 The repository includes a small helper script `hyprsunset.sh`. It queries the
 [sunrisesunset.io](https://sunrisesunset.io/) API with `curl` and `jq` to obtain
-today's sunset time, sleeps until that moment and then applies a warm colour
-temperature via `hyprctl hyprsunset`. To automatically enable it in Hyprland add
-the following line to your configuration:
+both sunrise and sunset times. Every few minutes it checks whether the current
+time falls between sunset and sunrise. If so, it lowers the screen temperature
+to 4000 K; otherwise it restores the `identity` temperature. Manual
+temperature changes are respected: if the user sets the temperature to
+`identity` while the sun is down, the script pauses until the temperature
+drops again. Failed API lookups are ignored until the next interval.
+Hyprsunset itself runs as a systemd user service. To launch the helper script in
+Hyprland add the following line to your configuration:
 
 ```ini
 exec-once = ~/Documents/nix-configuration/hyprsunset.sh
 ```
+
+The script logs its actions to `~/hyprsunset.log` so you can troubleshoot any
+issues that arise. The current temperature is determined by reading the latest
+"Received a request" entry from the hyprsunset systemd journal.
 
 Dependencies: `curl` and `jq` need to be available.
 

@@ -1,24 +1,95 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Coordonnées de Bouc-Bel-Air
+LOG_FILE="$HOME/hyprsunset.log"
+
+log() {
+  printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >> "$LOG_FILE"
+}
+
+log "Starting hyprsunset"
+
+# Coordinates for Bouc-Bel-Air
 LAT=43.452
 LON=5.413
 TIMEZONE="Europe/Paris"
 
-# Obtenir l'heure du coucher du soleil en UTC
-sunset_utc=$(curl -s "https://api.sunrisesunset.io/json?lat=$LAT&lng=$LON&date=today&timezone=$TIMEZONE" | jq -r '.results.sunset')
+INTERVAL=300  # check every 5 minutes
+API="https://api.sunrisesunset.io/json?lat=$LAT&lng=$LON&date=today&timezone=$TIMEZONE"
 
-# Convertir l'heure du coucher du soleil en format UNIX
-sunset_unix=$(date -d "$sunset_utc" +%s)
+fetch_times() {
+  local data
+  if ! data=$(curl -sf "$API"); then
+    log "Failed to query sunrise/sunset"
+    return 1
+  fi
+  sunrise=$(echo "$data" | jq -r '.results.sunrise')
+  sunset=$(echo "$data" | jq -r '.results.sunset')
+  sunrise_unix=$(TZ="$TIMEZONE" date -d "$sunrise" +%s)
+  sunset_unix=$(TZ="$TIMEZONE" date -d "$sunset" +%s)
+  log "Sunrise: $sunrise ($sunrise_unix), Sunset: $sunset ($sunset_unix)"
+}
 
-# Heure actuelle en format UNIX
-current_time=$(date +%s)
+get_temp() {
+  journalctl --user -u hyprsunset.service -n 20 --no-pager |
+    awk '/Received a request:/ { t=$NF } END { if (t) print t }'
+}
 
-# Calculer le délai jusqu'au coucher du soleil
-delay=$((sunset_unix - current_time))
+set_temp() {
+  log "Setting temperature to $1"
+  if [[ "$1" == "identity" ]]; then
+    hyprctl hyprsunset identity
+  else
+    hyprctl hyprsunset temperature "$1"
+  fi
+}
 
-# Attendre jusqu'au coucher du soleil
-sleep $delay
+manual_override=false
+prev_temp=""
 
-# Appliquer le filtre Hyprsunset
-hyprctl hyprsunset temperature 4000
+while true; do
+  if ! fetch_times; then
+    echo "Failed to query sunrise/sunset" >&2
+    sleep "$INTERVAL"
+    continue
+  fi
+
+  now=$(date +%s)
+  current_temp=$(get_temp)
+
+  if (( now >= sunset_unix || now < sunrise_unix )); then
+    log "Nighttime - current temp: ${current_temp:-none}"
+    if $manual_override; then
+      if [[ "$current_temp" != "identity" ]]; then
+        log "Manual override ended"
+        manual_override=false
+      else
+        prev_temp="$current_temp"
+        sleep "$INTERVAL"
+        continue
+      fi
+    else
+      if [[ "$prev_temp" == "4000" && "$current_temp" == "identity" ]]; then
+        log "Manual temperature override detected"
+        manual_override=true
+        prev_temp="$current_temp"
+        sleep "$INTERVAL"
+        continue
+      fi
+    fi
+
+    if [[ -z "$current_temp" || "$current_temp" != "4000" ]]; then
+      set_temp 4000
+      current_temp=$(get_temp)
+    fi
+  else
+    log "Daytime - current temp: ${current_temp:-none}"
+    manual_override=false
+    if [[ -z "$current_temp" || "$current_temp" != "identity" ]]; then
+      set_temp identity
+      current_temp=$(get_temp)
+    fi
+  fi
+  prev_temp="$current_temp"
+  sleep "$INTERVAL"
+done
