@@ -277,7 +277,9 @@
   systemd.user.services.hyprsunset = {
     description = "Hyprsunset color temperature control";
     serviceConfig = {
-      ExecStart = "${pkgs.hyprsunset}/bin/hyprsunset";
+      # Start hyprsunset with --identity so the display
+      # color is initially unmodified until adjusted by hyprsunset.sh
+      ExecStart = "${pkgs.hyprsunset}/bin/hyprsunset --identity";
     };
     wantedBy = [ "graphical-session.target" ];
   };
