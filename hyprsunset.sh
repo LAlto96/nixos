@@ -45,6 +45,7 @@ set_temp() {
 }
 
 manual_override=false
+prev_temp=""
 
 while true; do
   if ! fetch_times; then
@@ -58,22 +59,20 @@ while true; do
 
   if (( now >= sunset_unix || now < sunrise_unix )); then
     log "Nighttime - current temp: ${current_temp:-none}"
-
-    # Detect a manual override whenever the user selects the identity
-    # temperature at night. The script waits until it is changed again
-    # before resuming automatic control.
-    if [[ "$current_temp" == "identity" ]]; then
-      if ! $manual_override; then
-        log "Manual temperature override detected"
-      fi
-      manual_override=true
-    fi
-
     if $manual_override; then
       if [[ "$current_temp" != "identity" ]]; then
         log "Manual override ended"
         manual_override=false
       else
+        prev_temp="$current_temp"
+        sleep "$INTERVAL"
+        continue
+      fi
+    else
+      if [[ "$prev_temp" == "4000" && "$current_temp" == "identity" ]]; then
+        log "Manual temperature override detected"
+        manual_override=true
+        prev_temp="$current_temp"
         sleep "$INTERVAL"
         continue
       fi
@@ -81,14 +80,16 @@ while true; do
 
     if [[ -z "$current_temp" || "$current_temp" != "4000" ]]; then
       set_temp 4000
+      current_temp=$(get_temp)
     fi
   else
     log "Daytime - current temp: ${current_temp:-none}"
     manual_override=false
     if [[ -z "$current_temp" || "$current_temp" != "identity" ]]; then
       set_temp identity
+      current_temp=$(get_temp)
     fi
   fi
-
+  prev_temp="$current_temp"
   sleep "$INTERVAL"
 done
