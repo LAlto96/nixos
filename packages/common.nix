@@ -16,6 +16,7 @@ let
   pkgs2_1 = with pkgs; [
     hyprpanel             # Hyprland panel integration
     hyprsunset
+    hyprlandPlugins.hyprfocus  # Focus animation plugin
     winetricks            # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors  # Office suite for document editing
     audacity              # Audio editor for recording and editing
