@@ -31,7 +31,7 @@ This file is the heart of the system configuration. Key areas include:
 6. **Locale & Time** – timezone `Europe/Paris` with English locales.
 7. **Console and X11** – keeps the French keyboard layout while the system language is English.
 8. **Fonts** – installs a selection of fonts including JetBrains Mono and Noto packages.
-9. **Users** – defines `laptop`, `desktop`, and `sinusbot` users with group memberships.
+9. **Users** – defines `laptop` and `desktop` users with group memberships.
 10. **Nix Settings** – allows unfree packages, sets flake registry, and configures nix path.
 11. **Environment** – sets global environment variables and enables Zsh.
 12. **Services** – enables Flatpak, Udisks2, Emacs daemon, and XDG portals.
@@ -106,7 +106,6 @@ machine‑specific options. Below is a summary of the two provided hosts:
 
 - `droidcam.nix` and `v4l2loopback-dc.nix` – provide DroidCam and its kernel module.
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
-- `ollama.nix` – builds the Ollama AI application with optional ROCm or CUDA support.
 -  Hyprpanel is provided as an overlay through `common-modules.nix`. Themes live in `hyprpanel_themes/`.
 - `hyprsunset.sh` – a script launched by Hyprland to adjust screen color at sunset.
 - System programs like **Yazi** and **CoreCtrl** are enabled in `configuration.nix` (see Core System Configuration, item 13).
