@@ -185,12 +185,6 @@
     extraGroups = [ "networkmanager" "wheel" "video" "docker" "gamemode" ];
   };
 
-  users.users.sinusbot = {
-    isNormalUser = true;
-    description = "sinusbot";
-    extraGroups = [ "networkmanager" "wheel" ];
-    uid = 1234;  # Specify a fixed UID for sinusbot.
-  };
 
   ##############################
   # 10. Nix, Package & Channel Configuration
