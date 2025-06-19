@@ -274,9 +274,10 @@
   ##############################
   # 14. Application & Program Settings
   ##############################
-  # Enable Hyprland (a Wayland compositor) & Hyprlock.
+  # Enable Hyprland (a Wayland compositor) & Hyprlock/Hypridle.
   programs.hyprland.enable = true;
   programs.hyprlock.enable = true;
+  services.hypridle.enable = true;
 
   # Start the hyprsunset daemon as a user service
   systemd.user.services.hyprsunset = {

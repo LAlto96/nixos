@@ -238,6 +238,14 @@ issues that arise. The current temperature is determined by reading the latest
 
 Dependencies: `curl` and `jq` need to be available.
 
+## Hypridle
+
+Hypridle runs as a user service and monitors inactivity. The bundled
+`hypridle.conf` locks the session after 5 minutes and powers off the display
+after 6 minutes. The configuration is installed to
+`~/.config/hypr/hypridle.conf` for each user and the service itself is enabled
+in `configuration.nix`.
+
 ## Adding a new host
 
 Follow these steps to create another machine configuration:

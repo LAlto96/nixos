@@ -34,6 +34,7 @@
   home.file.".config/hyprpanel/config.json".source = ./hm/hyprpanel/config.json;
   home.file.".config/hyprpanel/modules.json".source = ./hm/hyprpanel/modules.json;
   home.file.".config/hyprpanel/modules.scss".source = ./hm/hyprpanel/modules.scss;
+  home.file.".config/hypr/hypridle.conf".source = ./hypridle.conf;
   programs.git = {
     enable = true;
     userName = "Alto";
