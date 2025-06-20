@@ -35,6 +35,8 @@
   home.file.".config/hyprpanel/modules.json".source = ./hm/hyprpanel/modules.json;
   home.file.".config/hyprpanel/modules.scss".source = ./hm/hyprpanel/modules.scss;
   home.file.".config/hypr/hypridle.conf".source = ./hypridle.conf;
+  home.file.".config/hypr/hyprlock.conf".source = ./hm/hyprlock/hyprlock.conf;
+  home.file.".config/hypr/catppuccin_hyprlock_background_sapphire.jpg".source = ./hm/hyprlock/catppuccin_hyprlock_background_sapphire.jpg;
   programs.git = {
     enable = true;
     userName = "Alto";
