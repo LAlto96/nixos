@@ -5,6 +5,7 @@
     ../../amdgpu.nix
     ../../nvidiagpu.nix
     ../../packages/laptop.nix
+    ../../tlp.nix
   ];
 
   networking.firewall = {
