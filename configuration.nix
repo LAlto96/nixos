@@ -270,6 +270,7 @@
   #   enable = true;
   #   port = 8777;
   # };
+  programs.steam.gamescopeSession.enable = true;
 
   ##############################
   # 14. Application & Program Settings
@@ -342,15 +343,12 @@
   ##############################
   # Disable PulseAudio since Pipewire is used.
   services.pulseaudio.enable = false;
-
   # Configure Pipewire for audio and multimedia.
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # Uncomment the following line to enable JACK support if needed.
-    # jack.enable = true;
     wireplumber.enable = true;
   };
 
