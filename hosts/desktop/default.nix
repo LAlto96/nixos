@@ -24,4 +24,6 @@
   };
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "hyprland";
+
+  hardware.nvidia-container-toolkit.enable = true;
 }

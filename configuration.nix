@@ -33,7 +33,6 @@
   hardware.logitech.wireless.enableGraphical = true;
 
 
-  hardware.nvidia-container-toolkit.enable = true;
   ##############################
   # 3. Boot & Kernel Settings
   ##############################
