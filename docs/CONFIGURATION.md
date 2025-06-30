@@ -34,7 +34,8 @@ This file is the heart of the system configuration. Key areas include:
 9. **Users** – defines `laptop` and `desktop` users with group memberships.
 10. **Nix Settings** – allows unfree packages, sets flake registry, and configures nix path.
 11. **Environment** – sets global environment variables and enables Zsh.
-12. **Services** – enables Flatpak, Udisks2, Emacs daemon, and XDG portals.
+12. **Services** – enables Flatpak, Udisks2, Emacs daemon, XDG portals, and the
+    Tailscale VPN service.
 13. **Programs** – Hyprland, KDE Connect, Gamemode, Yazi file manager with custom keymap, CoreCtrl for hardware control, and more. Hyprland also launches Hyprpanel (themes in `hyprpanel_themes/`) and the `hyprsunset.sh` script. The hyprsunset daemon itself runs as a systemd user service to adjust the screen temperature based on sunrise and sunset times.
 14. **Audio** – uses Pipewire with PulseAudio disabled.
 15. **Stylix** – manages desktop theming and fonts.
@@ -245,6 +246,13 @@ Hypridle runs as a user service and monitors inactivity. The bundled
 after 6 minutes. The configuration is installed to
 `~/.config/hypr/hypridle.conf` for each user and the service itself is enabled
 in `configuration.nix`.
+
+## Tailscale VPN
+
+Both hosts have `services.tailscale.enable = true` in the system
+configuration. After rebuilding, use `sudo tailscale up --auth-key=<KEY>`
+to authenticate the machine and join your Tailnet. Generate a key from the
+Tailscale admin console.
 
 ## Adding a new host
 
