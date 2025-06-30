@@ -18,3 +18,15 @@ This repository contains the NixOS configuration for both a desktop and a laptop
 
 Home-manager modules for each user are included automatically via the flake.
 
+### Tailscale VPN
+
+After switching to the configuration, run the following command on each machine
+to join your Tailnet:
+
+```sh
+sudo tailscale up --auth-key=<YOUR_KEY>
+```
+
+Replace `<YOUR_KEY>` with an auth key created at
+<https://login.tailscale.com/admin/machines/new-linux>.
+
