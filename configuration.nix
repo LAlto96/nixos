@@ -33,7 +33,6 @@
   hardware.logitech.wireless.enableGraphical = true;
 
 
-  hardware.nvidia-container-toolkit.enable = true;
   ##############################
   # 3. Boot & Kernel Settings
   ##############################
@@ -89,6 +88,9 @@
 
   # Enable NetworkManager for easier network management.
   networking.networkmanager.enable = true;
+
+  # Enable Tailscale VPN service
+  services.tailscale.enable = true;
 
   # Optimize DHCP client startup and avoid waiting for the network
   networking.dhcpcd.wait = "background";
@@ -270,6 +272,7 @@
   #   enable = true;
   #   port = 8777;
   # };
+  programs.steam.gamescopeSession.enable = true;
 
   ##############################
   # 14. Application & Program Settings
@@ -342,15 +345,12 @@
   ##############################
   # Disable PulseAudio since Pipewire is used.
   services.pulseaudio.enable = false;
-
   # Configure Pipewire for audio and multimedia.
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # Uncomment the following line to enable JACK support if needed.
-    # jack.enable = true;
     wireplumber.enable = true;
   };
 
