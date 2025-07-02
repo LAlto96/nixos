@@ -247,6 +247,13 @@ after 6 minutes. The configuration is installed to
 `~/.config/hypr/hypridle.conf` for each user and the service itself is enabled
 in `configuration.nix`.
 
+## Laptop HDMI monitor configuration
+
+When a second monitor is attached to the laptop via HDMI, Hyprland automatically
+places it on the right side of the built-in display. Workspaces 6–10 are mapped
+to this output so that they appear on the external screen whenever it is
+present. The full configuration is available in `wm-laptop/hyprland.conf`.
+
 ## Tailscale VPN
 
 Both hosts have `services.tailscale.enable = true` in the system
