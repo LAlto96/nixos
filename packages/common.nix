@@ -121,6 +121,7 @@ let
     git                   # Distributed version control system
     wirelesstools         # Tools for managing wireless interfaces
     docker-compose        # Define and run multi-container Docker applications
+    wavemon              # Network analysis tool (verify details online)
   ];
 
   # 2.15: Browsers & Internet Utilities
