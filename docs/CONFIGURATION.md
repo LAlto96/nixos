@@ -51,6 +51,30 @@ User environments are managed with Home Manager:
 
 Both import shared modules under `hm/` such as Zsh, Neovim, and VSCode configurations.
 
+### Zsh Aliases
+
+The shared Zsh module (`hm/zsh.nix`) defines several handy shortcuts:
+
+| Alias               | Command |
+|---------------------|---------|
+| `doom`              | `/home/desktop/.config/emacs/bin/doom` |
+| `dupdate`           | `sudo nixos-rebuild switch --flake ~/Documents/nix-configuration#desktop --show-trace` |
+| `lupdate`           | `sudo nixos-rebuild switch --flake ~/Documents/nix-configuration#laptop --show-trace` |
+| `v4l2loopback-ctl0` | `nix-shell -p linuxKernel.packages.linux_zen.v4l2loopback --run 'v4l2loopback-ctl set-caps /dev/video0 "YU12:1280x720" && sudo v4l2loopback-ctl set-fps /dev/video0 60'` |
+| `v4l2loopback-ctl1` | `nix-shell -p linuxKernel.packages.linux_zen.v4l2loopback --run 'v4l2loopback-ctl set-caps /dev/video1 "YU12:1280x720" && sudo v4l2loopback-ctl set-fps /dev/video1 60'` |
+| `skb`               | `hyprctl switchxkblayout htltek-gaming-keyboard next` |
+| `extract`           | `~/extract.sh` |
+| `dpms`              | `hyprctl dispatch dpms off && sleep 2 && hyprctl dispatch dpms on` |
+| `4000`              | `hyprctl hyprsunset temperature 40000` |
+| `identity`          | `hyprctl hyprsunset identity` |
+
+On the laptop host, additional aliases are defined in `home-laptop.nix`:
+
+| Alias | Command         |
+|-------|-----------------|
+| `ac`  | `sudo tlp ac`    |
+| `bat` | `sudo tlp start` |
+
 ## Hardware Configuration Files
 
 - `hardware-configuration.nix` – base hardware config used by default.
