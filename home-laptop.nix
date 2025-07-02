@@ -52,5 +52,9 @@
     ./wm-laptop/wm.nix
   ];
   services.syncthing.enable = true;
+  programs.zsh.shellAliases = {
+    ac = "sudo tlp ac";
+    bat = "sudo tlp start";
+  };
 }
 
