@@ -24,14 +24,14 @@ they start from the same base configuration.
 This file is the heart of the system configuration. Key areas include:
 
 1. **Imports** – brings in other modules such as custom packages from `packages/common.nix`.
-2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, and other hardware options. ZRAM swap is also activated. Bluetooth is enabled only for the laptop host.
+2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, and other hardware options. ZRAM swap is also activated. Bluetooth is enabled only for the laptop host. Additional udev rules grant Wolf virtual input devices access to `/dev/uinput` and place them on seat9.
 3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback`), and plymouth splash.
 4. **Security** – enabling policykit and realtime kit.
 5. **Networking** – hostname, firewall defaults, wireless support, and NetworkManager.
 6. **Locale & Time** – timezone `Europe/Paris` with English locales.
 7. **Console and X11** – keeps the French keyboard layout while the system language is English.
 8. **Fonts** – installs a selection of fonts including JetBrains Mono and Noto packages.
-9. **Users** – defines `laptop` and `desktop` users with group memberships.
+9. **Users** – defines `laptop` and `desktop` users with group memberships, including the `input` group so they can use Wolf's virtual devices.
 10. **Nix Settings** – allows unfree packages, sets flake registry, and configures nix path.
 11. **Environment** – sets global environment variables and enables Zsh.
 12. **Services** – enables Flatpak, Udisks2, Emacs daemon, XDG portals, and the
