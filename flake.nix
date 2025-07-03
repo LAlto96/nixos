@@ -34,6 +34,7 @@
       url = "github:jas-singhfsu/hyprpanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -45,7 +46,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, hyprpanel, zen-browser, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, hyprpanel, hyprland-plugins, zen-browser, ... }:
     let
       desktopPorts = import ./hosts/desktop/ports.nix;
       commonModules = import ./common-modules.nix { inherit inputs; };

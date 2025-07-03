@@ -163,6 +163,9 @@ overrides:
   only to the desktop or laptop.
 
 Hyprland reads both files through the `wm-*/wm.nix` modules.
+Focus animations are provided by the `hyprfocus` plugin (built from
+`hyprwm/hyprland-plugins` via a flake), configured in `hyprland.base.conf` to use the
+shrink effect.
 
 Hyprpanel themes are stored under `hyprpanel_themes/themes`.  The module
 `hm/hyprpanel.nix` exposes options to pick a theme and adjust the panel layout or
