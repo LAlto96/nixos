@@ -164,7 +164,7 @@ overrides:
 
 Hyprland reads both files through the `wm-*/wm.nix` modules.
 Focus animations are provided by the `hyprfocus` plugin (built from
-`pyt0xic/hyprfocus` via a flake), configured in `hyprland.base.conf` to use the
+`hyprwm/hyprland-plugins` via a flake), configured in `hyprland.base.conf` to use the
 shrink effect.
 
 Hyprpanel themes are stored under `hyprpanel_themes/themes`.  The module
