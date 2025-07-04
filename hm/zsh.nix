@@ -15,7 +15,7 @@
         skb = "hyprctl switchxkblayout htltek-gaming-keyboard next";
         extract="~/extract.sh";
         dpms = "hyprctl dispatch dpms off && sleep 2 && hyprctl dispatch dpms on";
-        "4000" = "hyprctl hyprsunset temperature 40000";
+        "4000" = "hyprctl hyprsunset temperature 4000";
         identity = "hyprctl hyprsunset identity";
 
     };
