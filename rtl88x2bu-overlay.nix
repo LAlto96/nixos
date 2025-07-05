@@ -9,7 +9,7 @@ self: super: {
     };
     # ensure sources compile with kbuild
     prePatch = (old.prePatch or "") + ''
-      substituteInPlace Makefile --replace '-I\$(src)/include' '-I\$(PWD)/include'
+      sed -i 's|-I\\$(src)/include|-I\\$(PWD)/include|' Makefile
     '';
   });
 }
