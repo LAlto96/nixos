@@ -65,7 +65,7 @@
         desktop = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit inputs;
+            inherit inputs desktopPorts;
             pkgs-stable = import nixpkgs-stable {
               inherit system;
               config.allowUnfree = true;
@@ -75,7 +75,7 @@
               config.allowUnfree = true;
             };
           };
-          modules = commonModules ++ [ (import ./hosts/desktop { inherit desktopPorts; }) ];
+          modules = commonModules ++ [ ./hosts/desktop ];
         };
       };
     };
