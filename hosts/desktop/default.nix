@@ -6,6 +6,13 @@
     ../../packages/desktop.nix
   ];
 
+  nixpkgs.overlays = [ (import ../../rtl88x2bu-overlay.nix) ];
+
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
+  boot.kernelModules = [ "88x2bu" ];
+  boot.blacklistedKernelModules = [ "rtl8xxxu" ];
+
   networking.firewall = {
     allowedTCPPorts = desktopPorts;
     allowedUDPPorts = desktopPorts;
