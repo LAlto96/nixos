@@ -4,6 +4,7 @@
     ../../hardware-configuration-desktop.nix
     ../../nvidiagpu.nix
     ../../packages/desktop.nix
+    ../../drivers/rtl8852cu.nix
   ];
 
   networking.firewall = {
@@ -13,6 +14,8 @@
 
   home-manager.users.desktop = import ../../home-desktop.nix;
   home-manager.backupFileExtension = "backup";
+
+  nixpkgs.overlays = [ (import ../../overlays/rtl8852cu.nix) ];
 
   nix.settings.trusted-users = [ "desktop" ];
 
@@ -26,4 +29,5 @@
   services.displayManager.defaultSession = "hyprland";
 
   hardware.nvidia-container-toolkit.enable = true;
+
 }
