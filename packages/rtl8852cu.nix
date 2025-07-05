@@ -8,7 +8,7 @@ stdenv.mkDerivation {
     owner = "morrownr";
     repo = "rtl8852cu-20240510";
     rev = "474d61a3cabafc341b12de6f96e3a91ee0157288";
-    hash = "sha256-9JKyxAXlKvyJ2HzM9m2LZRa5k04I8xoXgtsgZ0luRFo=";
+    hash = "sha256-6JwRlpr4T7ahhFSw8vbrstDnaSF/QOIMB0mVtPckoF0=";
   };
 
   nativeBuildInputs = [ bc nukeReferences ] ++ kernel.moduleBuildDependencies;
@@ -18,7 +18,9 @@ stdenv.mkDerivation {
     substituteInPlace Makefile \
       --replace /lib/modules/ "${kernel.dev}/lib/modules/" \
       --replace /sbin/depmod \# \
-      --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/"
+      --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/" \
+      --replace '/etc/modprobe.d' "$out/etc/modprobe.d" \
+      --replace 'sh edit-options.sh' 'true'
   '';
 
   makeFlags = [
@@ -28,6 +30,7 @@ stdenv.mkDerivation {
 
   preInstall = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/
+    mkdir -p $out/etc/modprobe.d
   '';
 
   postInstall = ''
