@@ -25,9 +25,9 @@ This file is the heart of the system configuration. Key areas include:
 
 1. **Imports** – brings in other modules such as custom packages from `packages/common.nix`.
 2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, and other hardware options. ZRAM swap is also activated. Bluetooth is enabled only for the laptop host. Additional udev rules grant Wolf virtual input devices access to `/dev/uinput` and place them on seat9.
-3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback`), and plymouth splash.
+3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback` and `8188eu` for the Realtek RTL8188GU adapter), and plymouth splash.
 4. **Security** – enabling policykit and realtime kit.
-5. **Networking** – hostname, firewall defaults, wireless support, and NetworkManager.
+5. **Networking** – hostname, firewall defaults, wireless support, usb-modeswitch to toggle Wi‑Fi adapters, and NetworkManager.
 6. **Locale & Time** – timezone `Europe/Paris` with English locales.
 7. **Console and X11** – keeps the French keyboard layout while the system language is English.
 8. **Fonts** – installs a selection of fonts including JetBrains Mono and Noto packages.

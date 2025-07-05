@@ -122,6 +122,7 @@ let
     wirelesstools         # Tools for managing wireless interfaces
     docker-compose        # Define and run multi-container Docker applications
     wavemon              # Network analysis tool (verify details online)
+    usb-modeswitch        # Switch devices like the RTL8188GU from CDROM mode
   ];
 
   # 2.15: Browsers & Internet Utilities

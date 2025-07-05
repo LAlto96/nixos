@@ -73,8 +73,8 @@
 
   # Configure the kernel and add custom kernel modules.
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.kernelModules = [ "v4l2loopback" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+  boot.kernelModules = [ "v4l2loopback" "8188eu" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback pkgs.rtl8188eus-aircrack ];
   boot.extraModprobeConfig = ''
     # Configure v4l2loopback: virtual camera settings for apps like Skype, Zoom, and Teams.
     options v4l2loopback video_nr=0,1 exclusive_caps=1,1 card_label="Virtual Camera 0","OBS Camera"
