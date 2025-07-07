@@ -247,6 +247,7 @@ in
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
   };
+  hardware.steam-hardware.enable = true;
 
   ##############################################################
   # 2. System-Wide Packages
