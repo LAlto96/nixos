@@ -1,6 +1,12 @@
 { config, pkgs, nixpkgs-stable, inputs, lib, ... }:
 
 {
+  hardware.usb-modeswitch.enable = true;
+
+  services.udev.extraRules = ''
+    # Switch TP-Link TXE70UH from CD-ROM to Wi‑Fi mode
+    ATTR{idVendor}=="35bc", ATTR{idProduct}=="0102", RUN+="${lib.getExe pkgs.usb-modeswitch} -K -v 35bc -p 0102"
+  '';
   ###############################
   # 1. Imports & External Files
   ###############################
@@ -33,22 +39,22 @@
   hardware.logitech.wireless.enableGraphical = true;
 
   # Udev rules to allow Wolf virtual input devices
-  services.udev.extraRules = ''
-    # Allows Wolf to access /dev/uinput
-    KERNEL=="uinput", SUBSYSTEM=="misc", MODE="0660", GROUP="input", OPTIONS+="static_node=uinput"
-
-    # Allows Wolf to access /dev/uhid
-    KERNEL=="uhid", TAG+="uaccess"
-
-    # Move virtual keyboard and mouse into a different seat
-    SUBSYSTEMS=="input", ATTRS{id/vendor}=="ab00", MODE="0660", GROUP="input", ENV{ID_SEAT}="seat9"
-
-    # Joypads
-    SUBSYSTEMS=="input", ATTRS{name}=="Wolf X-Box One (virtual) pad", MODE="0660", GROUP="input"
-    SUBSYSTEMS=="input", ATTRS{name}=="Wolf PS5 (virtual) pad", MODE="0660", GROUP="input"
-    SUBSYSTEMS=="input", ATTRS{name}=="Wolf gamepad (virtual) motion sensors", MODE="0660", GROUP="input"
-    SUBSYSTEMS=="input", ATTRS{name}=="Wolf Nintendo (virtual) pad", MODE="0660", GROUP="input"
-  '';
+#  services.udev.extraRules = ''
+#    # Allows Wolf to access /dev/uinput
+#    KERNEL=="uinput", SUBSYSTEM=="misc", MODE="0660", GROUP="input", OPTIONS+="static_node=uinput"
+#
+#    # Allows Wolf to access /dev/uhid
+#    KERNEL=="uhid", TAG+="uaccess"
+#
+#    # Move virtual keyboard and mouse into a different seat
+#    SUBSYSTEMS=="input", ATTRS{id/vendor}=="ab00", MODE="0660", GROUP="input", ENV{ID_SEAT}="seat9"
+#
+#    # Joypads
+#    SUBSYSTEMS=="input", ATTRS{name}=="Wolf X-Box One (virtual) pad", MODE="0660", GROUP="input"
+#    SUBSYSTEMS=="input", ATTRS{name}=="Wolf PS5 (virtual) pad", MODE="0660", GROUP="input"
+#    SUBSYSTEMS=="input", ATTRS{name}=="Wolf gamepad (virtual) motion sensors", MODE="0660", GROUP="input"
+#    SUBSYSTEMS=="input", ATTRS{name}=="Wolf Nintendo (virtual) pad", MODE="0660", GROUP="input"
+#  '';
 
 
   ##############################
