@@ -200,6 +200,7 @@ let
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     swappy              # Alternative screenshot tool
     swaybg                # Wallpaper setter for Wayland compositors
+    ksnip
   ];
 
   # 2.26: Brightness Control Utilities
