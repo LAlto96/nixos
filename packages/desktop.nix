@@ -12,9 +12,18 @@ let
   pkgs3_2 = with pkgs; [
     davinci-resolve     # Professional video editor
   ];
+
+  # 3.2: Virtualization
+  pkgs3_3 = with pkgs; [
+    qemu
+    quickemu
+    quickgui
+  ];
+
 in
 {
   environment.systemPackages =
     pkgs3_1 ++
-    pkgs3_2;
+    pkgs3_2 ++
+    pkgs3_3;
 }
