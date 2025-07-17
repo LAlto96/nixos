@@ -50,6 +50,10 @@
     ./wm-desktop/wm.nix
   ];
   services.syncthing.enable = true;
+
+  programs.zsh.shellAliases = {
+    valheim = "gamemoderun mangohud steam-run /home/desktop/.steam/steam/steamapps/common/Valheim/start_game_bepinex.sh";
+  };
   
   # Obs Studio
   programs.obs-studio.enable = true;

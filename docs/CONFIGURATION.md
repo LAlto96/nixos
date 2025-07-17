@@ -67,6 +67,7 @@ The shared Zsh module (`hm/zsh.nix`) defines several handy shortcuts:
 | `dpms`              | `hyprctl dispatch dpms off && sleep 2 && hyprctl dispatch dpms on` |
 | `4000`              | `hyprctl hyprsunset temperature 40000` |
 | `identity`          | `hyprctl hyprsunset identity` |
+| `valheim`           | `gamemoderun mangohud steam-run /home/desktop/.steam/steam/steamapps/common/Valheim/start_game_bepinex.sh` |
 
 On the laptop host, additional aliases are defined in `home-laptop.nix`:
 
