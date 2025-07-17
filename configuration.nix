@@ -42,13 +42,11 @@
 
   # virtualisation.docker.enable = true;
 
-  # VirtualBox host support and group membership for desktop user.
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "desktop" ];
-
   # Enable libvirt for virtualization management and virt-manager as the GUI.
+  # Also add UEFI firmware support
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+  systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
 
   # Enable Logitech wireless devices with both CLI and graphical tools.
   hardware.logitech.wireless.enable = true;
@@ -106,8 +104,8 @@
   networking.firewall.checkReversePath = "loose";
 
   # Enable wireless support (wpa_supplicant will be used).
-  networking.wireless.enable = true;
-  networking.wireless.userControlled.enable = true;
+  # networking.wireless.enable = true;
+  # networking.wireless.userControlled.enable = true;
 
   # Enable NetworkManager for easier network management.
   networking.networkmanager.enable = true;

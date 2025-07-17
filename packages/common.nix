@@ -230,6 +230,7 @@ let
     xorg.xwininfo         # Display information about X windows
     yad                   # Yet Another Dialog for X (GUI dialogs)
     steamtinkerlaunch     # Tool to tweak Steam launch options
+    steam-run             # Run programs in FHS environment
   ];
 
 in
