@@ -31,5 +31,6 @@ in
   environment.systemPackages =
     pkgs3_1 ++
     pkgs3_2 ++
-    pkgs3_3;
+    pkgs3_3 ++
+    pkgs3_4;
 }
