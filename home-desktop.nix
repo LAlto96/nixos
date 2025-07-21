@@ -52,7 +52,7 @@
   services.syncthing.enable = true;
 
   programs.zsh.shellAliases = {
-    valheim = "gamemoderun mangohud steam-run /home/desktop/.steam/steam/steamapps/common/Valheim/start_game_bepinex.sh";
+    valheim = "cd /home/desktop/.steam/steam/steamapps/common/Valheim/ && gamemoderun mangohud steam-run /home/desktop/.steam/steam/steamapps/common/Valheim/start_game_bepinex.sh";
   };
   
   # Obs Studio
