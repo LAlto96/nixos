@@ -37,6 +37,7 @@
   home.file.".config/hypr/hypridle.conf".source = ./hypridle.conf;
   home.file.".config/hypr/hyprlock.conf".source = ./hm/hyprlock/hyprlock.conf;
   home.file.".config/hypr/catppuccin_hyprlock_background_sapphire.jpg".source = ./hm/hyprlock/catppuccin_hyprlock_background_sapphire.jpg;
+  home.file.".config/hypr/latte.conf".source = ./hm/hyprlock/latte.conf;
   programs.git = {
     enable = true;
     userName = "Alto";

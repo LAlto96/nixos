@@ -13,11 +13,17 @@ let
     davinci-resolve     # Professional video editor
   ];
 
-  # 3.2: Virtualization
+  # 3.3: Virtualization
   pkgs3_3 = with pkgs; [
     qemu
     quickemu
     quickgui
+  ];
+
+  # 3.4: Bench & Overcklocking
+  pkgs3_4 = with pkgs; [
+    nvidia_oc
+    phoronix-test-suite
   ];
 
 in
