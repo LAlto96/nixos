@@ -1,6 +1,7 @@
 { config, pkgs, nixpkgs-stable, inputs, lib, ... }:
 
 {
+  home-manager.backupFileExtension = "backup";
   hardware.usb-modeswitch.enable = true;
 
   # Udev rules to allow Wolf virtual input devices and TP-Link TXE70UH
