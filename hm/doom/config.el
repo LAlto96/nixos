@@ -116,7 +116,7 @@
         '(("d" "default" entry
            "* %<%H:%M> - %?\n"
            :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>\n* Tasks\n - [ ] [[id:12b7ff58-82ee-4a1e-882a-8659945a1e83][Check your daily habits]]\n* Notes\n"))))
+                              "#+title: %<%Y-%m-%d>\n* Tasks\n - [ ] [[id:12b7ff58-82ee-4a1e-882a-8659945a1e83][Check your daily habits]]\n\n* Planning\n\n* Notes\n"))))
 
   ;; Define capture templates for creating and appending notes
   (setq org-roam-capture-templates
