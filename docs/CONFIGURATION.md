@@ -15,8 +15,7 @@ Each configuration pulls in common modules like `configuration.nix`, GPU configu
 The shared pieces are defined in `common-modules.nix`. This file imports the
 main `configuration.nix`, the Stylix theming module and the Home Manager NixOS
 module with `useGlobalPkgs` disabled and `useUserPackages` enabled. It also sets
-`virtualisation.docker.enable = true` and applies overlays such as
-`hyprpanel.overlay`. Both hosts include this list of modules via the flake so
+`virtualisation.docker.enable = true`. Both hosts include this list of modules via the flake so
 they start from the same base configuration.
 
 ## Core System Configuration (`configuration.nix`)
@@ -132,7 +131,7 @@ machine‑specific options. Below is a summary of the two provided hosts:
 
 - `droidcam.nix` and `v4l2loopback-dc.nix` – provide DroidCam and its kernel module.
 - `python.nix` – defines a set of Python packages using `pkgs.python3.withPackages`.
--  Hyprpanel is provided as an overlay through `common-modules.nix`. Themes live in `hyprpanel_themes/`.
+-  Hyprpanel comes directly from `nixpkgs`. Themes live in `hyprpanel_themes/`.
 - `hyprsunset.sh` – a script launched by Hyprland to adjust screen color automatically: 4000 K at night and `identity` during the day.
 - System programs like **Yazi** and **CoreCtrl** are enabled in `configuration.nix` (see Core System Configuration, item 13).
 
