@@ -14,7 +14,7 @@ let
 
   # 2.1: General Productivity & Multimedia Tools
   pkgs2_1 = with pkgs; [
-    pkgs.hyprpanel # Hyprland panel integration from nixpkgs
+    hyprpanel # Hyprland panel integration from nixpkgs
     hyprsunset
     winetricks # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors # Office suite for document editing
