@@ -117,9 +117,10 @@ machine‑specific options. Below is a summary of the two provided hosts:
   - Enables SDDM with auto‑login for the `desktop` user and sets Hyprland as
     the default session.
   - Reads `ports.nix` to open a large set of firewall ports:
-    22, 80, 91, 443, 444, 5037, 5555, 6379, 7777, 7878, 8080, 8096, 8211,
-    8501, 8777, 8989, 9100, 27015, 47984, 47989, 47990, 47998, 47999, 48000,
-    48002 and 48010.
+    22, 80, 91, 443, 444, 4747, 5037, 5555, 6379, 7777, 7878, 8080,
+    8501, 8777, 9100, 2268, 47984, 47989, 47998, 47999,
+    48010, 48100, 48200, 47990, 48000, 48002, 8989, 8096, 8211, 27015.
+  - The SSH daemon listens on port 2268.
 
 - **laptop**
   - Imports `hardware-configuration-laptop.nix` with both AMD and NVIDIA GPU
