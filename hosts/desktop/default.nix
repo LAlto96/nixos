@@ -12,6 +12,11 @@
     allowedUDPPorts = desktopPorts;
   };
 
+  services.openssh = {
+    enable = true;
+    ports = [ 2268 ];
+  };
+
   home-manager.users.desktop = import ../../home-desktop.nix;
   home-manager.backupFileExtension = "backup";
 
