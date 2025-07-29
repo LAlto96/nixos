@@ -205,5 +205,7 @@
   (set-lsp-priority! 'ccls 0))
 
 (after! org
+  (load-library "find-lisp")
   (setq org-agenda-files
-        (directory-files-recursively "~/Documents/business/org/" "\\.org$")))
+        (find-lisp-find-files (expand-file-name "~/Documents/business/org/")
+                              "\\.org$")))
