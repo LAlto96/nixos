@@ -6,7 +6,7 @@
     autosuggestion.enable = true;
     enableCompletion = true;
     shellAliases = {
-        doom = "/home/desktop/.config/emacs/bin/doom";
+        doom = "~/.config/emacs/bin/doom";
         #emacs = "emacsclient -c -a 'emacs'";
         dupdate = "sudo nixos-rebuild switch --flake ~/Documents/nix-configuration#desktop --show-trace";
         lupdate = "sudo nixos-rebuild switch --flake ~/Documents/nix-configuration#laptop --show-trace";
