@@ -4,6 +4,8 @@ let
   # Stable packages from an alternate channel. For example, you might add kicad here.
   stablepkgs = with pkgs-stable; [
     # kicad
+    audacity # Audio editor for recording and editing
+    moc # Console audio player
   ];
 
   # 2.0: To categorize
@@ -18,7 +20,6 @@ let
     hyprsunset
     winetricks # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors # Office suite for document editing
-    audacity # Audio editor for recording and editing
     feh # Lightweight image viewer and wallpaper setter
     gimp-with-plugins # Image editing software with additional plugins
     dosbox-staging # DOS emulator for legacy software
@@ -165,7 +166,6 @@ let
 
   # 2.21: Media Players & Streaming Tools
   pkgs2_21 = with pkgs; [
-    moc # Console audio player
     mpv # Versatile media player
     yt-dlp # Command-line YouTube downloader
     pamixer # Command-line PulseAudio mixer utility
