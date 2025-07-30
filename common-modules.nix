@@ -1,6 +1,5 @@
 { inputs }:
 with inputs; [
-  { nixpkgs.overlays = [ hyprpanel.overlay ]; }
   stylix.nixosModules.stylix
   ./configuration.nix
   home-manager.nixosModules.home-manager
