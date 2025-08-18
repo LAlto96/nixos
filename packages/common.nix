@@ -220,6 +220,7 @@ let
     protonup-qt # GUI tool to update Proton versions
     protontricks # Utility for managing Proton tweaks
     gwe
+    retroarch-full
   ];
 
   # 2.28: Xorg Specific Tools
@@ -249,6 +250,7 @@ in
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
   };
+  programs.gamescope.enable = true;
   hardware.steam-hardware.enable = true;
 
   ##############################################################
