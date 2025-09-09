@@ -7,13 +7,14 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "morrownr";
     repo = "rtl8852cu-20240510";
-    rev = "474d61a3cabafc341b12de6f96e3a91ee0157288";
+    rev = "5705ed8cb5175fad819f073e11f2b6ff11ad6cea";
     hash = "sha256-6JwRlpr4T7ahhFSw8vbrstDnaSF/QOIMB0mVtPckoF0=";
   };
 
   nativeBuildInputs = [ bc nukeReferences ] ++ kernel.moduleBuildDependencies;
   hardeningDisable = [ "pic" "format" ];
 
+  # 1) Ajustements Makefile, 2) shim pour Linux >= 6.16
   prePatch = ''
     substituteInPlace Makefile \
       --replace /lib/modules/ "${kernel.dev}/lib/modules/" \
@@ -21,6 +22,12 @@ stdenv.mkDerivation {
       --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/" \
       --replace '/etc/modprobe.d' "$out/etc/modprobe.d" \
       --replace 'sh edit-options.sh' 'true'
+
+    # Compat noyau 6.16+: reintroduire from_timer() si absent
+    # On ajoute les includes et une définition de secours.
+    sed -i '1i\
+#include <linux/version.h>\n#include <linux/timer.h>\n#ifndef from_timer\n# ifdef timer_container_of\n#  define from_timer(var, callback_timer, timer_fieldname) \\\n     timer_container_of(var, callback_timer, timer_fieldname)\n# else\n#  define from_timer(var, callback_timer, timer_fieldname) \\\n     container_of(callback_timer, typeof(*(var)), timer_fieldname)\n# endif\n#endif\n' \
+      ./include/osdep_service_linux.h
   '';
 
   makeFlags = [
@@ -44,5 +51,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/morrownr/rtl8852cu-20240510";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
+    # Non-mainline, sensible aux changements d'API noyau >= 6.16.
+    broken = false;
   };
 }
