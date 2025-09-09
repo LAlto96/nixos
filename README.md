@@ -1,5 +1,12 @@
 # NixOS Configuration
 
+The repository is organized into key directories: `hosts/` defines the `desktop` and `laptop` machines, while `packages/` and `overlays/` provide custom packages and overlay tweaks. Reference hosts by name in flake commands, for example:
+
+```sh
+sudo nixos-rebuild switch --flake .#desktop
+nix flake show .#nixosConfigurations.laptop
+```
+
 This repository contains the NixOS configuration for both a desktop and a laptop setup. For a full description of the available modules and options see [docs/CONFIGURATION.md](docs/CONFIGURATION.md).
 
 ## Getting Started
