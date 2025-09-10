@@ -14,16 +14,16 @@ Each configuration pulls in common modules like `configuration.nix`, GPU configu
 
 The shared pieces are defined in `common-modules.nix`. This file imports the
 main `configuration.nix`, the Stylix theming module and the Home Manager NixOS
-module with `useGlobalPkgs` disabled and `useUserPackages` enabled. It also sets
-`virtualisation.docker.enable = true`. Both hosts include this list of modules via the flake so
-they start from the same base configuration.
+module with `useGlobalPkgs` disabled and `useUserPackages` enabled. Docker is
+now configured per-host so the common modules remain minimal and both hosts
+start from the same base configuration.
 
 ## Core System Configuration (`configuration.nix`)
 
 This file is the heart of the system configuration. Key areas include:
 
 1. **Imports** – brings in other modules such as custom packages from `packages/common.nix`.
-2. **Hardware & Virtualization** – enables virtualbox, libvirtd, Logitech device support, and other hardware options. ZRAM swap is also activated. Bluetooth is enabled only for the laptop host. Additional udev rules grant Wolf virtual input devices access to `/dev/uinput` and place them on seat9.
+2. **Hardware & Virtualization** – enables virtualbox, Logitech device support, and other hardware options. ZRAM swap is activated with a higher priority than disk-based swap. Docker and libvirtd are enabled only on the desktop host. Bluetooth is enabled only for the laptop host. Additional udev rules grant Wolf virtual input devices access to `/dev/uinput` and place them on seat9.
 3. **Boot Settings** – systemd-boot with EFI support, kernel modules (e.g., `v4l2loopback`), and plymouth splash.
 4. **Security** – enabling policykit and realtime kit.
 5. **Networking** – hostname, firewall defaults, wireless support, and NetworkManager.
@@ -120,12 +120,14 @@ machine‑specific options. Below is a summary of the two provided hosts:
     8501, 8777, 9100, 2268, 47984, 47989, 47998, 47999,
     48010, 48100, 48200, 47990, 48000, 48002, 8989, 8096, 8211, 27015.
   - The SSH daemon listens on port 2268.
+  - Runs Docker and libvirtd for virtualization and sets `vm.swappiness` to 60.
 
 - **laptop**
   - Imports `hardware-configuration-laptop.nix` with both AMD and NVIDIA GPU
     modules.
   - Enables Bluetooth (with the Blueman applet) so the service starts automatically, and provides a 16 GiB swap
     file at `/var/lib/swapfile`.
+  - Sets `vm.swappiness` to 20 and leaves Docker and libvirtd disabled.
   - Allows a small set of firewall ports: 80, 91, 443, 444, 8501 and 9100.
 
 ## Additional Modules
