@@ -18,8 +18,10 @@
   services.blueman.enable = true;
   swapDevices = [{
     device = "/var/lib/swapfile";
-    size = 16*1024;
+    size = 16 * 1024;
+    priority = 0;
   }];
+  boot.kernel.sysctl."vm.swappiness" = 20;
 
   home-manager.users.laptop = import ../../home-laptop.nix;
   nix.settings.trusted-users = [ "laptop" ];

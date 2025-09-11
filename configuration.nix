@@ -30,24 +30,18 @@
   # Import additional NixOS configuration files and package definitions.
   imports =
     [
-      ./packages/common.nix    # Common package definitions
+      ./packages/common.nix # Common package definitions
       #  ./python.nix      # Python-specific configurations
     ];
 
   ######################################
   # 2. Hardware & Virtualization Settings
   ######################################
-  #zSwap
-  zramSwap.enable = true;
-
-
-  # virtualisation.docker.enable = true;
-
-  # Enable libvirt for virtualization management and virt-manager as the GUI.
-  # Also add UEFI firmware support
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  systemd.tmpfiles.rules = [ "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware" ];
+  # zSwap
+  zramSwap = {
+    enable = true;
+    priority = 100;
+  };
 
   # Enable Logitech wireless devices with both CLI and graphical tools.
   hardware.logitech.wireless.enable = true;
@@ -126,7 +120,7 @@
   systemd.services."NetworkManager-wait-online".enable = false;
 
 
-  networking.enableIPv6  = false;
+  networking.enableIPv6 = false;
   ##############################
   # 6. Time & Internationalization
   ##############################
@@ -136,15 +130,15 @@
   # Set default locale to English while keeping the keyboard layout in French.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS       = "en_US.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT   = "en_US.UTF-8";
-    LC_MONETARY      = "en_US.UTF-8";
-    LC_NAME          = "en_US.UTF-8";
-    LC_NUMERIC       = "en_US.UTF-8";
-    LC_PAPER         = "en_US.UTF-8";
-    LC_TELEPHONE     = "en_US.UTF-8";
-    LC_TIME          = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
   ##############################
@@ -152,7 +146,7 @@
   ##############################
   # Configure X11 keymap.
   services.xserver = {
-    xkb.layout = "fr";  # Set keyboard layout to French.
+    xkb.layout = "fr"; # Set keyboard layout to French.
     xkb.variant = "";
   };
 
@@ -160,8 +154,8 @@
   console.keyMap = "fr";
   console = {
     earlySetup = true;
-    packages = with pkgs; [ terminus_font ];  # Use Terminus font during early boot.
-    font = "ter-u32n";  # Set console font.
+    packages = with pkgs; [ terminus_font ]; # Use Terminus font during early boot.
+    font = "ter-u32n"; # Set console font.
   };
 
   ##############################
@@ -170,11 +164,11 @@
   # Install and configure system fonts.
   fonts = {
     packages = with pkgs; [
-      noto-fonts          # General purpose fonts.
-      noto-fonts-emoji    # Emoji support.
-      meslo-lgs-nf        # Monospaced font.
-      corefonts         # Basic core fonts.
-      nerd-fonts.jetbrains-mono  # JetBrains Mono with extra glyphs.
+      noto-fonts # General purpose fonts.
+      noto-fonts-emoji # Emoji support.
+      meslo-lgs-nf # Monospaced font.
+      corefonts # Basic core fonts.
+      nerd-fonts.jetbrains-mono # JetBrains Mono with extra glyphs.
     ];
     fontconfig = {
       # Enable antialiasing to improve font rendering.
@@ -246,7 +240,7 @@
   ##############################
   # Set global environment variables.
   environment.variables = {
-    QT_QPA_PLATFORM = "wayland;xcb";  # Allow Qt apps to use Wayland with fallback to X.
+    QT_QPA_PLATFORM = "wayland;xcb"; # Allow Qt apps to use Wayland with fallback to X.
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -381,7 +375,7 @@
   ##############################
   # Configure Stylix for theming and desktop customization.
   stylix.enable = true;
-  stylix.image = ./hm/wallpaper/wall3.png;  # Set the desktop wallpaper.
+  stylix.image = ./hm/wallpaper/wall3.png; # Set the desktop wallpaper.
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
   stylix.homeManagerIntegration.followSystem = true;
   stylix.targets.qt.platform = lib.mkForce "qtct";
@@ -413,5 +407,5 @@
   # 18. Final System State Version
   ##############################
   # Set the state version for NixOS. This should remain unchanged unless you understand the implications.
-  system.stateVersion = "23.05";  # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 }

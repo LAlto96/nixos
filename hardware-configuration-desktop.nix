@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -14,20 +15,23 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b31e7c6e-d7cd-4acd-ab3b-8f6c51887833";
+    {
+      device = "/dev/disk/by-uuid/b31e7c6e-d7cd-4acd-ab3b-8f6c51887833";
       fsType = "ext4";
     };
 
   boot.initrd.luks.devices."nvme0n1p1_crypt".device = "/dev/disk/by-uuid/48dbe212-3270-48eb-bd63-fafe9fb40a11";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/2B27-5D0E";
+    {
+      device = "/dev/disk/by-uuid/2B27-5D0E";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
   fileSystems."/mnt/storage" =
-    { device = "/dev/disk/by-uuid/323ce481-302f-4675-89a9-ca0b1971d8f2";
+    {
+      device = "/dev/disk/by-uuid/323ce481-302f-4675-89a9-ca0b1971d8f2";
       fsType = "ext4";
     };
 
@@ -39,18 +43,19 @@
   # boot.initrd.luks.devices."luks-b636108b-c002-4241-8490-8d7f2b45ba0a".device = "/dev/disk/by-uuid/b636108b-c002-4241-8490-8d7f2b45ba0a";
 
   fileSystems."/mnt/4to" =
-    { device = "/dev/disk/by-uuid/8500bd1f-2304-4981-b32e-a2f4560a2597";
+    {
+      device = "/dev/disk/by-uuid/8500bd1f-2304-4981-b32e-a2f4560a2597";
       fsType = "ext4";
     };
 
   fileSystems."/mnt/ssd" =
-    { device = "/dev/disk/by-uuid/D0CE962DCE960C3A";
+    {
+      device = "/dev/disk/by-uuid/D0CE962DCE960C3A";
       fsType = "ntfs-3g";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/4dd6a497-7d5f-45f9-b8f8-8390a9080d3f"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/4dd6a497-7d5f-45f9-b8f8-8390a9080d3f"; priority = 0; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
