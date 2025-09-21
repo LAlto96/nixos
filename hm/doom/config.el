@@ -209,3 +209,6 @@
   (setq org-agenda-files
         (find-lisp-find-files (expand-file-name "~/Documents/business/org/")
                               "\\.org$")))
+
+;; Ignore complètement la touche "sans symbole" que XKB envoie
+(global-set-key (kbd "<void-symbol>") #'ignore)

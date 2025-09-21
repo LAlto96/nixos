@@ -36,4 +36,8 @@
   };
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "hyprland";
+  services.udev.extraHwdb = ''
+    evdev:input:b*v*p*e*
+     KEYBOARD_KEY_3a=reserved
+  '';
 }
