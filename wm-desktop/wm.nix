@@ -11,7 +11,7 @@
   stylix.targets.rofi.enable = false;
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
     theme = ./rofi/catppuccin-latte.rasi;
     font = "JetBrainsMono NF";
     extraConfig = {
