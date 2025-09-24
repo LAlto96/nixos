@@ -27,9 +27,6 @@
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-  systemd.tmpfiles.rules = [
-    "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware"
-  ];
   boot.kernel.sysctl."vm.swappiness" = 60;
 
   services.displayManager = {
