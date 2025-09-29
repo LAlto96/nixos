@@ -104,6 +104,14 @@
 
   # Enable NetworkManager for easier network management.
   networking.networkmanager.enable = true;
+  networking.nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
+  networking.networkmanager.insertNameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
 
   # Enable Tailscale VPN service
   services.tailscale.enable = true;

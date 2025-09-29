@@ -4,7 +4,7 @@
 
 { config, pkgs, inputs, ... }:
 {
-
+  nixpkgs.config.cudaSupport = true;
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
