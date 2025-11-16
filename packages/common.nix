@@ -6,12 +6,14 @@ let
     # kicad
     audacity # Audio editor for recording and editing
     moc # Console audio player
+    protonvpn-gui # Graphical ProtonVPN client
   ];
 
   # 2.0: To categorize
   pkgs2_0 = with pkgs; [
     nodejs
     jq
+    icu
   ];
 
   # 2.1: General Productivity & Multimedia Tools
@@ -62,7 +64,7 @@ let
   # 2.6: Text Editors & IDEs
   pkgs2_6 = with pkgs; [
     emacs # Powerful text editor
-    emacsPackages.vterm # Terminal emulator within Emacs
+    # emacs.vterm # Terminal emulator within Emacs
   ];
 
   # 2.7: Terminal & System Utilities
@@ -79,6 +81,8 @@ let
   # 2.8: Calculator
   pkgs2_8 = with pkgs; [
     qalculate-gtk # Feature-rich GTK calculator
+    parsify # Next generation notepad-based calculator, built with extendibility and privacy in mind
+    speedcrunch # Fast power user calculator
   ];
 
   # 2.9: Camera & File Management Tools
@@ -103,7 +107,7 @@ let
   pkgs2_12 = with pkgs; [
     zathura # Lightweight and customizable PDF viewer
     texliveFull # Full TeX distribution for document compilation
-    poppler_utils # Utilities for PDF manipulation
+    poppler-utils # Utilities for PDF manipulation
   ];
 
   # 2.13: System Monitoring & Information Tools
@@ -149,8 +153,6 @@ let
     nzbget # NZB download tool
     motrix # Multi-protocol download manager
     wget # Command-line network downloader
-    protonvpn-gui # Graphical ProtonVPN client
-    protonvpn-cli # Command-line ProtonVPN client
   ];
 
   # 2.19: Finance Management
@@ -248,10 +250,10 @@ in
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
-    gamescopeSession.enable = true;
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    # gamescopeSession.enable = true;
   };
   programs.gamescope.enable = true;
-  hardware.steam-hardware.enable = true;
 
   ##############################################################
   # 2. System-Wide Packages

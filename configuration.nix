@@ -173,7 +173,7 @@
   fonts = {
     packages = with pkgs; [
       noto-fonts # General purpose fonts.
-      noto-fonts-emoji # Emoji support.
+      noto-fonts-color-emoji # Emoji support.
       meslo-lgs-nf # Monospaced font.
       corefonts # Basic core fonts.
       nerd-fonts.jetbrains-mono # JetBrains Mono with extra glyphs.

@@ -14,4 +14,8 @@ in {
   linuxPackages_zen = super.linuxPackages_zen.extend (ks: _:
     { rtl8852cu = buildFor ks; }
   );
+   # Ajouter rtl8852cu à linuxPackages_latest
+  linuxPackages_latest = super.linuxPackages_latest.extend (ks: _:
+    { rtl8852cu = buildFor ks; }
+  );
 }

@@ -20,7 +20,9 @@
   home-manager.users.desktop = import ../../home-desktop.nix;
   home-manager.backupFileExtension = "backup";
 
-  nixpkgs.overlays = [ (import ../../overlays/rtl8852cu.nix) ];
+  nixpkgs.overlays = [
+    (import ../../overlays/rtl8852cu.nix)
+  ];
 
   nix.settings.trusted-users = [ "desktop" ];
 
