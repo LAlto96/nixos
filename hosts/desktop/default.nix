@@ -4,7 +4,8 @@
     ../../hardware-configuration-desktop.nix
     ../../nvidiagpu.nix
     ../../packages/desktop.nix
-    ../../drivers/rtl8852cu.nix
+    # ../../drivers/rtl8852cu.nix
+    ../../drivers/rtw89.nix
   ];
 
   networking.firewall = {
@@ -21,7 +22,8 @@
   home-manager.backupFileExtension = "backup";
 
   nixpkgs.overlays = [
-    (import ../../overlays/rtl8852cu.nix)
+    # (import ../../overlays/rtl8852cu.nix)
+    (import ../../overlays/rtw89.nix)
   ];
 
   nix.settings.trusted-users = [ "desktop" ];
