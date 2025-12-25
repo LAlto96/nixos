@@ -7,8 +7,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "morrownr";
     repo = "rtl8852cu-20240510";
-    rev = "5705ed8cb5175fad819f073e11f2b6ff11ad6cea";
-    hash = "sha256-xjjUUZjju0sDp4M8cA7nJzZq2yPqwUwwNmUlHth2OzE=";
+    rev = "c01bd409ddce75822cd9127ac1a97ba4fd31a9d8";
+    hash = "sha256-yp5e2ijkqKji+dJ+XPMJJPhkjh5NYUiFEncQc4HdNEA=";
   };
 
   nativeBuildInputs = [ bc nukeReferences ] ++ kernel.moduleBuildDependencies;
