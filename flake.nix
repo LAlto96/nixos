@@ -43,12 +43,12 @@
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, zen-browser, ... }:
     let
+      system = "x86_64-linux";
       desktopPorts = import ./hosts/desktop/ports.nix;
       commonModules = import ./common-modules.nix { inherit inputs; };
     in {
       nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem rec {
-          system = "x86_64-linux";
+        laptop = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
             pkgs-stable = import nixpkgs-stable {
@@ -56,10 +56,12 @@
               config.allowUnfree = true;
             };
           };
-          modules = commonModules ++ [ ./hosts/laptop ];
+          modules = commonModules ++ [
+            { nixpkgs.hostPlatform = system; }
+            ./hosts/laptop
+          ];
         };
-        desktop = nixpkgs.lib.nixosSystem rec {
-          system = "x86_64-linux";
+        desktop = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
             pkgs-stable = import nixpkgs-stable {
@@ -71,7 +73,10 @@
               config.allowUnfree = true;
             };
           };
-          modules = commonModules ++ [ (import ./hosts/desktop { inherit desktopPorts; }) ];
+          modules = commonModules ++ [
+            { nixpkgs.hostPlatform = system; }
+            (import ./hosts/desktop { inherit desktopPorts; })
+          ];
         };
       };
     };
