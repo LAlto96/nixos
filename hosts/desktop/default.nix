@@ -32,6 +32,7 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
   boot.kernel.sysctl."vm.swappiness" = 60;
+  powerManagement.cpuFreqGovernor = "performance";
 
   services.displayManager = {
     sddm.enable = true;
