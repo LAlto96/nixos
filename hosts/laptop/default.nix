@@ -5,7 +5,8 @@
     ../../amdgpu.nix
     ../../packages/laptop.nix
     ../../tlp.nix
-    ../../drivers/rtl8852cu.nix
+    # ../../drivers/rtl8852cu.nix
+    ../../drivers/rtw89.nix
   ];
 
   networking.firewall = {
@@ -26,7 +27,10 @@
   home-manager.users.laptop = import ../../home-laptop.nix;
   nix.settings.trusted-users = [ "laptop" ];
 
-  nixpkgs.overlays = [ (import ../../overlays/rtl8852cu.nix) ];
+  nixpkgs.overlays = [
+    # (import ../../overlays/rtl8852cu.nix)
+    (import ../../overlays/rtw89.nix)
+  ];
 
   services.displayManager = {
     sddm.enable = true;

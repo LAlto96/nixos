@@ -18,4 +18,9 @@ in {
   linuxPackages_latest = super.linuxPackages_latest.extend (ks: _:
     { rtl8852cu = buildFor ks; }
   );
+
+  linuxPackages_6_6 = super.linuxPackages_6_6.extend (ks: _:
+    { rtl8852cu = buildFor ks; }
+  );
+
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 let
   # 3.1: Digital Audio Workstations (DAWs)
@@ -27,7 +27,7 @@ let
   ];
 
   # 3.5: Steam utilities
-  pkgs3_5 = with pkgs; [
+  pkgs3_5 = with pkgs-stable; [
     sgdboop # Steam artwork manager
   ];
 
