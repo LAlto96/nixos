@@ -48,11 +48,11 @@
       fsType = "ext4";
     };
 
-  fileSystems."/mnt/ssd" =
-    {
-      device = "/dev/disk/by-uuid/D0CE962DCE960C3A";
-      fsType = "ntfs-3g";
-    };
+  #fileSystems."/mnt/ssd" =
+  #  {
+  #    device = "/dev/disk/by-uuid/D0CE962DCE960C3A";
+  #    fsType = "ntfs-3g";
+  #  };
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/4dd6a497-7d5f-45f9-b8f8-8390a9080d3f"; priority = 0; }];
