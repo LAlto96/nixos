@@ -74,5 +74,20 @@
           modules = commonModules ++ [ (import ./hosts/desktop { inherit desktopPorts; }) ];
         };
       };
+      checks = let
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        ${system}.hyprland-rules = pkgs.runCommand "hyprland-rules-check" {
+          src = ./.;
+          nativeBuildInputs = [ pkgs.bash pkgs.ripgrep ];
+        } ''
+          cp -R "$src" repo
+          chmod -R u+w repo
+          cd repo
+          ${pkgs.bash}/bin/bash ${./scripts/check-hyprland-rules.sh}
+          touch "$out"
+        '';
+      };
     };
 }
