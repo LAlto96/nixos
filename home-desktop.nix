@@ -51,8 +51,10 @@
   home.file.".config/doom/packages.el".source = ./hm/doom/packages.el;
   programs.git = {
     enable = true;
-    userName = "Alto";
-    userEmail = "lafon.ludovic.ll@proton.me";
+    settings.user = {
+      name = "Alto";
+      email = "lafon.ludovic.ll@proton.me";
+    };
   };
 
   imports = [
