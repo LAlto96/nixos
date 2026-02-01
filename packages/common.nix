@@ -7,6 +7,8 @@ let
     audacity # Audio editor for recording and editing
     moc # Console audio player
     protonvpn-gui # Graphical ProtonVPN client
+    gimp-with-plugins # Image editing software with additional plugins
+    usbutils
   ];
 
   # 2.0: To categorize
@@ -23,7 +25,6 @@ let
     winetricks # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors # Office suite for document editing
     feh # Lightweight image viewer and wallpaper setter
-    gimp-with-plugins # Image editing software with additional plugins
     dosbox-staging # DOS emulator for legacy software
     libmpg123 # MP3 decoding library
     pipes # Fun terminal pipe animations
@@ -76,6 +77,7 @@ let
     libvterm # Terminal emulator library
     neofetch # System information tool for the terminal
     kitty # Modern, GPU-accelerated terminal emulator
+    usb-modeswitch
   ];
 
   # 2.8: Calculator
