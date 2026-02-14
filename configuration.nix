@@ -179,6 +179,8 @@
       meslo-lgs-nf # Monospaced font.
       corefonts # Basic core fonts.
       nerd-fonts.jetbrains-mono # JetBrains Mono with extra glyphs.
+      dejavu_fonts
+      liberation_ttf
     ];
     fontconfig = {
       # Enable antialiasing to improve font rendering.

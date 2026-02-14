@@ -110,6 +110,8 @@ let
     zathura # Lightweight and customizable PDF viewer
     texliveFull # Full TeX distribution for document compilation
     poppler-utils # Utilities for PDF manipulation
+    freetype
+    fontconfig
   ];
 
   # 2.13: System Monitoring & Information Tools
@@ -126,6 +128,7 @@ let
   # 2.14: Networking Tools
   pkgs2_14 = with pkgs; [
     git # Distributed version control system
+    inputs.codex-cli-nix.packages.${pkgs.system}.default # Codex CLI
     wirelesstools # Tools for managing wireless interfaces
     docker-compose # Define and run multi-container Docker applications
     wavemon # Network analysis tool (verify details online)
@@ -254,6 +257,7 @@ in
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     # gamescopeSession.enable = true;
+    #
   };
   programs.gamescope.enable = true;
 
