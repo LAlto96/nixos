@@ -30,7 +30,7 @@
       ''
         nnoremap <F4> :NERDTreeToggle<CR>
       '';
-    extraLuaConfig =
+    initLua =
       ''
         require 'coc'
         vim.g.coq_settings = {auto_start = true}

@@ -7,7 +7,7 @@
   # Udev rules to allow Wolf virtual input devices and TP-Link TXE70UH
   services.udev.extraRules = ''
     # Switch TP-Link TXE70UH from CD-ROM to Wi‑Fi mode
-    ATTR{idVendor}=="35bc", ATTR{idProduct}=="0102", RUN+="${lib.getExe pkgs.usb-modeswitch} -K -v 35bc -p 0102"
+    ATTR{idVendor}=="0bda", ATTR{idProduct}=="1a2b", RUN+="${lib.getExe pkgs.usb-modeswitch} -K -v 0bda -p 1a2b"
 
     # Allows Wolf to access /dev/uinput
     KERNEL=="uinput", SUBSYSTEM=="misc", MODE="0660", GROUP="input", OPTIONS+="static_node=uinput"
@@ -179,6 +179,8 @@
       meslo-lgs-nf # Monospaced font.
       corefonts # Basic core fonts.
       nerd-fonts.jetbrains-mono # JetBrains Mono with extra glyphs.
+      dejavu_fonts
+      liberation_ttf
     ];
     fontconfig = {
       # Enable antialiasing to improve font rendering.

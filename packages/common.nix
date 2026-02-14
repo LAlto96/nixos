@@ -4,9 +4,6 @@ let
   # Stable packages from an alternate channel. For example, you might add kicad here.
   stablepkgs = with pkgs-stable; [
     # kicad
-    audacity # Audio editor for recording and editing
-    moc # Console audio player
-    protonvpn-gui # Graphical ProtonVPN client
   ];
 
   # 2.0: To categorize
@@ -14,6 +11,11 @@ let
     nodejs
     jq
     icu
+    audacity # Audio editor for recording and editing
+    moc # Console audio player
+    protonvpn-gui # Graphical ProtonVPN client
+    gimp-with-plugins # Image editing software with additional plugins
+    usbutils
   ];
 
   # 2.1: General Productivity & Multimedia Tools
@@ -23,7 +25,6 @@ let
     winetricks # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors # Office suite for document editing
     feh # Lightweight image viewer and wallpaper setter
-    gimp-with-plugins # Image editing software with additional plugins
     dosbox-staging # DOS emulator for legacy software
     libmpg123 # MP3 decoding library
     pipes # Fun terminal pipe animations
@@ -76,6 +77,7 @@ let
     libvterm # Terminal emulator library
     neofetch # System information tool for the terminal
     kitty # Modern, GPU-accelerated terminal emulator
+    usb-modeswitch
   ];
 
   # 2.8: Calculator
@@ -108,6 +110,8 @@ let
     zathura # Lightweight and customizable PDF viewer
     texliveFull # Full TeX distribution for document compilation
     poppler-utils # Utilities for PDF manipulation
+    freetype
+    fontconfig
   ];
 
   # 2.13: System Monitoring & Information Tools
@@ -124,6 +128,7 @@ let
   # 2.14: Networking Tools
   pkgs2_14 = with pkgs; [
     git # Distributed version control system
+    inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default # Codex CLI
     wirelesstools # Tools for managing wireless interfaces
     docker-compose # Define and run multi-container Docker applications
     wavemon # Network analysis tool (verify details online)
@@ -132,8 +137,8 @@ let
   # 2.15: Browsers & Internet Utilities
   pkgs2_15 = with pkgs; [
     # Firefox with custom native messaging hosts for pipewire audio capture.
-    #(firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
-    inputs.zen-browser.packages.${pkgs.system}.default # zen-browser
+    #(firefox.override { nativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.stdenv.hostPlatform.system}.default ]; })
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default # zen-browser
     ungoogled-chromium
     w3m # Text-based web browser
   ];
@@ -198,9 +203,11 @@ let
 
   # 2.25: Screenshots & Wallpaper Management
   pkgs2_25 = with pkgs; [
-    # grimblast: screenshot utility for Hyprland (sourced from hyprland-contrib).
-    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-    swappy # Alternative screenshot tool
+    hyprshot # Screenshot utility for Hyprland
+    hyprpicker # Color picker for Hyprland
+    grim # Grab images from a Wayland compositor
+    slurp # Select a region in a Wayland compositor
+    satty # Screenshot annotation tool
     swaybg # Wallpaper setter for Wayland compositors
     ksnip
   ];
@@ -252,6 +259,7 @@ in
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     # gamescopeSession.enable = true;
+    #
   };
   programs.gamescope.enable = true;
 
