@@ -10,7 +10,7 @@ let
 
   # 3.2: Video Editing
   pkgs3_2 = with pkgs; [
-    # davinci-resolve # Professional video editor
+    davinci-resolve # Professional video editor
   ];
 
   # 3.3: Virtualization
