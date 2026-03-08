@@ -27,6 +27,11 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
   boot.kernel.sysctl."vm.swappiness" = 60;
+  boot.kernelParams = [
+    "nowatchdog"
+    "acpi=no_watchdog"
+  ];
+  boot.blacklistedKernelModules = [ "sp5100_tco" ];
   powerManagement.cpuFreqGovernor = "performance";
 
   services.displayManager = {
