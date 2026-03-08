@@ -75,7 +75,7 @@ let
     fd # Simple, fast file finder
     clang # C language family compiler frontend
     libvterm # Terminal emulator library
-    neofetch # System information tool for the terminal
+    fastfetch # System information tool for the terminal
     kitty # Modern, GPU-accelerated terminal emulator
     usb-modeswitch
   ];
@@ -116,7 +116,7 @@ let
 
   # 2.13: System Monitoring & Information Tools
   pkgs2_13 = with pkgs; [
-    helvum # Graphical audio routing tool
+    crosspipe # Graphical audio routing tool
     upscayl # AI-powered image upscaling tool
     btop # Resource monitor for system metrics
     lm_sensors # Hardware monitoring tool
