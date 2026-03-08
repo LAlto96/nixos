@@ -198,7 +198,7 @@ let
 
   # 2.24: Wine for Windows Applications
   pkgs2_24 = with pkgs; [
-    wineWowPackages.waylandFull # Wine package optimized for Wayland
+    wineWow64Packages.waylandFull # Wine package optimized for Wayland
   ];
 
   # 2.25: Screenshots & Wallpaper Management
@@ -235,9 +235,9 @@ let
   # 2.28: Xorg Specific Tools
   pkgs2_28 = with pkgs; [
     xdotool # Automate X window interactions
-    xorg.xprop # Utility to display window properties in X
+    xprop # Utility to display window properties in X
     unixtools.xxd # Hex dump utility
-    xorg.xwininfo # Display information about X windows
+    xwininfo # Display information about X windows
     yad # Yet Another Dialog for X (GUI dialogs)
     steamtinkerlaunch # Tool to tweak Steam launch options
     steam-run # Run programs in FHS environment

@@ -21,11 +21,6 @@
   home-manager.users.desktop = import ../../home-desktop.nix;
   home-manager.backupFileExtension = "backup";
 
-  nixpkgs.overlays = [
-    # (import ../../overlays/rtl8852cu.nix)
-    (import ../../overlays/rtw89.nix)
-  ];
-
   nix.settings.trusted-users = [ "desktop" ];
 
   virtualisation.docker.enable = true;

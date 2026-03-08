@@ -27,11 +27,6 @@
   home-manager.users.laptop = import ../../home-laptop.nix;
   nix.settings.trusted-users = [ "laptop" ];
 
-  nixpkgs.overlays = [
-    # (import ../../overlays/rtl8852cu.nix)
-    (import ../../overlays/rtw89.nix)
-  ];
-
   services.displayManager = {
     sddm.enable = true;
     autoLogin.enable = true;

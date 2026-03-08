@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "morrownr";
     repo = "rtw89";
-    rev = "9049c42642c9db68f01efadf54f7cff07a46edc5";
-    hash = "sha256-sn15lMMawCm2FuARLcgbmPur00BJJCLYV4aGmn9HKNg=";
+    rev = "d2f175eafa0a4ef9cc65e7073a77e60238cae614";
+    hash = "sha256-2LMbwZP+esxooSowEdV+cpOjU+Zn6KWQhEVfftMW15s=";
   };
 
   # Important : sinon stdenv voit un Makefile et lance make
