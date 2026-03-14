@@ -24,9 +24,16 @@
   nix.settings.trusted-users = [ "desktop" ];
 
   virtualisation.docker.enable = true;
+  virtualisation.docker.daemon.settings = {
+    shutdown-timeout = 2;
+  };
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
   boot.kernel.sysctl."vm.swappiness" = 60;
+  boot.kernelParams = [
+    "nowatchdog"
+  ];
+  boot.blacklistedKernelModules = [ "sp5100_tco" ];
   powerManagement.cpuFreqGovernor = "performance";
 
   services.displayManager = {

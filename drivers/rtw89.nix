@@ -18,6 +18,15 @@ in
 
   environment.etc = {
     "modprobe.d/rtw89.conf".source = "${rtw89}/etc/modprobe.d/rtw89.conf";
+
+    # Recommended by morrownr/rtw89 (Q6) to prevent long boot times when the
+    # USB dongle is already inserted at boot.
+    "modprobe.d/usb_storage.conf".text = ''
+      # This tells usb_storage not to touch Realtek USB Wi-Fi dongles.
+      # Otherwise, computers may take a very long time to boot or
+      # usb_modeswitch may fail to switch them to Wi-Fi mode.
+      options usb_storage quirks=0bda:1a2b:i,0bda:a192:i
+    '';
   };
 
   assertions = [
