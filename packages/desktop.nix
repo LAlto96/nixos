@@ -29,6 +29,7 @@ let
   # 3.5: Steam utilities
   pkgs3_5 = with pkgs-stable; [
     sgdboop # Steam artwork manager
+    alvr # VR
   ];
 
 in
