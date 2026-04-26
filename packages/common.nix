@@ -14,6 +14,7 @@ let
     audacity # Audio editor for recording and editing
     moc # Console audio player
     protonvpn-gui # Graphical ProtonVPN client
+    proton-pass
     gimp-with-plugins # Image editing software with additional plugins
     usbutils
   ];
@@ -169,6 +170,7 @@ let
   # 2.20: Python Environment Management
   pkgs2_20 = with pkgs; [
     conda # Python package, dependency, and environment manager
+    uv
   ];
 
   # 2.21: Media Players & Streaming Tools
@@ -230,6 +232,8 @@ let
     protontricks # Utility for managing Proton tweaks
     gwe
     retroarch-full
+    lsfg-vk
+    lsfg-vk-ui
   ];
 
   # 2.28: Xorg Specific Tools

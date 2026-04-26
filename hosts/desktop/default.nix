@@ -18,6 +18,7 @@
     ports = [ 2268 ];
   };
 
+
   home-manager.users.desktop = import ../../home-desktop.nix;
   home-manager.backupFileExtension = "backup";
 

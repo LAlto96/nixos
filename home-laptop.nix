@@ -25,7 +25,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "23.11";
+  home.stateVersion = "25.11";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -51,11 +51,14 @@
   home.file.".config/doom/packages.el".source = ./hm/doom/packages.el;
   programs.git = {
     enable = true;
+    signing.format = "openpgp";
     settings.user = {
       name = "Alto";
       email = "lafon.ludovic.ll@proton.me";
     };
   };
+
+  gtk.gtk4.theme = config.gtk.theme;
 
   imports = [
     ./hm/vscode.nix

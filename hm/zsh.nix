@@ -1,6 +1,10 @@
-{pkgs, lib, ...}:
+{config, pkgs, lib, ...}:
 {
   #ZSH
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;

@@ -42,8 +42,12 @@
     let
       system = "x86_64-linux";
       desktopPorts = import ./hosts/desktop/ports.nix;
-      commonModules = import ./common-modules.nix { inherit inputs; };
+      imageMagickCompatOverlay = import ./overlays/imagemagick-compat.nix;
+      commonModules = import ./common-modules.nix {
+        inherit inputs imageMagickCompatOverlay;
+      };
     in {
+      overlays.imagemagick-compat = imageMagickCompatOverlay;
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
           specialArgs = {
