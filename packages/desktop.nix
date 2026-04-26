@@ -17,7 +17,6 @@ let
   pkgs3_3 = with pkgs; [
     qemu
     quickemu
-    quickgui
   ];
 
   # 3.4: Bench & Overcklocking

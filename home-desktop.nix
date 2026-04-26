@@ -57,6 +57,8 @@
     };
   };
 
+  gtk.gtk4.theme = config.gtk.theme;
+
   imports = [
     ./hm/vscode.nix
     ./hm/zsh.nix

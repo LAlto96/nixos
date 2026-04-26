@@ -13,7 +13,7 @@ let
     icu
     audacity # Audio editor for recording and editing
     moc # Console audio player
-    protonvpn-gui # Graphical ProtonVPN client
+    proton-vpn # Graphical ProtonVPN client
     proton-pass
     gimp-with-plugins # Image editing software with additional plugins
     usbutils

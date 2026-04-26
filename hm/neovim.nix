@@ -3,6 +3,8 @@
     enable = true;
     coc.enable = true;
     defaultEditor = true;
+    withRuby = true;
+    withPython3 = true;
     plugins = with pkgs.vimPlugins; [
       catppuccin-nvim
       nerdtree
