@@ -1,39 +1,39 @@
-# NixOS Configuration
+# NixOS configuration (flake)
 
-The repository is organized into key directories: `hosts/` defines the `desktop` and `laptop` machines, while `packages/` and `overlays/` provide custom packages and overlay tweaks. Reference hosts by name in flake commands, for example:
+Configuration NixOS personnelle pour deux machines (`desktop` et `laptop`) avec Home Manager, Stylix et Hyprland.
+
+## Documentation
+
+La documentation est maintenant structurée avec **MkDocs Material** et disponible en **français** et en **anglais**.
+
+- Français: [`docs/index.md`](docs/index.md)
+- English: [`docs/en/index.md`](docs/en/index.md)
+- Ancien document monolithique: [`docs/CONFIGURATION.md`](docs/CONFIGURATION.md) (conservé temporairement le temps de la migration)
+
+### Lancer la doc en local
 
 ```sh
+mkdocs serve
+```
+
+### Construire la doc statique
+
+```sh
+mkdocs build
+```
+
+## Commandes NixOS usuelles
+
+```sh
+# Prévisualiser les sorties de la flake
+nix flake show
+
+# Vérifier la flake sans build complet
+nix flake check --no-build
+
+# Appliquer la configuration desktop
 sudo nixos-rebuild switch --flake .#desktop
-nix flake show .#nixosConfigurations.laptop
+
+# Appliquer la configuration laptop
+sudo nixos-rebuild switch --flake .#laptop
 ```
-
-This repository contains the NixOS configuration for both a desktop and a laptop setup. For a full description of the available modules and options see [docs/CONFIGURATION.md](docs/CONFIGURATION.md).
-
-## Getting Started
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/LAlto96/nixos.git
-   cd nixos
-   ```
-
-2. Apply the configuration for a host:
-   ```sh
-   sudo nixos-rebuild switch --flake .#desktop
-   ```
-   Use `.#laptop` in place of `.#desktop` to build the laptop configuration.
-
-Home-manager modules for each user are included automatically via the flake.
-
-### Tailscale VPN
-
-After switching to the configuration, run the following command on each machine
-to join your Tailnet:
-
-```sh
-sudo tailscale up --auth-key=<YOUR_KEY>
-```
-
-Replace `<YOUR_KEY>` with an auth key created at
-<https://login.tailscale.com/admin/machines/new-linux>.
-
