@@ -4,6 +4,7 @@ let
   # Stable packages from an alternate channel. For example, you might add kicad here.
   stablepkgs = with pkgs-stable; [
     # kicad
+    lutris # Gaming platform for Linux games
   ];
 
   # 2.0: To categorize
@@ -227,7 +228,6 @@ let
     prismlauncher # Game launcher for Linux
     mangohud # On-screen display for monitoring game performance
     heroic # Alternative game launcher (for Epic Games, etc.)
-    lutris # Gaming platform for Linux games
     protonup-qt # GUI tool to update Proton versions
     protontricks # Utility for managing Proton tweaks
     gwe
