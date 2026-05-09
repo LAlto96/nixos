@@ -8,7 +8,6 @@ La documentation est maintenant structurée avec **MkDocs Material** et disponib
 
 - Français: [`docs/index.md`](docs/index.md)
 - English: [`docs/en/index.md`](docs/en/index.md)
-- Ancien document monolithique: [`docs/CONFIGURATION.md`](docs/CONFIGURATION.md) (conservé temporairement le temps de la migration)
 
 ### Lancer la doc en local
 

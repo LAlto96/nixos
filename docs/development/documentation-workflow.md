@@ -16,6 +16,4 @@ mkdocs serve
 mkdocs build
 ```
 
-## Migration de `docs/CONFIGURATION.md`
-
-Le fichier historique est conservé temporairement pour référence. Toute nouvelle documentation doit être ajoutée dans les pages structurées de `docs/`.
+Toute nouvelle documentation doit être ajoutée dans les pages structurées de `docs/`.
