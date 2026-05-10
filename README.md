@@ -12,13 +12,13 @@ La documentation est maintenant structurée avec **MkDocs Material** et disponib
 ### Lancer la doc en local
 
 ```sh
-mkdocs serve
+nix-shell mkdocs.nix --run "mkdocs serve"
 ```
 
 ### Construire la doc statique
 
 ```sh
-mkdocs build
+nix-shell mkdocs.nix --run "mkdocs build"
 ```
 
 ## Commandes NixOS usuelles
