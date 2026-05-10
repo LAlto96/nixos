@@ -1,6 +1,11 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 let
+  unstableGamingDesktopPkgs = with pkgs-unstable; [
+    alvr # VR
+    nvidia_oc
+  ];
+
   # 3.1: Digital Audio Workstations (DAWs)
   pkgs3_1 = with pkgs; [
     reaper # Main DAW application
@@ -21,17 +26,16 @@ let
 
   # 3.4: Bench & Overcklocking
   pkgs3_4 = with pkgs; [
-    nvidia_oc
     phoronix-test-suite
   ];
 
   # 3.5: Steam utilities
-  pkgs3_5 = with pkgs-stable; [
+  pkgs3_5 = with pkgs; [
     sgdboop # Steam artwork manager
-    alvr # VR
   ];
 
 in
 {
-  environment.systemPackages = pkgs3_1 ++ pkgs3_2 ++ pkgs3_3 ++ pkgs3_4 ++ pkgs3_5;
+  environment.systemPackages =
+    pkgs3_1 ++ pkgs3_2 ++ pkgs3_3 ++ pkgs3_4 ++ pkgs3_5 ++ unstableGamingDesktopPkgs;
 }

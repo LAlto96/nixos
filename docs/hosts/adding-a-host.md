@@ -15,7 +15,7 @@ Créer `hosts/<nouveau-host>/default.nix` puis importer:
 nixosConfigurations.<nouveau-host> = nixpkgs.lib.nixosSystem {
   specialArgs = {
     inherit inputs;
-    pkgs-stable = import nixpkgs-stable {
+    pkgs-unstable = import nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;
     };

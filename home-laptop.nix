@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }:
@@ -12,9 +13,10 @@
   home.homeDirectory = "/home/laptop";
   nixpkgs.config.allowUnfree = true;
   # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [
+  # Laptop gaming/streaming exceptions use unstable; everything else stays on stable pkgs.
+  home.packages = [
     # mesa
-    moonlight-qt
+    pkgs-unstable.moonlight-qt
   ];
 
   # This value determines the Home Manager release that your

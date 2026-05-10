@@ -23,22 +23,22 @@
 
   inputs = {
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    # Stable is the default channel. Unstable is reserved for explicit fast-moving package exceptions.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-25.11";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, zen-browser, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, pipewire-screenaudio, stylix, zen-browser, ... }:
     let
       system = "x86_64-linux";
       desktopPorts = import ./hosts/desktop/ports.nix;
@@ -52,7 +52,7 @@
         laptop = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
-            pkgs-stable = import nixpkgs-stable {
+            pkgs-unstable = import nixpkgs-unstable {
               inherit system;
               config.allowUnfree = true;
             };
@@ -65,10 +65,6 @@
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
-            pkgs-stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-            };
             pkgs-unstable = import nixpkgs-unstable {
               inherit system;
               config.allowUnfree = true;

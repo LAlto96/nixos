@@ -3,7 +3,6 @@
 ## Main inputs
 
 - `nixpkgs`
-- `nixpkgs-stable`
 - `nixpkgs-unstable`
 - `home-manager`
 - `stylix`

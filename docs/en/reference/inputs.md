@@ -3,7 +3,6 @@
 Declared in `flake.nix`:
 
 - `nixpkgs`
-- `nixpkgs-stable`
 - `nixpkgs-unstable`
 - `home-manager`
 - `stylix`

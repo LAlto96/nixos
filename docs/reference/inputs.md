@@ -4,9 +4,8 @@
 
 | Input | Source | Usage principal |
 |---|---|---|
-| `nixpkgs` | `github:NixOS/nixpkgs/nixos-unstable` | base packages/modules |
-| `nixpkgs-stable` | `github:nixos/nixpkgs/nixos-25.11` | paquets stables additionnels |
-| `nixpkgs-unstable` | `github:NixOS/nixpkgs/nixpkgs-unstable` | paquets récents (desktop) |
+| `nixpkgs` | `github:nixos/nixpkgs/nixos-25.11` | base stable packages/modules |
+| `nixpkgs-unstable` | `github:NixOS/nixpkgs/nixpkgs-unstable` | exceptions rapides explicites, principalement gaming |
 | `home-manager` | `github:nix-community/home-manager` | configuration utilisateur |
 | `stylix` | `github:danth/stylix` | theming |
 | `pipewire-screenaudio` | `github:IceDBorn/pipewire-screenaudio` | dépendance potentielle navigateur/audio |

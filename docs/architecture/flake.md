@@ -5,8 +5,7 @@
 La flake déclare notamment:
 
 - `nixpkgs` (canal principal)
-- `nixpkgs-stable`
-- `nixpkgs-unstable`
+- `nixpkgs-unstable` (exceptions explicites)
 - `home-manager`
 - `stylix`
 - `zen-browser`
@@ -24,6 +23,6 @@ Voir aussi la page [Inputs](../reference/inputs.md).
 
 ## Spécificités
 
-- `desktop` reçoit `pkgs-stable` **et** `pkgs-unstable` dans `specialArgs`.
-- `laptop` reçoit `pkgs-stable` dans `specialArgs`.
+- `nixpkgs` est le canal stable par défaut.
+- `desktop` et `laptop` reçoivent `pkgs-unstable` dans `specialArgs` pour les paquets rapides explicitement sélectionnés.
 - Les deux hosts utilisent `commonModules` puis ajoutent leur module host.
