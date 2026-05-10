@@ -5,6 +5,8 @@
 - Éviter les refactors de masse sans besoin fonctionnel.
 - Ajouter les nouveaux modules via imports explicites.
 - Garder la séparation `commun` / `host`.
+- Garder `nixpkgs`, `home-manager` et `stylix` sur la branche stable courante.
+- Ajouter les paquets depuis `pkgs` par défaut; réserver `pkgs-unstable` aux exceptions nommées et regroupées.
 
 ## Documentation
 

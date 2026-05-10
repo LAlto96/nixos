@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-stable, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
   home-manager.backupFileExtension = "backup";

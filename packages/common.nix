@@ -1,10 +1,29 @@
-{ config, pkgs, pkgs-stable, lib, inputs, ... }:
+{ config, pkgs, pkgs-unstable, lib, inputs, ... }:
 
 let
-  # Stable packages from an alternate channel. For example, you might add kicad here.
-  stablepkgs = with pkgs-stable; [
-    # kicad
-    lutris # Gaming platform for Linux games
+  # Policy: pkgs is stable by default. Only explicitly selected fast-moving gaming packages use unstable.
+  unstableGamingPkgs = with pkgs-unstable; [
+    winetricks # Helper to run Windows applications via Wine
+    dosbox-staging # DOS emulator for legacy software
+    wineWow64Packages.waylandFull # Wine package optimized for Wayland
+    radeontop # Monitor Radeon GPU usage in real time
+    gamescope # Compositor for game streaming and recording
+    prismlauncher # Game launcher for Linux
+    mangohud # On-screen display for monitoring game performance
+    heroic # Alternative game launcher (for Epic Games, etc.)
+    protonup-qt # GUI tool to update Proton versions
+    protontricks # Utility for managing Proton tweaks
+    gwe
+    retroarch-full
+    lsfg-vk
+    lsfg-vk-ui
+    steamtinkerlaunch # Tool to tweak Steam launch options
+    vesktop # Communication application (verify details online)
+  ];
+
+  # Compatibility exceptions: these packages are not currently available in stable.
+  unstableCompatibilityPkgs = with pkgs-unstable; [
+    crosspipe # Graphical audio routing tool
   ];
 
   # 2.0: To categorize
@@ -14,20 +33,19 @@ let
     icu
     audacity # Audio editor for recording and editing
     moc # Console audio player
-    proton-vpn # Graphical ProtonVPN client
+    protonvpn-gui # Graphical ProtonVPN client
     proton-pass
     gimp-with-plugins # Image editing software with additional plugins
     usbutils
+    lutris # Gaming platform for Linux games
   ];
 
   # 2.1: General Productivity & Multimedia Tools
   pkgs2_1 = with pkgs; [
     hyprpanel # Hyprland panel integration from nixpkgs
     hyprsunset
-    winetricks # Helper to run Windows applications via Wine
     onlyoffice-desktopeditors # Office suite for document editing
     feh # Lightweight image viewer and wallpaper setter
-    dosbox-staging # DOS emulator for legacy software
     libmpg123 # MP3 decoding library
     pipes # Fun terminal pipe animations
     cbonsai # Bonsai tree generator for the terminal
@@ -118,7 +136,6 @@ let
 
   # 2.13: System Monitoring & Information Tools
   pkgs2_13 = with pkgs; [
-    crosspipe # Graphical audio routing tool
     upscayl # AI-powered image upscaling tool
     btop # Resource monitor for system metrics
     lm_sensors # Hardware monitoring tool
@@ -147,7 +164,6 @@ let
 
   # 2.16: Communication Tools
   pkgs2_16 = with pkgs; [
-    vesktop # Communication application (verify details online)
   ];
 
   # 2.17: Text Processing & Document Conversion
@@ -199,11 +215,6 @@ let
     gdu # Disk usage analyzer
   ];
 
-  # 2.24: Wine for Windows Applications
-  pkgs2_24 = with pkgs; [
-    wineWow64Packages.waylandFull # Wine package optimized for Wayland
-  ];
-
   # 2.25: Screenshots & Wallpaper Management
   pkgs2_25 = with pkgs; [
     hyprshot # Screenshot utility for Hyprland
@@ -221,21 +232,6 @@ let
     brightnessctl # Command-line brightness controller
   ];
 
-  # 2.27: Gaming Tools & Enhancements
-  pkgs2_27 = with pkgs; [
-    radeontop # Monitor Radeon GPU usage in real time
-    gamescope # Compositor for game streaming and recording
-    prismlauncher # Game launcher for Linux
-    mangohud # On-screen display for monitoring game performance
-    heroic # Alternative game launcher (for Epic Games, etc.)
-    protonup-qt # GUI tool to update Proton versions
-    protontricks # Utility for managing Proton tweaks
-    gwe
-    retroarch-full
-    lsfg-vk
-    lsfg-vk-ui
-  ];
-
   # 2.28: Xorg Specific Tools
   pkgs2_28 = with pkgs; [
     xdotool # Automate X window interactions
@@ -243,7 +239,6 @@ let
     unixtools.xxd # Hex dump utility
     xwininfo # Display information about X windows
     yad # Yet Another Dialog for X (GUI dialogs)
-    steamtinkerlaunch # Tool to tweak Steam launch options
     steam-run # Run programs in FHS environment
   ];
 
@@ -294,10 +289,9 @@ in
     pkgs2_21 ++
     pkgs2_22 ++
     pkgs2_23 ++
-    pkgs2_24 ++
     pkgs2_25 ++
     pkgs2_26 ++
-    pkgs2_27 ++
     pkgs2_28 ++
-    stablepkgs; # Append any additional stable packages (e.g., kicad)
+    unstableGamingPkgs ++
+    unstableCompatibilityPkgs;
 }

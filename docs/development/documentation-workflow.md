@@ -7,13 +7,13 @@
 3. Prévisualiser localement.
 
 ```sh
-mkdocs serve
+nix-shell mkdocs.nix --run "mkdocs serve"
 ```
 
 ## Build local
 
 ```sh
-mkdocs build
+nix-shell mkdocs.nix --run "mkdocs build"
 ```
 
 Toute nouvelle documentation doit être ajoutée dans les pages structurées de `docs/`.

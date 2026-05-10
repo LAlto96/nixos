@@ -28,13 +28,13 @@
 | `pkgs2_21` | médias/audio |
 | `pkgs2_22` | compression |
 | `pkgs2_23` | utilitaires divers |
-| `pkgs2_24` | Wine |
 | `pkgs2_25` | screenshots/wallpaper |
 | `pkgs2_26` | luminosité |
-| `pkgs2_27` | gaming |
 | `pkgs2_28` | outils Xorg |
+| `unstableGamingPkgs` | exceptions gaming depuis `pkgs-unstable` |
+| `unstableCompatibilityPkgs` | exceptions absentes de stable depuis `pkgs-unstable` |
 
 ## Paquets spécifiques host
 
-- `packages/desktop.nix` : groupes `pkgs3_*`.
+- `packages/desktop.nix` : groupes `pkgs3_*` et `unstableGamingDesktopPkgs`.
 - `packages/laptop.nix` : `powertop`.

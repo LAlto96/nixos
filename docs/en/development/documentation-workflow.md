@@ -5,5 +5,5 @@
 3. Preview locally:
 
 ```sh
-mkdocs serve
+nix-shell mkdocs.nix --run "mkdocs serve"
 ```
