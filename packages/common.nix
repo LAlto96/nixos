@@ -254,6 +254,7 @@ in
   # plus enabling a gamescope session for improved gaming performance.
   programs.steam = {
     enable = true;
+    package = pkgs.millennium-steam;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers

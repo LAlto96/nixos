@@ -3,6 +3,7 @@
 ## `packages/common.nix`
 
 - Enables Java, Steam, and Gamescope.
+- Replaces the Steam package with `pkgs.millennium-steam`.
 - Builds `environment.systemPackages` from `pkgs2_*` groups.
 - Adds `unstableGamingPkgs` from `pkgs-unstable` for fast-moving gaming exceptions.
 - Adds `unstableCompatibilityPkgs` from `pkgs-unstable` for packages missing from stable.

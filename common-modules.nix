@@ -4,13 +4,19 @@ with inputs; [
   ./configuration.nix
   home-manager.nixosModules.home-manager
   ({ pkgs-unstable, ... }: {
-    nixpkgs.overlays = [ imageMagickCompatOverlay ];
+    nixpkgs.overlays = [
+      imageMagickCompatOverlay
+      inputs.millennium.overlays.default
+    ];
     home-manager.extraSpecialArgs = {
       inherit inputs pkgs-unstable;
     };
     home-manager.sharedModules = [
       {
-        nixpkgs.overlays = [ imageMagickCompatOverlay ];
+        nixpkgs.overlays = [
+          imageMagickCompatOverlay
+          inputs.millennium.overlays.default
+        ];
       }
     ];
     home-manager.useGlobalPkgs = false;

@@ -31,6 +31,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
+    millennium = {
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix.url = "github:danth/stylix/release-25.11";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
