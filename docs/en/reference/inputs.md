@@ -10,7 +10,7 @@
 | `stylix` | `github:danth/stylix/release-25.11` | theming aligned with the stable branch |
 | `pipewire-screenaudio` | `github:IceDBorn/pipewire-screenaudio` | potential browser/audio dependency |
 | `codex-cli-nix` | `github:sadjow/codex-cli-nix` | `codex` package |
-| `millennium` | `github:SteamClientHomebrew/Millennium?dir=packages/nix` | overlay and Millennium-patched Steam package |
+| `millennium` | `github:SteamClientHomebrew/Millennium/next?dir=packages/nix` | overlay and Millennium-patched Steam package |
 | `zen-browser` | `github:youwen5/zen-browser-flake` | browser package |
 
 ## Branch Policy
@@ -25,7 +25,7 @@
 
 - Official source: <https://docs.steambrew.app/users/getting-started/installation>
 - NixOS megathread: <https://github.com/SteamClientHomebrew/Millennium/issues/551>
-- Applied fix: `millennium.inputs.nixpkgs.follows = "nixpkgs";`.
-- Reason: the NixOS megathread reports dependency drift during Millennium packaging, including frontend Bun/Pnpm dependency hash errors. Making Millennium follow this repository's `nixpkgs` input forces it to use the same base as the system configuration.
+- Applied fix: `millennium.inputs.nixpkgs.follows = "nixpkgs-unstable";`.
+- Reason: the NixOS megathread recommends Millennium's `next` branch. Making Millennium follow `nixpkgs-unstable` keeps its packaging on a recent base without moving the whole stable system to unstable.
 - Local workaround removed: the `overlays/millennium-compat.nix` overlay and local packaging copy were deleted to return to the official packaging.
-- Maintenance note: after adding or updating this input, update the lock with `nix flake update millennium`.
+- Maintenance note: use the `next` branch and, after adding or updating this input, update the lock with `nix flake update millennium`.

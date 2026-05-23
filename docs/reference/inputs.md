@@ -10,7 +10,7 @@
 | `stylix` | `github:danth/stylix/release-25.11` | theming aligné sur la branche stable |
 | `pipewire-screenaudio` | `github:IceDBorn/pipewire-screenaudio` | dépendance potentielle navigateur/audio |
 | `codex-cli-nix` | `github:sadjow/codex-cli-nix` | package `codex` |
-| `millennium` | `github:SteamClientHomebrew/Millennium?dir=packages/nix` | overlay et package Steam patché par Millennium |
+| `millennium` | `github:SteamClientHomebrew/Millennium/next?dir=packages/nix` | overlay et package Steam patché par Millennium |
 | `zen-browser` | `github:youwen5/zen-browser-flake` | package navigateur |
 
 ## Vérifier les versions lockées
@@ -33,7 +33,7 @@ ou consulter directement `flake.lock`.
 
 - Source officielle: <https://docs.steambrew.app/users/getting-started/installation>
 - Megathread NixOS: <https://github.com/SteamClientHomebrew/Millennium/issues/551>
-- Fix appliqué: `millennium.inputs.nixpkgs.follows = "nixpkgs";`.
-- Raison: le megathread NixOS signale des divergences de dépendances pendant le packaging Millennium, dont des erreurs de hash côté dépendances frontend/Bun/Pnpm. Faire suivre `nixpkgs` à Millennium force son flake à utiliser la même base que la configuration système.
+- Fix appliqué: `millennium.inputs.nixpkgs.follows = "nixpkgs-unstable";`.
+- Raison: le megathread NixOS recommande la branche `next` de Millennium. Faire suivre `nixpkgs-unstable` à Millennium garde son packaging sur une base récente sans basculer tout le système stable.
 - Workaround local retiré: l'overlay `overlays/millennium-compat.nix` et la copie locale du packaging ont été supprimés pour revenir au packaging officiel.
-- Note de maintenance: après l'ajout ou la mise à jour de cet input, mettre à jour le lock avec `nix flake update millennium`.
+- Note de maintenance: utiliser la branche `next` et, après l'ajout ou la mise à jour de cet input, mettre à jour le lock avec `nix flake update millennium`.
