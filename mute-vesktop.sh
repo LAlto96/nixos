@@ -3,7 +3,7 @@
 # - Output (lecture): set-volume 0% / 100%
 # - Input  (micro)  : set-mute   1 / 0    (option --input-volume pour 0%/100% aussi)
 # toggle: coupe si un flux actif (OUT vol>0 ou IN non-muted), sinon remet.
-# Deps: hyprctl, pw-dump, jq, wpctl, awk
+# Deps: hyprctl, pw-cli, jq, wpctl, awk, pgrep
 
 set -u
 ACTION="${1:-toggle}"; case "$ACTION" in toggle|on|off) shift || true ;; *) ACTION="toggle" ;; esac
@@ -11,6 +11,8 @@ ACTION="${1:-toggle}"; case "$ACTION" in toggle|on|off) shift || true ;; *) ACTI
 ONLY_PLAYBACK=false; ONLY_CAPTURE=false; VERBOSE=false; DRYRUN=false; INPUT_VOLUME=false
 WIN_REGEX=${WIN_REGEX:-"Vesktop|Discord|discord|vesktop"}
 APP_REGEX=${APP_REGEX:-"vesktop|discord|vencord|chromium|electron"}
+CACHE_FILE="${MUTE_VESKTOP_CACHE:-${XDG_RUNTIME_DIR:-/tmp}/mute-vesktop.cache}"
+CACHE_TTL="${MUTE_VESKTOP_CACHE_TTL:-0}"
 IDS_OVERRIDE=""
 
 while [[ $# -gt 0 ]]; do
@@ -28,71 +30,141 @@ while [[ $# -gt 0 ]]; do
 done
 
 need(){ command -v "$1" >/dev/null 2>&1 || { echo "Error: '$1' required." >&2; exit 1; }; }
-need pw-dump; need jq; need wpctl; need awk; need hyprctl
+need pw-cli; need jq; need wpctl; need awk; need hyprctl; need pgrep
 
 get_vol(){ wpctl get-volume "$1" 2>/dev/null | awk '{print $2}'; }  # -> 0.00..1.xx
 is_gt_zero(){ awk -v v="$1" 'BEGIN{exit !(v>0.0001)}'; }
 is_muted_flag(){ wpctl get-volume "$1" 2>/dev/null | grep -q '\[MUTED\]' && echo 1 || echo 0; }
-
-OUT_IDS=(); IN_IDS=(); DETECTION_MODE=""
-
-# 0) --ids bypass
-if [[ -n "$IDS_OVERRIDE" ]]; then
-  IFS=',' read -r -a raw <<<"$IDS_OVERRIDE"
-  for spec in "${raw[@]}"; do
-    id="${spec%%:*}"; kind="${spec#*:}"
-    if [[ "$spec" == "$id" ]]; then
-      mc=$(pw-dump | jq -r --argjson nid "$id" '.[] | select(.id==$nid) | .info.props["media.class"] // empty' 2>/dev/null || true)
-      if [[ "$mc" =~ [Ii]nput ]]; then IN_IDS+=("$id"); else OUT_IDS+=("$id"); fi
-    else
-      [[ "${kind^^}" == "IN" ]] && IN_IDS+=("$id") || OUT_IDS+=("$id")
-    fi
+pw_prop(){
+  pw-cli info "$1" 2>/dev/null | awk -F ' = ' -v key="$2" '
+    {
+      k=$1
+      gsub(/^[ \t*]+/, "", k)
+      if (k == key) {
+        v=$2
+        gsub(/^"/, "", v)
+        gsub(/"$/, "", v)
+        print v
+        exit
+      }
+    }'
+}
+node_props(){
+  pw-cli info "$1" 2>/dev/null | awk -F ' = ' -v id="$1" '
+    BEGIN { mc=""; pid=""; an=""; bin=""; nn="" }
+    {
+      k=$1
+      v=$2
+      gsub(/^[ \t*]+/, "", k)
+      gsub(/^"/, "", v)
+      gsub(/"$/, "", v)
+      if (k == "media.class") mc=v
+      else if (k == "application.process.id") pid=v
+      else if (k == "application.name") an=v
+      else if (k == "application.process.binary") bin=v
+      else if (k == "node.name") nn=v
+    }
+    END {
+      if (mc ~ /[Aa]udio/) print id "\t" mc "\t" pid "\t" an "\t" bin "\t" nn
+    }'
+}
+collect_descendants(){
+  local pid child
+  for pid in "$@"; do
+    printf '%s\n' "$pid"
+    while IFS= read -r child; do
+      [[ -n "$child" ]] && collect_descendants "$child"
+    done < <(pgrep -P "$pid" 2>/dev/null || true)
   done
-  DETECTION_MODE="ids"
-else
-  # 1) PIDs via Hyprland
+}
+audio_nodes(){
+  local id
+  while IFS= read -r id; do
+    node_props "$id"
+  done < <(pw-cli ls Node 2>/dev/null | awk '/^[[:space:]]*id [0-9]+, type PipeWire:Interface:Node/ {gsub(",", "", $2); print $2}')
+}
+ids_valid(){
+  local id
+  for id in "$@"; do
+    [[ -n "$id" ]] || continue
+    wpctl get-volume "$id" >/dev/null 2>&1 || return 1
+  done
+}
+load_cache(){
+  [[ -r "$CACHE_FILE" ]] || return 1
+
+  local key value cache_pid="" cache_win="" cache_app="" cache_playback="" cache_capture="" cache_ts="" cache_out="" cache_in=""
+  while IFS='=' read -r key value; do
+    case "$key" in
+      pid) cache_pid="$value" ;;
+      win_regex) cache_win="$value" ;;
+      app_regex) cache_app="$value" ;;
+      only_playback) cache_playback="$value" ;;
+      only_capture) cache_capture="$value" ;;
+      timestamp) cache_ts="$value" ;;
+      out_ids) cache_out="$value" ;;
+      in_ids) cache_in="$value" ;;
+    esac
+  done < "$CACHE_FILE"
+
+  [[ -n "$cache_pid" && "$cache_win" == "$WIN_REGEX" && "$cache_app" == "$APP_REGEX" ]] || return 1
+  [[ "$cache_playback" == "$ONLY_PLAYBACK" && "$cache_capture" == "$ONLY_CAPTURE" ]] || return 1
+  kill -0 "$cache_pid" 2>/dev/null || return 1
+
+  if [[ "$CACHE_TTL" =~ ^[0-9]+$ && "$CACHE_TTL" -gt 0 && "$cache_ts" =~ ^[0-9]+$ ]]; then
+    (( $(date +%s) - cache_ts <= CACHE_TTL )) || return 1
+  fi
+
+  OUT_IDS=(); IN_IDS=()
+  [[ -n "$cache_out" ]] && read -r -a OUT_IDS <<<"$cache_out"
+  [[ -n "$cache_in" ]] && read -r -a IN_IDS <<<"$cache_in"
+  [[ ${#OUT_IDS[@]} -gt 0 || ${#IN_IDS[@]} -gt 0 ]] || return 1
+  ids_valid "${OUT_IDS[@]}" "${IN_IDS[@]}" || return 1
+
+  DETECTION_MODE="cache"
+}
+save_cache(){
+  $DRYRUN && return 0
+  ((${#PID_LIST[@]} > 0)) || return 0
+
+  {
+    printf 'pid=%s\n' "${PID_LIST[0]}"
+    printf 'win_regex=%s\n' "$WIN_REGEX"
+    printf 'app_regex=%s\n' "$APP_REGEX"
+    printf 'only_playback=%s\n' "$ONLY_PLAYBACK"
+    printf 'only_capture=%s\n' "$ONLY_CAPTURE"
+    printf 'timestamp=%s\n' "$(date +%s)"
+    printf 'out_ids=%s\n' "${OUT_IDS[*]}"
+    printf 'in_ids=%s\n' "${IN_IDS[*]}"
+  } > "$CACHE_FILE" 2>/dev/null || true
+}
+detect_targets(){
+  local line id mc
+
   mapfile -t PID_LIST < <(hyprctl clients -j | jq -r --arg re "$WIN_REGEX" '
     map(select((.class // "" | test($re; "i")) or (.title // "" | test($re; "i")))) | .[].pid' | awk 'NF')
   $VERBOSE && { echo "Hyprland regex: /$WIN_REGEX/i"; ((${#PID_LIST[@]})) && echo "PIDs: ${PID_LIST[*]}" || echo "No PID matched, will try regex fallback."; }
 
   NODES=()
   if ((${#PID_LIST[@]})); then
-    pid_json=$(printf '%s\n' "${PID_LIST[@]}" | jq -R -s 'split("\n")|map(select(length>0))|map(tonumber)')
-    mapfile -t NODES < <(pw-dump | jq -r --argjson pids "$pid_json" '
-      .[] | select(.type=="PipeWire:Interface:Node") as $n
-      | ($n.info.props["media.class"] // "") as $mc
-      | select($mc | test("Audio"; "i"))
-      | ($n.info.props["application.process.id"] // -1) as $pid
-      | select($pid != -1 and (any($pids[]; . == $pid)))
-      | "\(.id)\t\($mc)"' )
+    mapfile -t PID_LIST < <(collect_descendants "${PID_LIST[@]}" | awk 'NF' | sort -n | uniq)
+    mapfile -t NODES < <(audio_nodes | awk -F '\t' -v pids="$(printf ' %s ' "${PID_LIST[@]}")" '
+      $3 != "" && index(pids, " " $3 " ") { print $1 "\t" $2 }')
     DETECTION_MODE="pids"
     if [[ ${#NODES[@]} -eq 0 ]]; then
       $VERBOSE && echo "No nodes for PIDs; fallback regex: /$APP_REGEX/i"
-      mapfile -t NODES < <(pw-dump | jq -r --arg appre "($APP_REGEX)" '
-        .[] | select(.type=="PipeWire:Interface:Node") as $n
-        | ($n.info.props["media.class"] // "") as $mc
-        | select($mc | test("Audio"; "i"))
-        | ($n.info.props["application.name"] // "") as $an
-        | ($n.info.props["application.process.binary"] // "") as $bin
-        | ($n.info.props["node.name"] // "") as $nn
-        | select(($an|test($appre; "i")) or ($bin|test($appre; "i")) or ($nn|test($appre; "i")))
-        | "\(.id)\t\($mc)"' )
+      mapfile -t NODES < <(audio_nodes | awk -F '\t' -v appre="$APP_REGEX" '
+        BEGIN { IGNORECASE=1 }
+        $4 ~ appre || $5 ~ appre || $6 ~ appre { print $1 "\t" $2 }')
       DETECTION_MODE="regex"
     fi
   else
-    mapfile -t NODES < <(pw-dump | jq -r --arg appre "($APP_REGEX)" '
-      .[] | select(.type=="PipeWire:Interface:Node") as $n
-      | ($n.info.props["media.class"] // "") as $mc
-      | select($mc | test("Audio"; "i"))
-      | ($n.info.props["application.name"] // "") as $an
-      | ($n.info.props["application.process.binary"] // "") as $bin
-      | ($n.info.props["node.name"] // "") as $nn
-      | select(($an|test($appre; "i")) or ($bin|test($appre; "i")) or ($nn|test($appre; "i")))
-      | "\(.id)\t\($mc)"' )
+    mapfile -t NODES < <(audio_nodes | awk -F '\t' -v appre="$APP_REGEX" '
+      BEGIN { IGNORECASE=1 }
+      $4 ~ appre || $5 ~ appre || $6 ~ appre { print $1 "\t" $2 }')
     DETECTION_MODE="regex"
   fi
 
-  # 2) Split OUT/IN
   for line in "${NODES[@]}"; do
     [[ -z "$line" ]] && continue
     id="${line%%$'\t'*}"; mc="${line#*$'\t'}"
@@ -100,6 +172,25 @@ else
     $ONLY_CAPTURE  && [[ ! "$mc" =~ [Ii]nput  ]] && continue
     if [[ "$mc" =~ [Ii]nput ]]; then IN_IDS+=("$id"); else OUT_IDS+=("$id"); fi
   done
+}
+
+OUT_IDS=(); IN_IDS=(); PID_LIST=(); NODES=(); DETECTION_MODE=""; NEED_SAVE_CACHE=false
+
+# 0) --ids bypass
+if [[ -n "$IDS_OVERRIDE" ]]; then
+  IFS=',' read -r -a raw <<<"$IDS_OVERRIDE"
+  for spec in "${raw[@]}"; do
+    id="${spec%%:*}"; kind="${spec#*:}"
+    if [[ "$spec" == "$id" ]]; then
+      mc=$(pw_prop "$id" "media.class")
+      if [[ "$mc" =~ [Ii]nput ]]; then IN_IDS+=("$id"); else OUT_IDS+=("$id"); fi
+    else
+      [[ "${kind^^}" == "IN" ]] && IN_IDS+=("$id") || OUT_IDS+=("$id")
+    fi
+  done
+  DETECTION_MODE="ids"
+else
+  load_cache || { detect_targets; NEED_SAVE_CACHE=true; }
 fi
 
 # uniq
@@ -110,6 +201,8 @@ if [[ ${#OUT_IDS[@]} -eq 0 && ${#IN_IDS[@]} -eq 0 ]]; then
   $VERBOSE && echo "No targets (mode=$DETECTION_MODE, win=/$WIN_REGEX/i, app=/$APP_REGEX/i)."
   exit 0
 fi
+
+$NEED_SAVE_CACHE && save_cache
 
 $VERBOSE && {
   echo "Targets (mode=$DETECTION_MODE):"
