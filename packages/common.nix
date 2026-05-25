@@ -1,6 +1,128 @@
 { config, pkgs, pkgs-unstable, lib, inputs, ... }:
 
 let
+  discordCanaryBase = pkgs-unstable.discord-canary.override {
+    withVencord = true;
+  };
+
+  discordNvencPatchScript = pkgs.writeText "discord-canary-nvenc-patch.py" ''
+import sys
+from pathlib import Path
+
+voice_index = Path(sys.argv[1])
+text = voice_index.read_text()
+
+def replace_once(old, new):
+    global text
+    count = text.count(old)
+    if count != 1:
+        raise SystemExit(f"Expected exactly one match, found {count}: {old[:120]!r}")
+    text = text.replace(old, new, 1)
+
+replace_once(
+    "        setTransportOptions: (options) => instance.setTransportOptions(options),",
+    """        setTransportOptions: (options) => {
+          let patchedOptions = options;
+          if (process.platform === 'linux'
+              && options != null
+              && typeof options === 'object'
+              && typeof options.videoEncoderExperiments === 'string') {
+              const values = [];
+              const seen = new Set();
+              for (const part of options.videoEncoderExperiments.split(',')) {
+                  const token = part.trim();
+                  if (!token || token === 'vaapi' || seen.has(token)) {
+                      continue;
+                  }
+                  values.push(token);
+                  seen.add(token);
+              }
+              for (const token of ['linux-nvenc', 'useCaptureDeviceForEncode']) {
+                  if (seen.has(token)) {
+                      continue;
+                  }
+                  values.push(token);
+                  seen.add(token);
+              }
+              const nextVideoEncoderExperiments = values.join(',');
+              if (nextVideoEncoderExperiments !== options.videoEncoderExperiments) {
+                  patchedOptions = {
+                      ...options,
+                      videoEncoderExperiments: nextVideoEncoderExperiments,
+                  };
+              }
+          }
+          return instance.setTransportOptions(patchedOptions);
+      },""",
+)
+
+replace_once(
+    "        setDesktopSourceWithOptions: (options) => instance.setDesktopSourceWithOptions(options),",
+    """        setDesktopSourceWithOptions: (options) => {
+          let patchedOptions = options;
+          if (process.platform === 'linux'
+              && options != null
+              && typeof options === 'object'
+              && options.useCaptureDeviceForEncode !== true) {
+              patchedOptions = {
+                  ...options,
+                  useCaptureDeviceForEncode: true,
+              };
+          }
+          return instance.setDesktopSourceWithOptions(patchedOptions);
+      },""",
+)
+
+replace_once(
+    """VoiceEngine.createVoiceConnectionWithOptions = function (userId, connectionOptions, onConnectCallback) {
+    const instance = new VoiceEngine.VoiceConnection(userId, connectionOptions, onConnectCallback);
+    return bindConnectionInstance(instance);
+};""",
+    """VoiceEngine.createVoiceConnectionWithOptions = function (userId, connectionOptions, onConnectCallback) {
+    let patchedConnectionOptions = connectionOptions;
+    if (process.platform === 'linux' && connectionOptions != null && typeof connectionOptions === 'object') {
+        const experiments = Array.isArray(connectionOptions.experiments) ? [...connectionOptions.experiments] : [];
+        if (!experiments.includes('linux-vulkan')) {
+            experiments.push('linux-vulkan');
+            patchedConnectionOptions = {
+                ...connectionOptions,
+                experiments,
+            };
+        }
+    }
+    const instance = new VoiceEngine.VoiceConnection(userId, patchedConnectionOptions, onConnectCallback);
+    return bindConnectionInstance(instance);
+};""",
+)
+
+voice_index.write_text(text)
+  '';
+
+  discordCanaryPatched = discordCanaryBase.overrideAttrs (oldAttrs: {
+    postInstall = (oldAttrs.postInstall or "") + ''
+      voice_dir="$out/opt/DiscordCanary/modules/discord_voice"
+      voice_index="$voice_dir/index.js"
+
+      chmod u+w "$voice_index"
+      ${pkgs.python3}/bin/python3 ${discordNvencPatchScript} "$voice_index"
+      chmod +x "$voice_dir/gpu_encoder_helper" "$voice_dir/discord_voice.node"
+    '';
+  });
+
+  discordCanaryNvenc = pkgs.symlinkJoin {
+    name = "${discordCanaryPatched.pname or "discord-canary"}-nvenc-${discordCanaryPatched.version or "wrapped"}";
+    paths = [ discordCanaryPatched ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      for bin in DiscordCanary discordcanary; do
+        if [ -e "$out/bin/$bin" ]; then
+          wrapProgram "$out/bin/$bin" \
+            --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib
+        fi
+      done
+    '';
+  };
+
   # Policy: pkgs is stable by default. Only explicitly selected fast-moving gaming packages use unstable.
   unstableGamingPkgs = with pkgs-unstable; [
     winetricks # Helper to run Windows applications via Wine
@@ -164,6 +286,9 @@ let
 
   # 2.16: Communication Tools
   pkgs2_16 = with pkgs; [
+    # Official Discord client patched with Vencord.
+    # Kept alongside Vesktop to compare Linux/NVIDIA streaming behavior.
+    discordCanaryNvenc
   ];
 
   # 2.17: Text Processing & Document Conversion

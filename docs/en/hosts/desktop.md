@@ -14,3 +14,4 @@
 - `vm.swappiness = 60`
 - CPU governor `performance`
 - SDDM + Plasma 6 + default session `hyprland`
+- Discord Canary patched at the Nix package level for NVIDIA screen sharing

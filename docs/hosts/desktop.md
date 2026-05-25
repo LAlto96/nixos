@@ -15,6 +15,7 @@
 - Gouverneur CPU `performance`.
 - SDDM + Plasma 6 + session par défaut `hyprland`.
 - Home Manager utilisateur: `desktop`.
+- Discord Canary patché côté paquet Nix pour NVIDIA screen sharing.
 
 ## Firewall
 

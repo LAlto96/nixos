@@ -51,7 +51,8 @@ pw_prop(){
 }
 node_props(){
   pw-cli info "$1" 2>/dev/null | awk -F ' = ' -v id="$1" '
-    BEGIN { mc=""; pid=""; an=""; bin=""; nn="" }
+    BEGIN { is_node=0; mc=""; pid=""; an=""; bin=""; nn="" }
+    /^[[:space:]]*type: PipeWire:Interface:Node/ { is_node=1 }
     {
       k=$1
       v=$2
@@ -65,7 +66,7 @@ node_props(){
       else if (k == "node.name") nn=v
     }
     END {
-      if (mc ~ /[Aa]udio/) print id "\t" mc "\t" pid "\t" an "\t" bin "\t" nn
+      if (is_node && mc ~ /[Aa]udio/) print id "\t" mc "\t" pid "\t" an "\t" bin "\t" nn
     }'
 }
 collect_descendants(){
@@ -84,10 +85,11 @@ audio_nodes(){
   done < <(pw-cli ls Node 2>/dev/null | awk '/^[[:space:]]*id [0-9]+, type PipeWire:Interface:Node/ {gsub(",", "", $2); print $2}')
 }
 ids_valid(){
-  local id
+  local id volume
   for id in "$@"; do
     [[ -n "$id" ]] || continue
-    wpctl get-volume "$id" >/dev/null 2>&1 || return 1
+    volume="$(wpctl get-volume "$id" 2>/dev/null)" || return 1
+    [[ "$volume" == Volume:* ]] || return 1
   done
 }
 load_cache(){
@@ -190,7 +192,7 @@ if [[ -n "$IDS_OVERRIDE" ]]; then
   done
   DETECTION_MODE="ids"
 else
-  load_cache || { detect_targets; NEED_SAVE_CACHE=true; }
+  load_cache || { OUT_IDS=(); IN_IDS=(); detect_targets; NEED_SAVE_CACHE=true; }
 fi
 
 # uniq
