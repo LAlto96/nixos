@@ -5,7 +5,7 @@ Stylix est injecté depuis `common-modules.nix` et configuré dans `configuratio
 ## Configuration active
 
 - `stylix.enable = true`
-- Le fond d'écran est géré par `swww`, pas par Stylix.
+- Le fond d'écran est géré par `awww`, pas par Stylix.
 - Schéma base16: `catppuccin-latte`
 - Curseur: `catppuccin-latte-sapphire-cursors` (taille 32)
 - Police principale: `JetBrainsMono NF`

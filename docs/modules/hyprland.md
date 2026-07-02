@@ -2,11 +2,13 @@
 
 ## Organisation
 
-- Base partagée: `hyprland.base.conf`
-- Surcharge host: `wm-desktop/hyprland.conf` ou `wm-laptop/hyprland.conf`
+- Base partagée : `hyprland.base.lua`
+- Surcharge hôte : `wm-desktop/hyprland.lua` ou `wm-laptop/hyprland.lua`
 - Liaison Nix/Home Manager: `wm-desktop/wm.nix` et `wm-laptop/wm.nix`
 
-Les modules WM concatènent la base et le fichier host via `wayland.windowManager.hyprland.extraConfig`.
+Les modules WM sélectionnent explicitement `configType = "lua"`. Les deux
+fragments sont déployés dans `$XDG_CONFIG_HOME/hypr` via `xdg.configFile`, puis
+chargés avec `require()` depuis le `hyprland.lua` généré par Home Manager.
 
 ## Outils liés
 
@@ -20,8 +22,19 @@ Les modules WM concatènent la base et le fichier host via `wayland.windowManage
 bash scripts/check-hyprland-rules.sh
 ```
 
-Ce script échoue si:
+Ce script valide les trois fragments avec `luac -p`. Il échoue aussi si une
+ancienne configuration Hyprlang contient :
 
 - `windowrulev2` est utilisé,
 - l'ancienne syntaxe de matcher est utilisée,
 - `stayfocused` est utilisé au lieu de `stay_focused`.
+
+Après la première activation de la migration :
+
+```sh
+hyprctl reload full-reset
+hyprctl configerrors
+```
+
+Vérifier ensuite les écrans, l'affectation des workspaces, les raccourcis et le
+fond d'écran.

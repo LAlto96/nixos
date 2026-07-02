@@ -2,10 +2,18 @@
 
 {
   # Hyprland Config
-  wayland.windowManager.hyprland.enable = true;
-  wayland.windowManager.hyprland.extraConfig =
-    builtins.readFile ../hyprland.base.conf + "\n" +
-    builtins.readFile ./hyprland.conf;
+  wayland.windowManager.hyprland = {
+    enable = true;
+    configType = "lua";
+    extraConfig = ''
+      require("base")
+      require("host")
+    '';
+  };
+  xdg.configFile = {
+    "hypr/base.lua".source = ../hyprland.base.lua;
+    "hypr/host.lua".source = ./hyprland.lua;
+  };
 
   # Rofi Config
   programs.rofi = {

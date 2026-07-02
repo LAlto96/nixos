@@ -86,12 +86,18 @@
       in {
         ${system}.hyprland-rules = pkgs.runCommand "hyprland-rules-check" {
           src = ./.;
-          nativeBuildInputs = [ pkgs.bash pkgs.ripgrep ];
+          hyprlandBaseLua = ./hyprland.base.lua;
+          hyprlandDesktopLua = ./wm-desktop/hyprland.lua;
+          hyprlandLaptopLua = ./wm-laptop/hyprland.lua;
+          nativeBuildInputs = [ pkgs.bash pkgs.lua pkgs.ripgrep ];
         } ''
           cp -R "$src" repo
           chmod -R u+w repo
+          cp "$hyprlandBaseLua" repo/hyprland.base.lua
+          cp "$hyprlandDesktopLua" repo/wm-desktop/hyprland.lua
+          cp "$hyprlandLaptopLua" repo/wm-laptop/hyprland.lua
           cd repo
-          ${pkgs.bash}/bin/bash ${./scripts/check-hyprland-rules.sh}
+          ${pkgs.bash}/bin/bash scripts/check-hyprland-rules.sh
           touch "$out"
         '';
       };

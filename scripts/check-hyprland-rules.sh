@@ -6,6 +6,17 @@ cd "$repo_root"
 
 fail=0
 
+for file in \
+  hyprland.base.lua \
+  wm-desktop/hyprland.lua \
+  wm-laptop/hyprland.lua
+do
+  if ! luac -p "$file"; then
+    echo "ERROR: invalid Lua syntax in $file." >&2
+    fail=1
+  fi
+done
+
 if rg -n "windowrulev2\\s*=" --glob "*.conf" .; then
   echo "ERROR: deprecated windowrulev2 syntax found. Use windowrule with match:* properties." >&2
   fail=1

@@ -156,7 +156,7 @@ voice_index.write_text(text)
     icu
     audacity # Audio editor for recording and editing
     moc # Console audio player
-    protonvpn-gui # Graphical ProtonVPN client
+    proton-vpn # Graphical ProtonVPN client
     proton-pass
     gimp-with-plugins # Image editing software with additional plugins
     usbutils
@@ -344,7 +344,7 @@ voice_index.write_text(text)
   pkgs2_25 = with pkgs; [
     hyprshot # Screenshot utility for Hyprland
     hyprpicker # Color picker for Hyprland
-    swww # Animated wallpaper daemon for Wayland
+    awww # Animated wallpaper daemon for Wayland
     grim # Grab images from a Wayland compositor
     slurp # Select a region in a Wayland compositor
     satty # Screenshot annotation tool
