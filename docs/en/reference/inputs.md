@@ -4,10 +4,10 @@
 
 | Input | Source | Main usage |
 |---|---|---|
-| `nixpkgs` | `github:nixos/nixpkgs/nixos-25.11` | default stable package/module base |
+| `nixpkgs` | `github:nixos/nixpkgs/nixos-26.05` | default stable package/module base |
 | `nixpkgs-unstable` | `github:NixOS/nixpkgs/nixpkgs-unstable` | explicit fast-moving exceptions, mainly gaming/compatibility |
-| `home-manager` | `github:nix-community/home-manager/release-25.11` | user configuration, follows `nixpkgs` |
-| `stylix` | `github:danth/stylix/release-25.11` | theming aligned with the stable branch |
+| `home-manager` | `github:nix-community/home-manager/release-26.05` | user configuration, follows `nixpkgs` |
+| `stylix` | `github:danth/stylix/release-26.05` | theming aligned with the stable branch |
 | `pipewire-screenaudio` | `github:IceDBorn/pipewire-screenaudio` | potential browser/audio dependency |
 | `codex-cli-nix` | `github:sadjow/codex-cli-nix` | `codex` package |
 | `millennium` | `github:SteamClientHomebrew/Millennium/next?dir=packages/nix` | overlay and Millennium-patched Steam package |

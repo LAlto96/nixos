@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   pkgs-unstable,
   lib,
@@ -59,8 +58,6 @@
       email = "lafon.ludovic.ll@proton.me";
     };
   };
-
-  gtk.gtk4.theme = config.gtk.theme;
 
   imports = [
     ./hm/vscode.nix
