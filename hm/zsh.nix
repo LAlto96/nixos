@@ -5,6 +5,12 @@
     "$HOME/.local/bin"
   ];
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -14,6 +20,7 @@
         #emacs = "emacsclient -c -a 'emacs'";
         dupdate = "sudo nixos-rebuild switch --flake ~/Documents/nix-configuration#desktop --show-trace";
         lupdate = "sudo nixos-rebuild switch --flake ~/Documents/nix-configuration#laptop --show-trace";
+        nd = "nix develop -c zsh";
         v4l2loopback-ctl0 = "nix-shell -p linuxKernel.packages.linux_zen.v4l2loopback --run 'v4l2loopback-ctl set-caps /dev/video0 \"YU12:1280x720\" && sudo v4l2loopback-ctl set-fps /dev/video0 60'";
         v4l2loopback-ctl1 = "nix-shell -p linuxKernel.packages.linux_zen.v4l2loopback --run 'v4l2loopback-ctl set-caps /dev/video1 \"YU12:1280x720\" && sudo v4l2loopback-ctl set-fps /dev/video1 60'";
         skb = "hyprctl switchxkblayout htltek-gaming-keyboard next";

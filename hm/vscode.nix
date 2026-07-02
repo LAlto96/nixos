@@ -9,7 +9,7 @@
       enableExtensionUpdateCheck = true;
       extensions = with pkgs.vscode-extensions; [
         github.copilot
-        #ms-python.python
+        ms-python.python
         ms-python.vscode-pylance
         catppuccin.catppuccin-vsc
         grapecity.gc-excelviewer
@@ -22,6 +22,12 @@
         ms-toolsai.jupyter-keymap
         arrterian.nix-env-selector
       ];
+      userSettings = {
+        "python.venvFolders" = [
+          "\${workspaceFolder}"
+        ];
+        "python.terminal.activateEnvironment" = true;
+      };
     };
   };
 }

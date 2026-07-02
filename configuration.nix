@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, pkgs-unstable, inputs, lib, ... }:
 
 {
   home-manager.backupFileExtension = "backup";
@@ -71,7 +71,7 @@
 
   # Configure the kernel and add custom kernel modules.
   # boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
