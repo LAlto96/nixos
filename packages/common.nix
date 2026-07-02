@@ -146,6 +146,7 @@ voice_index.write_text(text)
   # Compatibility exceptions: these packages are not currently available in stable.
   unstableCompatibilityPkgs = with pkgs-unstable; [
     crosspipe # Graphical audio routing tool
+    kitty # Use unstable while stable 0.47.0 fails its upstream test suite.
   ];
 
   # 2.0: To categorize
@@ -218,7 +219,6 @@ voice_index.write_text(text)
     clang # C language family compiler frontend
     libvterm # Terminal emulator library
     fastfetch # System information tool for the terminal
-    kitty # Modern, GPU-accelerated terminal emulator
     usb-modeswitch
   ];
 
@@ -344,6 +344,7 @@ voice_index.write_text(text)
   pkgs2_25 = with pkgs; [
     hyprshot # Screenshot utility for Hyprland
     hyprpicker # Color picker for Hyprland
+    swww # Animated wallpaper daemon for Wayland
     grim # Grab images from a Wayland compositor
     slurp # Select a region in a Wayland compositor
     satty # Screenshot annotation tool

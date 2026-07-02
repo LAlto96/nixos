@@ -6,28 +6,28 @@ cd "$repo_root"
 
 fail=0
 
-if rg -n "windowrule\\s*=.*,\\s*match:" .; then
-  echo "ERROR: unsupported match:* matcher syntax found in windowrule. Use windowrulev2 with class:/title:/initialTitle: matchers." >&2
+if rg -n "windowrulev2\\s*=" --glob "*.conf" .; then
+  echo "ERROR: deprecated windowrulev2 syntax found. Use windowrule with match:* properties." >&2
   fail=1
 fi
 
-if rg -n "windowrule\\s*=.*(class:|title:|initialTitle:|initialClass:)" .; then
-  echo "ERROR: v2 matcher syntax found in windowrule. Use windowrulev2 for class:/title:/initialTitle:/initialClass: matchers." >&2
+if rg -n "windowrule\\s*=.*(^|,\\s*)(class|title|initialTitle|initialClass):" --glob "*.conf" .; then
+  echo "ERROR: deprecated window matcher syntax found. Use match:class, match:title, match:initial_class, or match:initial_title." >&2
   fail=1
 fi
 
-if rg -n "windowrulev2\\s*=.*stay_focused" .; then
-  echo "ERROR: unsupported stay_focused rule found. Use stayfocused for stable Hyprland windowrulev2 syntax." >&2
+if rg -n "windowrule\\s*=.*stayfocused" --glob "*.conf" .; then
+  echo "ERROR: deprecated stayfocused effect found. Use 'stay_focused on'." >&2
   fail=1
 fi
 
-if rg -n "layerrule\\s*\\{" --glob "*.conf" .; then
-  echo "ERROR: unsupported layerrule block syntax found. Use 'layerrule = rule, namespace' syntax." >&2
+if rg -n "layerrule\\s*=\\s*(noanim|blur|blurpopups|ignorealpha|dimaround|xray|animation|order|abovelock|noscreenshare)," --glob "*.conf" .; then
+  echo "ERROR: deprecated layer rule syntax found. Use a current effect and match:namespace." >&2
   fail=1
 fi
 
-if rg -n "match:namespace" --glob "*.conf" .; then
-  echo "ERROR: unsupported match:namespace syntax found. Use layerrule namespace regex as the second field." >&2
+if rg -n "layerrule\\s*=.*,[[:space:]]*[^,[:space:]]+[[:space:]]*(#.*)?$" --glob "*.conf" .; then
+  echo "ERROR: layer rule without match:namespace found." >&2
   fail=1
 fi
 
