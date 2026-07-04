@@ -4,10 +4,10 @@
 
 La flake déclare notamment:
 
-- `nixpkgs` (canal stable principal, branche `nixos-25.11`)
+- `nixpkgs` (canal stable principal, branche `nixos-26.05`)
 - `nixpkgs-unstable` (exceptions explicites)
-- `home-manager` (branche `release-25.11`, suit `nixpkgs`)
-- `stylix` (branche `release-25.11`)
+- `home-manager` (branche `release-26.05`, suit `nixpkgs`)
+- `stylix` (branche `release-26.05`)
 - `zen-browser`
 - `pipewire-screenaudio`
 - `codex-cli-nix`

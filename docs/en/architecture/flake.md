@@ -2,10 +2,10 @@
 
 ## Main inputs
 
-- `nixpkgs` (main stable channel, `nixos-25.11`)
+- `nixpkgs` (main stable channel, `nixos-26.05`)
 - `nixpkgs-unstable` (explicit exceptions)
-- `home-manager` (`release-25.11`, follows `nixpkgs`)
-- `stylix` (`release-25.11`)
+- `home-manager` (`release-26.05`, follows `nixpkgs`)
+- `stylix` (`release-26.05`)
 - `zen-browser`
 - `pipewire-screenaudio`
 - `codex-cli-nix`

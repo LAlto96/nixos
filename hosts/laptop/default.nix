@@ -22,6 +22,14 @@
     size = 16 * 1024;
     priority = 0;
   }];
+
+  # Let periodic TRIM reach the filesystem through the encrypted root volume.
+  boot.initrd.luks.devices."luks-216678d1-6ca7-4d74-abd7-a81a930088d7".allowDiscards = true;
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
+
   boot.kernel.sysctl."vm.swappiness" = 20;
 
   home-manager.users.laptop = import ../../home-laptop.nix;

@@ -387,7 +387,6 @@
   ##############################
   # Configure Stylix for theming and desktop customization.
   stylix.enable = true;
-  stylix.image = ./hm/wallpaper/wall3.png; # Set the desktop wallpaper.
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
   stylix.homeManagerIntegration.followSystem = true;
   stylix.targets.qt.platform = lib.mkForce "qtct";

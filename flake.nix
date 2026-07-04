@@ -23,11 +23,11 @@
 
   inputs = {
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Stable is the default channel. Unstable is reserved for explicit fast-moving package exceptions.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
@@ -35,7 +35,7 @@
       url = "github:SteamClientHomebrew/Millennium/next?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    stylix.url = "github:danth/stylix/release-25.11";
+    stylix.url = "github:danth/stylix/release-26.05";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,11 +46,13 @@
     let
       system = "x86_64-linux";
       desktopPorts = import ./hosts/desktop/ports.nix;
+      hyprpanelHyprlandLuaOverlay = import ./overlays/hyprpanel-hyprland-lua.nix;
       imageMagickCompatOverlay = import ./overlays/imagemagick-compat.nix;
       commonModules = import ./common-modules.nix {
-        inherit inputs imageMagickCompatOverlay;
+        inherit inputs hyprpanelHyprlandLuaOverlay imageMagickCompatOverlay;
       };
     in {
+      overlays.hyprpanel-hyprland-lua = hyprpanelHyprlandLuaOverlay;
       overlays.imagemagick-compat = imageMagickCompatOverlay;
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
@@ -86,12 +88,18 @@
       in {
         ${system}.hyprland-rules = pkgs.runCommand "hyprland-rules-check" {
           src = ./.;
-          nativeBuildInputs = [ pkgs.bash pkgs.ripgrep ];
+          hyprlandBaseLua = ./hyprland.base.lua;
+          hyprlandDesktopLua = ./wm-desktop/hyprland.lua;
+          hyprlandLaptopLua = ./wm-laptop/hyprland.lua;
+          nativeBuildInputs = [ pkgs.bash pkgs.lua pkgs.ripgrep ];
         } ''
           cp -R "$src" repo
           chmod -R u+w repo
+          cp "$hyprlandBaseLua" repo/hyprland.base.lua
+          cp "$hyprlandDesktopLua" repo/wm-desktop/hyprland.lua
+          cp "$hyprlandLaptopLua" repo/wm-laptop/hyprland.lua
           cd repo
-          ${pkgs.bash}/bin/bash ${./scripts/check-hyprland-rules.sh}
+          ${pkgs.bash}/bin/bash scripts/check-hyprland-rules.sh
           touch "$out"
         '';
       };

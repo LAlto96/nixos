@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   pkgs-unstable,
   lib,
@@ -47,6 +46,7 @@
   home.file.".config/hypr/hyprlock.conf".source = ./hm/hyprlock/hyprlock.conf;
   home.file.".config/hypr/catppuccin_hyprlock_background_sapphire.jpg".source =
     ./hm/hyprlock/catppuccin_hyprlock_background_sapphire.jpg;
+  home.file.".config/hypr/wallpaper.png".source = ./hm/wallpaper/wall3.png;
   home.file.".config/hypr/latte.conf".source = ./hm/hyprlock/latte.conf;
   home.file.".config/doom/init.el".source = ./hm/doom/init.el;
   home.file.".config/doom/config.el".source = ./hm/doom/config.el;
@@ -59,8 +59,6 @@
       email = "lafon.ludovic.ll@proton.me";
     };
   };
-
-  gtk.gtk4.theme = config.gtk.theme;
 
   imports = [
     ./hm/vscode.nix
