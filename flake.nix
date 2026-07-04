@@ -46,11 +46,13 @@
     let
       system = "x86_64-linux";
       desktopPorts = import ./hosts/desktop/ports.nix;
+      hyprpanelHyprlandLuaOverlay = import ./overlays/hyprpanel-hyprland-lua.nix;
       imageMagickCompatOverlay = import ./overlays/imagemagick-compat.nix;
       commonModules = import ./common-modules.nix {
-        inherit inputs imageMagickCompatOverlay;
+        inherit inputs hyprpanelHyprlandLuaOverlay imageMagickCompatOverlay;
       };
     in {
+      overlays.hyprpanel-hyprland-lua = hyprpanelHyprlandLuaOverlay;
       overlays.imagemagick-compat = imageMagickCompatOverlay;
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {

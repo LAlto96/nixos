@@ -1,10 +1,11 @@
-{ inputs, imageMagickCompatOverlay }:
+{ inputs, hyprpanelHyprlandLuaOverlay, imageMagickCompatOverlay }:
 with inputs; [
   stylix.nixosModules.stylix
   ./configuration.nix
   home-manager.nixosModules.home-manager
   ({ pkgs-unstable, ... }: {
     nixpkgs.overlays = [
+      hyprpanelHyprlandLuaOverlay
       imageMagickCompatOverlay
       inputs.millennium.overlays.default
     ];
@@ -14,6 +15,7 @@ with inputs; [
     home-manager.sharedModules = [
       {
         nixpkgs.overlays = [
+          hyprpanelHyprlandLuaOverlay
           imageMagickCompatOverlay
           inputs.millennium.overlays.default
         ];
