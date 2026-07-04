@@ -269,6 +269,7 @@ voice_index.write_text(text)
   # 2.14: Networking Tools
   pkgs2_14 = with pkgs; [
     git # Distributed version control system
+    gh # GitHub command-line interface
     inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default # Codex CLI
     wirelesstools # Tools for managing wireless interfaces
     docker-compose # Define and run multi-container Docker applications
