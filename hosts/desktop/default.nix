@@ -18,6 +18,11 @@
     ports = [ 2268 ];
   };
 
+  # Avoid large temporary and persistent writes when desktop applications crash.
+  systemd.coredump.settings.Coredump = {
+    Storage = "none";
+    ProcessSizeMax = 0;
+  };
 
   home-manager.users.desktop = import ../../home-desktop.nix;
   home-manager.backupFileExtension = "backup";
@@ -31,11 +36,19 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
   boot.kernel.sysctl."vm.swappiness" = 60;
+  # Let periodic TRIM reach the filesystem through the encrypted root volume.
+  boot.initrd.luks.devices."nvme0n1p1_crypt".allowDiscards = true;
   boot.kernelParams = [
     "nowatchdog"
   ];
   boot.blacklistedKernelModules = [ "sp5100_tco" ];
   powerManagement.cpuFreqGovernor = "performance";
+
+  # Prefer weekly TRIM over continuous discard on file deletion.
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
 
   services.displayManager = {
     sddm.enable = true;

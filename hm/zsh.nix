@@ -25,7 +25,7 @@
         v4l2loopback-ctl1 = "nix-shell -p linuxKernel.packages.linux_zen.v4l2loopback --run 'v4l2loopback-ctl set-caps /dev/video1 \"YU12:1280x720\" && sudo v4l2loopback-ctl set-fps /dev/video1 60'";
         skb = "hyprctl switchxkblayout htltek-gaming-keyboard next";
         extract="~/extract.sh";
-        dpms = "hyprctl dispatch dpms off && sleep 2 && hyprctl dispatch dpms on";
+        dpms = "hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })' && sleep 2 && hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
         "4000" = "hyprctl hyprsunset temperature 4000";
         identity = "hyprctl hyprsunset identity";
 
