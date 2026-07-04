@@ -146,7 +146,7 @@ voice_index.write_text(text)
   # Compatibility exceptions: these packages are not currently available in stable.
   unstableCompatibilityPkgs = with pkgs-unstable; [
     crosspipe # Graphical audio routing tool
-    kitty # Use unstable while stable 0.47.0 fails its upstream test suite.
+    pkgs.kitty
   ];
 
   # 2.0: To categorize

@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 
 {
   # Hyprland Config
@@ -41,7 +41,7 @@
   # kitty config
   programs.kitty = {
     enable = true;
-    package = pkgs-unstable.kitty;
+    package = pkgs.kitty;
     shellIntegration.enableZshIntegration = true;
     # font ={
     #  package = pkgs.meslo-lgs-nf;

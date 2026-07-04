@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Hyprland Config
@@ -42,7 +42,7 @@
   # kitty config
   programs.kitty = {
     enable = true;
-    package = pkgs-unstable.kitty;
+    package = pkgs.kitty;
     shellIntegration.enableZshIntegration = true;
     font ={
         name = lib.mkForce "JetBrainsMono NF";
