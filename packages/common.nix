@@ -271,6 +271,7 @@ voice_index.write_text(text)
     git # Distributed version control system
     gh # GitHub command-line interface
     inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default # Codex CLI
+    inputs.claude-code-nix.packages.${pkgs.stdenv.hostPlatform.system}.default # Claude Code
     wirelesstools # Tools for managing wireless interfaces
     docker-compose # Define and run multi-container Docker applications
     wavemon # Network analysis tool (verify details online)

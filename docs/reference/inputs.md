@@ -10,6 +10,7 @@
 | `stylix` | `github:danth/stylix/release-26.05` | theming aligné sur la branche stable |
 | `pipewire-screenaudio` | `github:IceDBorn/pipewire-screenaudio` | dépendance potentielle navigateur/audio |
 | `codex-cli-nix` | `github:sadjow/codex-cli-nix` | package `codex` |
+| `claude-code-nix` | `github:sadjow/claude-code-nix` | package `claude` |
 | `millennium` | `github:SteamClientHomebrew/Millennium/next?dir=packages/nix` | overlay et package Steam patché par Millennium |
 | `zen-browser` | `github:youwen5/zen-browser-flake` | package navigateur |
 

@@ -15,21 +15,22 @@ The `README.md` explains how to apply a configuration.
 
 ---
 
-## Safe Commands
+## Verification Policy
 
-These commands are safe to run anytime (no full builds):
+Prefer static inspection first: read the relevant files, search with `rg`, and
+review the diff. Do not run Nix evaluation or build commands by default.
 
-- `nix flake show`
-  → Inspect outputs (desktop, laptop, modules, packages)
+Commands such as `nix flake show`, `nix flake check`, `nix build`, and every
+`nixos-rebuild` mode can perform broad or expensive evaluation, even when no
+build is requested explicitly.
 
-- `nix flake check --no-build`
-  → Verify flake syntax & integrity without compiling
+When runtime verification is necessary:
 
-- `nixos-rebuild dry-activate --flake .#desktop`
-  → Preview desktop changes
-
-- `nixos-rebuild dry-activate --flake .#laptop`
-  → Preview laptop changes
+1. Prefer a narrowly targeted `nix eval` expression or attribute.
+2. Avoid evaluating an entire NixOS configuration when source inspection is
+   sufficient.
+3. Ask the user before running a broad or potentially long Nix evaluation or
+   build.
 
 ---
 
@@ -65,7 +66,14 @@ These commands are safe to run anytime (no full builds):
 
 ## Actions for Codex
 
-- **Skip full builds** – Do not run `nixos-rebuild switch` directly
-- **Use evaluation-only commands** – Prefer `flake check` and `flake show`
-- **Preview changes safely** – Use `dry-activate` instead of full apply
-- **Show flake outputs first** – Run `nix flake show` before any rebuild attempts
+- **Inspect statically first** – Read files, search with `rg`, and review diffs
+- **Do not evaluate by default** – Run Nix evaluation or build commands only
+  when they provide necessary verification
+- **Keep evaluation targeted** – Prefer a narrow `nix eval` attribute over a
+  whole-flake or whole-system evaluation
+- **Treat broad commands as expensive** – This includes `nix flake show`,
+  `nix flake check`, `nix build`, and every `nixos-rebuild` mode
+- **Ask before expensive checks** – Get user confirmation before broad or
+  potentially long evaluations and builds
+- **Never switch implicitly** – Do not run `nixos-rebuild switch` unless the
+  user explicitly requests it

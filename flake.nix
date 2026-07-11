@@ -31,6 +31,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
+    claude-code-nix.url = "github:sadjow/claude-code-nix";
     millennium = {
       url = "github:SteamClientHomebrew/Millennium/next?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
