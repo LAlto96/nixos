@@ -288,6 +288,14 @@ voice_index.write_text(text)
 
   # 2.16: Communication Tools
   pkgs2_16 = with pkgs; [
+    # Keep Thunderbird's ONNX dependency CPU-only even when CUDA is enabled globally.
+    (wrapThunderbird
+      (thunderbird-unwrapped.override {
+        onnxruntime = onnxruntime.override {
+          cudaSupport = false;
+        };
+      })
+      { })
     # Official Discord client patched with Vencord.
     # Kept alongside Vesktop to compare Linux/NVIDIA streaming behavior.
     discordCanaryNvenc
