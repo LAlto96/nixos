@@ -58,11 +58,18 @@
   };
 
   imports = [
+    ./hm/zen-browser.nix
     ./hm/vscode.nix
     ./hm/zsh.nix
     ./hm/neovim.nix
     ./wm-desktop/wm.nix
   ];
+  local.zenBrowser = {
+    # Preserve the existing default profile and its historical ~/.zen location.
+    configRoot = ".zen";
+    profilePath = "9ra76qx0.Default Profile";
+    profileName = "Default Profile";
+  };
   services.syncthing.enable = true;
 
   programs.zsh.shellAliases = {

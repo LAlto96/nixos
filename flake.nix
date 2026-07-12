@@ -38,8 +38,13 @@
     };
     stylix.url = "github:danth/stylix/release-26.05";
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager";
+    };
+    catppuccin-zen = {
+      url = "github:catppuccin/zen-browser";
+      flake = false;
     };
   };
 

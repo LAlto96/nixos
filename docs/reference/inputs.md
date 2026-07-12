@@ -12,7 +12,8 @@
 | `codex-cli-nix` | `github:sadjow/codex-cli-nix` | package `codex` |
 | `claude-code-nix` | `github:sadjow/claude-code-nix` | package `claude` |
 | `millennium` | `github:SteamClientHomebrew/Millennium/next?dir=packages/nix` | overlay et package Steam patché par Millennium |
-| `zen-browser` | `github:youwen5/zen-browser-flake` | package navigateur |
+| `zen-browser` | `github:0xc000022070/zen-browser-flake` | paquet et module Home Manager du navigateur (canal beta, suit `nixpkgs-unstable`) |
+| `catppuccin-zen` | `github:catppuccin/zen-browser` (non-flake) | CSS et logo Catppuccin Latte, accent Pink, pour Zen |
 
 ## Vérifier les versions lockées
 
@@ -27,6 +28,12 @@ ou consulter directement `flake.lock`.
 - Garder `nixpkgs`, `home-manager` et `stylix` alignés sur la même release stable.
 - Ne pas ajouter de nouvel input stable parallèle: `nixpkgs` est déjà la base stable.
 - Utiliser `nixpkgs-unstable` uniquement pour une exception nommée et localisée.
+
+## Zen Browser
+
+- Le module partagé `hm/zen-browser.nix` active Zen via Home Manager et applique Catppuccin Latte avec l'accent Pink.
+- Zen utilise seul `nixpkgs-unstable`, conformément à la recommandation de son flake pour la compatibilité avec les versions Firefox récentes.
+- Les CSS et `zen-logo-latte.svg` proviennent directement de l'input verrouillé `catppuccin-zen`; aucun téléchargement au démarrage du navigateur n'est nécessaire.
 
 ## Fixes suivis
 

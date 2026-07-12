@@ -61,6 +61,7 @@
   };
 
   imports = [
+    ./hm/zen-browser.nix
     ./hm/vscode.nix
     ./hm/zsh.nix
     ./hm/neovim.nix

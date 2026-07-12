@@ -13,6 +13,7 @@ with inputs; [
       inherit inputs pkgs-unstable;
     };
     home-manager.sharedModules = [
+      inputs.zen-browser.homeModules.beta
       {
         nixpkgs.overlays = [
           hyprpanelHyprlandLuaOverlay
