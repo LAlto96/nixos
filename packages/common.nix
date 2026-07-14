@@ -1,11 +1,15 @@
 { config, pkgs, pkgs-unstable, lib, inputs, ... }:
 
 let
+  discordBase = pkgs-unstable.discord.override {
+    withVencord = true;
+  };
+
   discordCanaryBase = pkgs-unstable.discord-canary.override {
     withVencord = true;
   };
 
-  discordNvencPatchScript = pkgs.writeText "discord-canary-nvenc-patch.py" ''
+  discordNvencPatchScript = pkgs.writeText "discord-nvenc-patch.py" ''
 import sys
 from pathlib import Path
 
@@ -98,29 +102,43 @@ replace_once(
 voice_index.write_text(text)
   '';
 
-  discordCanaryPatched = discordCanaryBase.overrideAttrs (oldAttrs: {
-    postInstall = (oldAttrs.postInstall or "") + ''
-      voice_dir="$out/opt/DiscordCanary/modules/discord_voice"
-      voice_index="$voice_dir/index.js"
+  mkDiscordNvenc = { package, installDir, bins }:
+    let
+      patched = package.overrideAttrs (oldAttrs: {
+        postInstall = (oldAttrs.postInstall or "") + ''
+          voice_dir="$out/opt/${installDir}/modules/discord_voice"
+          voice_index="$voice_dir/index.js"
 
-      chmod u+w "$voice_index"
-      ${pkgs.python3}/bin/python3 ${discordNvencPatchScript} "$voice_index"
-      chmod +x "$voice_dir/gpu_encoder_helper" "$voice_dir/discord_voice.node"
-    '';
-  });
+          chmod u+w "$voice_index"
+          ${pkgs.python3}/bin/python3 ${discordNvencPatchScript} "$voice_index"
+          chmod +x "$voice_dir/gpu_encoder_helper" "$voice_dir/discord_voice.node"
+        '';
+      });
+    in
+    pkgs.symlinkJoin {
+      name = "${patched.pname or "discord"}-nvenc-${patched.version or "wrapped"}";
+      paths = [ patched ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        for bin in ${lib.concatStringsSep " " bins}; do
+          if [ -e "$out/bin/$bin" ]; then
+            wrapProgram "$out/bin/$bin" \
+              --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib
+          fi
+        done
+      '';
+    };
 
-  discordCanaryNvenc = pkgs.symlinkJoin {
-    name = "${discordCanaryPatched.pname or "discord-canary"}-nvenc-${discordCanaryPatched.version or "wrapped"}";
-    paths = [ discordCanaryPatched ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      for bin in DiscordCanary discordcanary; do
-        if [ -e "$out/bin/$bin" ]; then
-          wrapProgram "$out/bin/$bin" \
-            --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib
-        fi
-      done
-    '';
+  discordNvenc = mkDiscordNvenc {
+    package = discordBase;
+    installDir = "Discord";
+    bins = [ "Discord" "discord" ];
+  };
+
+  discordCanaryNvenc = mkDiscordNvenc {
+    package = discordCanaryBase;
+    installDir = "DiscordCanary";
+    bins = [ "DiscordCanary" "discordcanary" ];
   };
 
   # Policy: pkgs is stable by default. Only explicitly selected fast-moving gaming packages use unstable.
@@ -140,7 +158,6 @@ voice_index.write_text(text)
     lsfg-vk
     lsfg-vk-ui
     steamtinkerlaunch # Tool to tweak Steam launch options
-    vesktop # Communication application (verify details online)
   ];
 
   # Compatibility exceptions: these packages are not currently available in stable.
@@ -295,8 +312,8 @@ voice_index.write_text(text)
         };
       })
       { })
-    # Official Discord client patched with Vencord.
-    # Kept alongside Vesktop to compare Linux/NVIDIA streaming behavior.
+    # Official Discord clients patched with Vencord and NVIDIA screen sharing.
+    discordNvenc
     discordCanaryNvenc
   ];
 

@@ -437,7 +437,6 @@
   "bar.workspaces.workspaceIconMap": {},
   "bar.workspaces.applicationIconOncePerWorkspace": true,
   "bar.workspaces.applicationIconMap": {
-    "class:vesktop": "󰙯",
     "title:btop": "",
     "class:com.github.wwmm.easyeffects": "󰗅",
     "class:Emacs": "",

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Mute Vesktop/Discord via PipeWire (auto-detect):
+# Mute Discord/Discord Canary via PipeWire (auto-detect):
 # - Output (lecture): set-volume 0% / 100%
 # - Input  (micro)  : set-mute   1 / 0    (option --input-volume pour 0%/100% aussi)
 # toggle: coupe si un flux actif (OUT vol>0 ou IN non-muted), sinon remet.
@@ -9,10 +9,10 @@ set -u
 ACTION="${1:-toggle}"; case "$ACTION" in toggle|on|off) shift || true ;; *) ACTION="toggle" ;; esac
 
 ONLY_PLAYBACK=false; ONLY_CAPTURE=false; VERBOSE=false; DRYRUN=false; INPUT_VOLUME=false
-WIN_REGEX=${WIN_REGEX:-"Vesktop|Discord|discord|vesktop"}
-APP_REGEX=${APP_REGEX:-"vesktop|discord|vencord|chromium|electron"}
-CACHE_FILE="${MUTE_VESKTOP_CACHE:-${XDG_RUNTIME_DIR:-/tmp}/mute-vesktop.cache}"
-CACHE_TTL="${MUTE_VESKTOP_CACHE_TTL:-0}"
+WIN_REGEX=${WIN_REGEX:-"Discord|discord|DiscordCanary|discordcanary"}
+APP_REGEX=${APP_REGEX:-"discord|discordcanary|vencord|chromium|electron"}
+CACHE_FILE="${MUTE_DISCORD_CACHE:-${XDG_RUNTIME_DIR:-/tmp}/mute-discord.cache}"
+CACHE_TTL="${MUTE_DISCORD_CACHE_TTL:-0}"
 IDS_OVERRIDE=""
 
 while [[ $# -gt 0 ]]; do

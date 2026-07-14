@@ -3,15 +3,16 @@
 - `amdgpu.nix`: AMD driver stack + Vulkan/ROCm components.
 - `nvidiagpu.nix`: NVIDIA stack with open kernel module and beta package selection.
 
-## Discord Canary NVENC
+## Discord and Discord Canary NVENC
 
-The `desktop` host installs Discord Canary with Vencord through `packages/common.nix`.
-That package is wrapped so Discord starts with `/run/opengl-driver/lib` in
+The `desktop` host installs Discord and Discord Canary with Vencord through
+`packages/common.nix`. Both packages are wrapped so the clients start with
+`/run/opengl-driver/lib` in
 `LD_LIBRARY_PATH`, exposing the NVIDIA libraries needed by the screen-sharing
 patch.
 
-The Discord Canary package is also patched at Nix build time, directly against
-the `index.js` shipped by the current packaged Discord Canary version. The
+Both Discord packages are also patched at Nix build time, directly against the
+`index.js` shipped by their current packaged versions. The
 configuration does not copy the full upstream patcher `index.js`, because that
 file may target a different Discord client version.
 
@@ -31,17 +32,19 @@ than once, the build fails. In that case, inspect the new packaged
 a complete upstream file.
 
 `gpu_encoder_helper` and `discord_voice.node` remain executable. There is no user
-service and nothing automatically mutates `~/.config/discordcanary`.
+service and nothing automatically mutates `~/.config/discord` or
+`~/.config/discordcanary`.
 
 ### Migrating from the old user service
 
 If the old `discord-nvenc-patch` service already ran, it may have replaced the
+`~/.config/discord/*/modules/discord_voice` or
 `~/.config/discordcanary/*/modules/discord_voice` symlink with a local copy. In
-that case, remove the local Discord Canary version directory after rebuilding so
-Discord recreates it from the patched Nix package:
+that case, remove the local version directory after rebuilding so Discord
+recreates it from the patched Nix package:
 
 ```sh
-rm -rf ~/.config/discordcanary/1.0.1095
+rm -rf ~/.config/discord/0.0.* ~/.config/discordcanary/1.0.*
 ```
 
-Adjust the version number if Discord Canary has changed.
+Adjust the version numbers if Discord has changed.

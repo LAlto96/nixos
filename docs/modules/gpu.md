@@ -14,15 +14,16 @@
 - `hardware.nvidia.open = true`.
 - Pilote choisi: `config.boot.kernelPackages.nvidiaPackages.beta`.
 
-## Discord Canary NVENC
+## Discord et Discord Canary NVENC
 
-Le host `desktop` installe Discord Canary avec Vencord via `packages/common.nix`.
-Le paquet est enveloppé pour lancer Discord avec `/run/opengl-driver/lib` dans
+Le host `desktop` installe Discord et Discord Canary avec Vencord via
+`packages/common.nix`. Les paquets sont enveloppés pour lancer les clients avec
+`/run/opengl-driver/lib` dans
 `LD_LIBRARY_PATH`, ce qui expose les bibliothèques NVIDIA attendues par le patch
 de partage d'écran.
 
-Le paquet Discord Canary est aussi patché au build Nix, directement sur le
-`index.js` livré par la version Discord Canary courante. La configuration ne
+Les deux paquets sont aussi patchés au build Nix, directement sur leur
+`index.js` livré par la version courante. La configuration ne
 copie pas le `index.js` complet du patcher upstream, car ce fichier peut viser
 une autre version du client Discord.
 
@@ -42,21 +43,22 @@ d'une fois, le build échoue. Il faut alors inspecter le nouveau
 que copier un fichier upstream complet.
 
 Les binaires `gpu_encoder_helper` et `discord_voice.node` restent exécutables. Il
-n'y a pas de service utilisateur et rien ne modifie automatiquement
-`~/.config/discordcanary`.
+n'y a pas de service utilisateur et rien ne modifie automatiquement `~/.config/discord`
+ou `~/.config/discordcanary`.
 
 ### Migration depuis l'ancien service utilisateur
 
 Si l'ancien service `discord-nvenc-patch` a déjà tourné, il a pu remplacer le
-lien `~/.config/discordcanary/*/modules/discord_voice` par une copie locale. Dans
-ce cas, supprimer le dossier de version Discord Canary local après le rebuild
-pour laisser Discord le recréer depuis le paquet Nix patché:
+lien `~/.config/discord/*/modules/discord_voice` ou
+`~/.config/discordcanary/*/modules/discord_voice` par une copie locale. Dans ce
+cas, supprimer le dossier de version local après le rebuild pour laisser Discord
+le recréer depuis le paquet Nix patché:
 
 ```sh
-rm -rf ~/.config/discordcanary/1.0.1095
+rm -rf ~/.config/discord/0.0.* ~/.config/discordcanary/1.0.*
 ```
 
-Adapter le numéro si Discord Canary a changé de version.
+Adapter les numéros si Discord a changé de version.
 
 ## Remarque
 
