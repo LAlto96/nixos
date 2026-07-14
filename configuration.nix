@@ -116,8 +116,10 @@
   ];
 
   # Enable Tailscale VPN service
-  services.tailscale.enable = true;
-
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--ssh" ];
+  };
   # Optimize DHCP client startup and avoid waiting for the network
   networking.dhcpcd.wait = "background";
   networking.dhcpcd.extraConfig = ''
