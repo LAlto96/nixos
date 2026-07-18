@@ -42,8 +42,8 @@
   home.file.".config/hyprpanel/modules.scss".source = ./hm/hyprpanel/modules.scss;
   home.file.".config/hypr/hypridle.conf".source = ./hypridle.conf;
   home.file.".config/hypr/hyprlock.conf".source = ./hm/hyprlock/hyprlock.conf;
-  home.file.".config/hypr/catppuccin_hyprlock_background_sapphire.jpg".source =
-    ./hm/hyprlock/catppuccin_hyprlock_background_sapphire.jpg;
+  home.file.".config/hypr/catppuccin_hyprlock_background_pink.jpg".source =
+    ./hm/hyprlock/catppuccin_hyprlock_background_pink.jpg;
   home.file.".config/hypr/wallpaper.png".source = ./hm/wallpaper/wall3.png;
   home.file.".config/hypr/latte.conf".source = ./hm/hyprlock/latte.conf;
   home.file.".config/doom/init.el".source = ./hm/doom/init.el;

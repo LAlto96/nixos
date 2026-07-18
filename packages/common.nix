@@ -201,7 +201,7 @@ voice_index.write_text(text)
   pkgs2_2 = with pkgs; [
     # Catppuccin GTK theme with custom settings.
     (catppuccin-gtk.override {
-      accents = [ "sapphire" ];
+      accents = [ "pink" ];
       size = "compact";
       tweaks = [ "rimless" ];
       variant = "latte";

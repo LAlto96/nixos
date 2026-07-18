@@ -7,7 +7,8 @@ Stylix est injecté depuis `common-modules.nix` et configuré dans `configuratio
 - `stylix.enable = true`
 - Le fond d'écran est géré par `awww`, pas par Stylix.
 - Schéma base16: `catppuccin-latte`
-- Curseur: `catppuccin-latte-sapphire-cursors` (taille 32)
+- Accent principal (`base0D`): Pink (`ea76cb`)
+- Curseur: `catppuccin-latte-pink-cursors` (taille 32)
 - Police principale: `JetBrainsMono NF`
 - `stylix.homeManagerIntegration.followSystem = true`
 
