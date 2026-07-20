@@ -24,3 +24,9 @@ hyprctl configerrors
 ```
 
 Then verify monitors, workspace assignments, key bindings, and the wallpaper.
+
+On the desktop, GameMode hooks use `hyprctl eval` to apply the lightweight Lua
+profile in one operation. They explicitly select a valid instance instead of
+depending on the environment inherited by `gamemoded`. On exit, `hyprctl
+reload` restores this declarative file. A missing instance is logged and does
+not prevent Syncthing or Docker handling.

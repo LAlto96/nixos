@@ -5,7 +5,6 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("~/Documents/nix-configuration/hyprsunset.sh")
   hl.exec_cmd("bash ~/Documents/nix-configuration/scripts/start-wallpaper.sh")
   hl.exec_cmd("hyprpanel")
-  hl.exec_cmd("emacs --daemon")
   hl.exec_cmd("clipse -listen")
 end)
 
@@ -73,7 +72,7 @@ hl.config({
     force_zero_scaling = true,
   },
   debug = {
-    disable_logs = false,
+    disable_logs = true,
   },
 })
 

@@ -5,6 +5,7 @@
     ../../hardware-configuration-desktop.nix
     ../../nvidiagpu.nix
     ../../packages/desktop.nix
+    ../../modules/gamemode-optimizations.nix
     # ../../drivers/rtl8852cu.nix
     ../../drivers/rtw89.nix
   ];

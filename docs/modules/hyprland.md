@@ -38,3 +38,9 @@ hyprctl configerrors
 
 Vérifier ensuite les écrans, l'affectation des workspaces, les raccourcis et le
 fond d'écran.
+
+Sur le desktop, les hooks GameMode utilisent `hyprctl eval` pour appliquer le
+profil Lua allégé en une seule opération. Ils sélectionnent explicitement une
+instance valide sans dépendre de l'environnement transmis à `gamemoded`. À la
+sortie, `hyprctl reload` restaure ce fichier déclaratif. L'absence d'instance
+est journalisée et n'empêche pas la gestion de Syncthing ou Docker.
