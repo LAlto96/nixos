@@ -69,10 +69,7 @@
     "fs.inotify.max_user_watches" = "204800";
   };
 
-  # Configure the kernel and add custom kernel modules.
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Configure custom kernel modules against the stable kernel selected by nixpkgs.
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.extraModprobeConfig = ''
@@ -329,13 +326,11 @@
   # Configure and enable Gamemode for gaming performance improvements.
   programs.gamemode = {
     enable = true;
-    enableRenice = true;
+    enableRenice = false;
     settings = {
       general = {
         desiredgov = "performance";
         desiredprof = "performance";
-        renice = 11;
-        ioprio = 0;
         disable_splitlock = 1;
       };
     };

@@ -1,4 +1,5 @@
 { desktopPorts ? import ./ports.nix, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../hardware-configuration-desktop.nix
@@ -42,7 +43,6 @@
     "nowatchdog"
   ];
   boot.blacklistedKernelModules = [ "sp5100_tco" ];
-  powerManagement.cpuFreqGovernor = "performance";
 
   # Prefer weekly TRIM over continuous discard on file deletion.
   services.fstrim = {
@@ -60,5 +60,12 @@
   services.displayManager.defaultSession = "hyprland";
 
   hardware.nvidia-container-toolkit.enable = true;
+
+  # LACT provides monitoring, fan control and overclocking for the NVIDIA GPU.
+  # The package ships the lactd unit; registering it with systemd makes it
+  # available and starts it at boot.
+  environment.systemPackages = [ pkgs.lact pkgs.furmark ];
+  systemd.packages = [ pkgs.lact ];
+  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
 
 }

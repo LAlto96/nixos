@@ -12,7 +12,8 @@
 - SSH activé sur le port `2268`.
 - Docker + libvirtd + virt-manager activés.
 - `vm.swappiness = 60`.
-- Gouverneur CPU `performance`.
+- Politique CPU NixOS normale hors jeu ; GameMode demande temporairement un profil de performance sans renice ni priorité d'E/S agressifs.
+- Kernel stable de la release NixOS sélectionnée.
 - SDDM + Plasma 6 + session par défaut `hyprland`.
 - Home Manager utilisateur: `desktop`.
 - Discord et Discord Canary patchés côté paquet Nix pour NVIDIA screen sharing.
